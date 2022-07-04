@@ -1,0 +1,8 @@
+package edu.mondragon.mikel_murua.proyecto_repartidor3.repartidores;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RepartidorPersistenciaX extends JpaRepository<Repartidor, Long> {
+
+}
+// Nota: No es necesario pro

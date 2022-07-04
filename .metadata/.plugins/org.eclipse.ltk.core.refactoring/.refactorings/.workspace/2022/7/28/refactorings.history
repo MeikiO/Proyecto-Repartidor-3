@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;zzz-Intento desesperado de Spring&apos;" deleteContents="true" description="Delete resource &apos;zzz-Intento desesperado de Spring&apos;" element1="/zzz-Intento desesperado de Spring" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1656862043388"/>
+</session>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Esto es la pagina del LOGIN</h1>
+	<p>Valor del atributo pasado del modelo del controlador: 
+		<br>
+	 	<span th:text="${nombreEnControlador}"></span>
+	</p>
+</body>
+</html>

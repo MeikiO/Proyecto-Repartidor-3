@@ -1,0 +1,34 @@
+package edu.mondragon.mikel_murua.proyecto_repartidor3.repartidores;
+
+import org.springframework.stereotype.Service;
+
+
+@Service //lo marcamos como servicio
+public class ServiceRepartidor  {
+
+	RepartidorPersistenciaX repa;
+
+	// Esta clase sirve exclusivamente para poder hacer uso de los metodos que nos 
+	// da el interface de REPARTIDORPERSISTENCIAX. para poder hacer uso de los metodos
+	// JpaRepository
+
+	public ServiceRepartidor(RepartidorPersistenciaX repa) {
+		super();
+		this.repa = repa;
+	}
+	
+	
+	/*
+	 Aqui estan todos los metodos que puedes utilizar con el interface:
+	  
+	  -> docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/support/SimpleJpaRepository.html
+	
+	 */
+	
+	public long contar_elementos() {
+		long numbers=repa.count();
+		return numbers;
+	}
+
+
+}

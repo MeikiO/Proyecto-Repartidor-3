@@ -1,0 +1,19 @@
+package edu.mondragon.mikel_murua.proyecto_repartidor3.repartidores;
+
+
+public class ModeloRepartidor  {
+
+	// Esta clase sirve exclusivamente para poder hacer uso de los metodos que nos 
+	// da el interface de REPARTIDORPERSISTENCIAX. para poder hacer uso de los metodos
+	// JpaRepositor
+	
+	public RepartidorPersistenciaX interface_de_repartidor;
+
+	public ModeloRepartidor(RepartidorPersistenciaX interface_de_repartidor) {
+		this.interface_de_repartidor = interface_de_repartidor;
+	}
+
+	
+	
+	
+}

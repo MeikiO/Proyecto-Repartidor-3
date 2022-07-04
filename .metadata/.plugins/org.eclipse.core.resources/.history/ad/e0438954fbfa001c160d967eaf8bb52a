@@ -1,0 +1,23 @@
+package edu.mondragon.mikel_murua.proyecto_repartidor3;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class Controlador {
+
+	/*
+	 Cosas Importantes:
+	 	1. Solo hay 1 controlador para toda la aplicacion
+	 	2. MODEL tiene que pasarse OBLIGATORIAMENTE
+	 */
+	
+	
+	@GetMapping("/Login_pa_empezar")
+	public String paginaLogin(Model model) {
+		
+		return "Hola mundo";
+	}
+
+}

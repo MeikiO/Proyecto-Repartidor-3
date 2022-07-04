@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: es.susosise.organizacion_mvc_objeto_inversa.ModeloTests
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.278 s - in es.susosise.organizacion_mvc_objeto_inversa.ModeloTests
+es.susosise.organizacion_mvc_objeto_inversa.ModeloTests.seRecuperaUnaPersonaSegunSuNombreYApellidos  Time elapsed: 0.155 s
+es.susosise.organizacion_mvc_objeto_inversa.ModeloTests.seRecuperaUnaPersonaSegunSuIndiceEnLaLista  Time elapsed: 0.022 s
+es.susosise.organizacion_mvc_objeto_inversa.ModeloTests.seCreaYseGuardaYseRecuperaUnaNuevaPersona  Time elapsed: 0.018 s
+es.susosise.organizacion_mvc_objeto_inversa.ModeloTests.inicializarLaPersistenciaCreaUnaListaDePersonasVacia  Time elapsed: 0.013 s
+es.susosise.organizacion_mvc_objeto_inversa.ModeloTests.conLaListaDePersonasVaciaNoDaErrorIntentarRecuperarUna  Time elapsed: 0.013 s
+es.susosise.organizacion_mvc_objeto_inversa.ModeloTests.alIntentarRecuperarUnaPersonaQueNoExisteDevuelveNull  Time elapsed: 0.02 s
