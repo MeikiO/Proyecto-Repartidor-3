@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>LOGIN</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<h1>Esto es la pagina del LOGIN</h1>
+	<div class='login' id='login'>
+		<div class='head'>
+			<h1 class="titlee">Login</h1>
+		</div>
+		
+		<div class='form'>
+			<form>
+				<input type="text" placeholder='Username' class='text' id='username' required><br>
+				
+				<input type="password" placeholder='••••••••••••••' class='password'><br>
+
+				<input type="submit" value="Login" class='btn-login' id='do-login'>
+
+			</form>
+		</div>
+	</div>
+
+	<footer>
+		<div class="pruebas">
+			<br>
+
+			<p>Valor del atributo pasado del modelo del controlador: 
+				<span th:text="${nombreEnControlador}"></span></p>
+
+			<p> Valor desde database (ModeloRepartidor): 
+				<span th:text="${Numero_de_objetos_database}"></span>
+			</p>
+
+		</div>
+	</footer>
+</body>
+</html>
