@@ -8,3 +8,9 @@
 1656872026534	Delete element
 1656874083269	Rename type 'ModeloRepartidor'
 1656874372748	Delete element
+1657388044174	Rename package 'es.susosise.pruebas_springboot.seguridad'
+1657388258100	Rename package 'edu.mondragon.mikel_murua.proyecto_reparidor3.seguridad'
+1657388274017	Rename package 'edu.mondragon.mikel_murua.proyecto_reparidor3.zzz_seguridad'
+1657389284134	Rename resource 'login'
+1657389533041	Rename resource '01_login'
+1657389543758	Rename resource '02_inicio'

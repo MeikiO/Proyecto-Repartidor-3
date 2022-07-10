@@ -6,6 +6,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Users\Lenovo\Desktop\Codigo repartidor3\001-Pruebas_dependencias_Inversas"/>
 			<item value="C:\Users\Lenovo\Desktop\ejemplos aita\proyecto_repartidor3"/>
 			<item value="C:\Users\Lenovo\Desktop\ejemplos aita"/>
 			<item value="C:\Users\Lenovo\Desktop\ejemplos aita\zzz-Intento desesperado de Spring"/>
@@ -22,6 +23,7 @@
 		<item key="WizardProjectsImportPage.STORE_CLOSE_CREATED_PROJECTS_ID" value="false"/>
 		<item key="WizardProjectsImportPage.STORE_HIDE_CONFLICTING_PROJECTS_ID" value="false"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="C:\Users\Lenovo\Desktop\Codigo repartidor3"/>
 			<item value="C:\Users\Lenovo\Desktop\ejemplos aita\zzz-Intento desesperado de Spring"/>
 		</list>
 		<list key="WizardProjectsImportPage.STORE_ARCHIVES">

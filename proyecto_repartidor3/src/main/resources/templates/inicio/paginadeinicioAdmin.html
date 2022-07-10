@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Pruebas_SpringBoot</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/susosise.css}">
+</head>
+
+<body>
+
+<header>
+    <h1>Pruebas con Spring Boot</h1>
+</header>
+
+<nav>
+	[<span th:text="${nombreDelUsuario}"></span>] ---
+    <a href="javascript: document.formularioLogout.submit()">Logout</a>
+    <form name="formularioLogout" th:action="@{/logout}" method="post" th:hidden="true">
+       <input hidden="true" type="submit" value="Sign Out" />
+    </form>
+</nav>
+
+<main>
+    <p>En la base de datos tenemos [<span th:text="${cantidadDePersonas}"></span>] personas.</p>
+    <br/>
+    <form name="formularioPersona" action="#" th:action="@{/persona}" th:object="${persona}" method="post">
+        <button type="submit" name="action" value="mostrarAnterior" class="botonDeFormulario">ver anterior</button>
+        <button type="submit" name="action" value="mostrarSiguiente" class="botonDeFormulario">ver siguiente</button>
+        <button type="submit" name="action" value="limpiarDatos" class="botonDeFormulario">limpiar datos</button>
+        <div class="campoDeFormulario">
+            <label>Nombre:</label>
+            <input type="text" th:field="*{nombre}" />
+        </div>
+        <div class="campoDeFormulario">
+            <label>Apellidos</label>
+            <input type="text" th:field="*{apellidos}" />
+        </div>
+        <div class="campoDeFormulario">
+            <label>Documento de identificacion personal (DNI, cédula, pasaporte,... o similar):</label>
+            <input type="text" th:field="*{dni_cedula_pasaporte_o_similar}" />
+        </div>
+        <button type="submit" name="action" value="guardar" class="botonDeFormulario">GUARDAR</button>
+    </form>
+</main>
+
+<footer>
+    <a th:href="@{https://www.susosise.es}">www.susosise.es</a>
+</footer>
+    
+</body>
+
+</html>
