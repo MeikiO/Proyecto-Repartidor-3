@@ -18,16 +18,12 @@ import edu.mondragon.mikel_murua.proyecto_repartidor3.cosas_comunes.Poblacion;
 @Table(name="repartidores")
 public class Repartidor{
 	
-	private boolean admin;
-	private String password;
-	private String username;
 	private Poblacion zona_trabajo;
 	private String tlf;
 	private String direccion;
 	private String dni;
 	private String apellido;
 	private String nombre;
-	private int idEquipo;
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -48,10 +44,7 @@ public class Repartidor{
 		this.direccion=direccion;
 		this.tlf=tlf;
 		this.zona_trabajo=Poblacion.valueOf(poblacion);
-		this.username=username;
-		this.password=password;
-		this.admin=admin;
-		this.idEquipo=this.zona_trabajo.getId();
+
 		
 		//this.listaReparto=new ArrayList<>();
 	}
@@ -65,37 +58,10 @@ public class Repartidor{
 		this.direccion=direccion;
 		this.tlf=tlf;
 		this.zona_trabajo=Poblacion.valueOf(poblacion);
-		this.username=username;
-		this.password=password;
-		this.admin=admin;
-		this.idEquipo=id_grupo;
 	
 		//this.listaReparto=new ArrayList<>();
 	}
-	
-	public boolean isAdmin() {
-		return admin;
-	}
 
-	public void setAdmin(boolean admin) {
-		this.admin = admin;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
 
 	public Poblacion getZona_trabajo() {
 		return zona_trabajo;
@@ -168,12 +134,7 @@ public Long getId_repartidor() {
 		return ""+this.getNombre()+" "+this.getApellido();
 	}
 
-	public int getIdEquipo() {
-		return this.idEquipo;
-	}
-	public void setIdEquipo(int id) {
-		this.idEquipo=id;
-	}
+
 	
 	public Poblacion getPoblacion() {
 		return this.zona_trabajo;
@@ -182,8 +143,6 @@ public Long getId_repartidor() {
 		this.zona_trabajo=poblacion;
 	}
 
-	
-	
 
 	@Override
 	public boolean equals(Object obj) {

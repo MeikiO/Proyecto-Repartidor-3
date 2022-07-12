@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <html>
 <head>
 <meta charset="ISO-8859-1">
@@ -6,8 +7,8 @@
 </head>
 <body>
 	<h2>Se ha producido un error</h2>
-	<p>Fuente del error: <span> th:text"${error}</span></p>
-	<p>Codigo de estado: <span> th:text"${status}</span></p>
+	<p>Fuente del error: <span th:text="${error}"></span></p>
+	<p>Codigo de estado: <span th:text="${status}"></span></p>
 	<br/>
 	<p th:text="${message}"/>
 	<br/>

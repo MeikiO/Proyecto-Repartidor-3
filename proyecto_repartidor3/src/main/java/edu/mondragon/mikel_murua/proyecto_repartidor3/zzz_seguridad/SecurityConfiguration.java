@@ -16,8 +16,9 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-        .authorizeRequests()
-           .antMatchers("/css/**", "/images/**" , "/js/**").permitAll()
+        .authorizeRequests().antMatchers("/**").permitAll() //con esto quitamos toda la seguridad
+           
+           //.antMatchers("/css/**", "/images/**" , "/js/**").permitAll() //esta es para ponerla
            .anyRequest().authenticated()
            .and()
            .formLogin()

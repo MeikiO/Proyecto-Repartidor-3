@@ -14,12 +14,12 @@ import edu.mondragon.mikel_murua.proyecto_repartidor3.repartidores.ServiceRepart
 @Controller
 public class ControladorVentanas {
 
-	private ServiceRepartidor modeloRepartidor;
-	private Long idDeLaPersonaActual;
+	public ServiceRepartidor repartidores;
+	private Long idDeLaPersonaEnCurso;
 	
 	public ControladorVentanas(ServiceRepartidor modeloRepartidor) {
-		this.modeloRepartidor = modeloRepartidor;
-		this.idDeLaPersonaActual= (long) 0;
+		this.repartidores = modeloRepartidor;
+		this.idDeLaPersonaEnCurso= (long) 0;
 	}
 
 	/*
@@ -55,7 +55,7 @@ public class ControladorVentanas {
 
 		model.addAttribute("nombreEnControlador", "soy un atributo especificado en el controlador");
 		// para usar el interface de REPARTIDORPERSISTENCIA X USAMOS EL SERVICE
-		model.addAttribute("Numero_de_objetos_database", this.modeloRepartidor.contar_elementos());
+		model.addAttribute("Numero_de_objetos_database", this.repartidores.cnumero_de_elementos_totales());
 
 		
 		// especificamos que pagina va ha cargar a continuacion (no hace falta poner
@@ -71,5 +71,13 @@ public class ControladorVentanas {
         return "index";
     }
 	
+    
+    
+    
+    
+   
+    
+    
+    
     
 }

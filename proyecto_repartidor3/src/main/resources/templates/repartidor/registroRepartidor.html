@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<!-- 
+	th:text="${atribute de model (del controlador)}" -> para enseñar datos.
+ -->
+
+	<p>En la base de datos tenemos [<span th:text="${cantidadDeRepartidores}"></span>] personas.</p>
+    <br/>
+    
+ 
+ <!-- 
+	 th:action="@{/persona}"
+	 
+	 	 <button type="submit" name="action" value="mostrarAnterior" class="botonDeFormulario">ver anterior</button>
+	     <button type="submit" name="action" value="mostrarSiguiente" class="botonDeFormulario">ver siguiente</button>
+	     <button type="submit" name="action" value="limpiarDatos"
+ 
+ 	-> cuando pinchamos el boton, el submit hace que mandemos peticion POST a (/persona) en ControladorAccionesRepartidor
+ 		y las variables que le pasamos son 3
+ 		
+ 		-> { <button type="submit" value="mostrarAnterior"  ---- inportantes es VALUE } -> que se pasa en ( String action) -> que identifica la accion hecha
+ 		
+ 		-> y el objeto creado por el formulario se pasa en (@ModelAttribute("repartidor") Repartidor repartidor), recibiendo los datos
+ 		que estuvieran en  <input type="text" th:field="*{---campo----}" />
+ 			+ y introduce los valores de los input en los campos del objeto Repartidor dentro de el.
+ 			+ PD: solo metera en database los campos que esten en ese momento en el formulario
+ 					-> SI LOS CAMPOS SON DIFERENTES no funcionara y dara ERROR
+ 
+  -->   
+    
+    
+    <form name="formularioPersona" action="#" th:action="@{/repartidor/}" th:object="${repartidor}" method="post">
+        <button type="submit" name="action" value="mostrarAnterior" class="botonDeFormulario">ver anterior</button>
+        <button type="submit" name="action" value="mostrarSiguiente" class="botonDeFormulario">ver siguiente</button>
+        <button type="submit" name="action" value="limpiarDatos" class="botonDeFormulario">limpiar datos</button>
+        <div class="campoDeFormulario">
+            <label>Nombre:</label>
+            <input type="text" th:field="*{nombre}" />
+        </div>
+        <div class="campoDeFormulario">
+            <label>Apellidos</label>
+            <input type="text" th:field="*{apellido}" />
+        </div>
+        <div class="campoDeFormulario">
+            <label>Documento de identificacion personal (DNI, cédula, pasaporte,... o similar):</label>
+            <input type="text" th:field="*{dni}" />
+        </div>
+        <div class="campoDeFormulario">
+        	<label>Telefono</label>
+        	<input type="text" th:field="*{tlf}"/>
+        </div>
+        <div class="campoDeFormulario">
+        	<label>Direccion</label>
+        	<input type="text" th:field="*{direccion}">
+        </div>
+         <div class="campoDeFormulario">
+        	<label>Poblacion</label>
+        	<input type="text" th:field="*{zona_trabajo}">
+        </div>
+        <button type="submit" name="action" value="guardar" class="botonDeFormulario">GUARDAR</button>
+    </form>
+</body>
+</html>
