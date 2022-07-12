@@ -45,21 +45,60 @@ public class ControladorAccionesRepartidores {
     @PostMapping("/repartidor/")
     public String procesarAccionesDeLaPaginaDeInicio(String action, @ModelAttribute("repartidor") Repartidor repartidor, Model model) {
       
-    	if (action.equals("mostrarAnterior")) {
-            idDeLaPersonaEnCurso = this.idDeLaPersonaEnCurso - 1;
-            if (idDeLaPersonaEnCurso < 1 ) {
-                idDeLaPersonaEnCurso = (long) this.repartidores.cnumero_de_elementos_totales();
-            }
-        }else if (action.equals("mostrarSiguiente")) {
-            idDeLaPersonaEnCurso = idDeLaPersonaEnCurso + 1;
-            if (idDeLaPersonaEnCurso > (this.repartidores.cnumero_de_elementos_totales())) {
-                idDeLaPersonaEnCurso = (long) 1;
-            }
-        }else if (action.equals("limpiarDatos")) {
-            idDeLaPersonaEnCurso = (long) 0;
-        }else if (action.equals("guardar")) {
-            this.repartidores.guardar(repartidor);
-        }
+    	switch (action) {
+			case "mostrarAnterior" :
+			{
+				idDeLaPersonaEnCurso = this.idDeLaPersonaEnCurso - 1;
+				if (idDeLaPersonaEnCurso < 1 ) {
+					idDeLaPersonaEnCurso = (long) this.repartidores.cnumero_de_elementos_totales();
+		        }
+				
+				break;
+			}
+			case "mostrarSiguiente" :
+			{
+			   idDeLaPersonaEnCurso = idDeLaPersonaEnCurso + 1;
+	            if (idDeLaPersonaEnCurso > (this.repartidores.cnumero_de_elementos_totales())) {
+	                idDeLaPersonaEnCurso = (long) 1;
+	            }
+				
+				break;
+			}
+			case "limpiarDatos" :
+			{
+				idDeLaPersonaEnCurso = (long) 0;
+				
+				break;
+			}
+			case "guardar" :
+			{
+				this.repartidores.guardar(repartidor);
+				break;
+			}
+			case "editar" :
+			{
+				Long id2=this.idDeLaPersonaEnCurso;
+				Repartidor dummy=new Repartidor();
+				dummy=repartidor;
+				
+				
+				//this.repartidores.borrar(idDeLaPersonaEnCurso);
+				this.repartidores.modificarEnDatabase(dummy);
+				break;
+			}
+			case "borrar" :
+			{
+				this.repartidores.borrar(idDeLaPersonaEnCurso);		
+				break;
+			}
+			
+			default:{
+				break;
+			}
+				
+		}
+    	
+    
         return "redirect:/cargar_un_repartidor/";
     }
     

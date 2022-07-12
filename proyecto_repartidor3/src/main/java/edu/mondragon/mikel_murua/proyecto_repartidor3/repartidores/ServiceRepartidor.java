@@ -2,6 +2,11 @@ package edu.mondragon.mikel_murua.proyecto_repartidor3.repartidores;
 
 import java.util.Optional;
 
+import javax.transaction.Transaction;
+import javax.websocket.Session;
+
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Service;
 
 
@@ -50,6 +55,12 @@ public class ServiceRepartidor  {
         return null;
     }
 
+    public void borrar(Long idInterno) {
+    	  Optional<Repartidor> persona = this.repa.findById(idInterno);
+          if (persona.isPresent()) {
+              this.repa.deleteById(idInterno);
+          } 
+    }
     
     public void guardar(Repartidor unaPersona) {
         if (unaPersona.getId_repartidor() != null) {
@@ -59,6 +70,24 @@ public class ServiceRepartidor  {
         }
     }
     
+    public void modificarEnDatabase(Repartidor unaPersona) {
+    	   if (unaPersona.getId_repartidor() != null) {
+    		  
+    		   /*
+    		    Para actualizar usa save, para entender esto hay que saber estas 2 cosas:
+    		    + Spring boot no guarda y accede directamente a la database, 
+    		    lo hace en un cache que tiene, y todos los cambios los vuelca hay, antes de pasarlos a database.
+    		    
+    		    + Por esta misma razon, si el pojo (entidad) ha sido previamente buscada con
+    		    findId(), queda registro de ello y en vez de guardar un nuevo elemento, actualiza el existente
+    		    cuando hacemo save().
+    		    
+    		    */
+    		   //this.repa.deleteById(unaPersona.getId_repartidor());
+    	       this.repa.save(unaPersona);
+    	   }
+    
+    }
 
 
 }
