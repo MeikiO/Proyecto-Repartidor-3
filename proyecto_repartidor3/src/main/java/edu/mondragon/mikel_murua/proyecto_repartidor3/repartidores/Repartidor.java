@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import edu.mondragon.mikel_murua.proyecto_repartidor3.cosas_comunes.Poblacion;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.informacion_de_reparto.Poblacion;
 
 
 //Estate tranquilo, Entity de hibernate es hibernate a palo seco, el de javax, es el 

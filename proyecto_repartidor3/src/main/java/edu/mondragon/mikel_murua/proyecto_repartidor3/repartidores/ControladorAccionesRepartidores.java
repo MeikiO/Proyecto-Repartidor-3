@@ -37,8 +37,8 @@ public class ControladorAccionesRepartidores {
     @GetMapping({"/cargar_un_repartidor/"})
     public String cargarDatosRepartidor(Model model, String error) {
     	
-    	model.addAttribute("cantidadDeRepartidores",this.repartidores.cnumero_de_elementos_totales());
-    	model.addAttribute("repartidor", this.repartidores.get(idDeLaPersonaEnCurso));
+    	model.addAttribute("cantidadDeRepartidores",this.repartidores.numero_de_elementos_en_database());
+    	model.addAttribute("repartidor", this.repartidores.buscarPorID(idDeLaPersonaEnCurso));
         return "/repartidor/registroRepartidor";
     }
     
@@ -50,7 +50,7 @@ public class ControladorAccionesRepartidores {
 			{
 				idDeLaPersonaEnCurso = this.idDeLaPersonaEnCurso - 1;
 				if (idDeLaPersonaEnCurso < 1 ) {
-					idDeLaPersonaEnCurso = (long) this.repartidores.cnumero_de_elementos_totales();
+					idDeLaPersonaEnCurso = (long) this.repartidores.numero_de_elementos_en_database();
 		        }
 				
 				break;
@@ -58,7 +58,7 @@ public class ControladorAccionesRepartidores {
 			case "mostrarSiguiente" :
 			{
 			   idDeLaPersonaEnCurso = idDeLaPersonaEnCurso + 1;
-	            if (idDeLaPersonaEnCurso > (this.repartidores.cnumero_de_elementos_totales())) {
+	            if (idDeLaPersonaEnCurso > (this.repartidores.numero_de_elementos_en_database())) {
 	                idDeLaPersonaEnCurso = (long) 1;
 	            }
 				
@@ -72,7 +72,7 @@ public class ControladorAccionesRepartidores {
 			}
 			case "guardar" :
 			{
-				this.repartidores.guardar(repartidor);
+				this.repartidores.registrarEnDatabase(repartidor);
 				break;
 			}
 			case "editar" :
@@ -83,12 +83,12 @@ public class ControladorAccionesRepartidores {
 				
 				
 				//this.repartidores.borrar(idDeLaPersonaEnCurso);
-				this.repartidores.modificarEnDatabase(dummy);
+				this.repartidores.actualizar(dummy);
 				break;
 			}
 			case "borrar" :
 			{
-				this.repartidores.borrar(idDeLaPersonaEnCurso);		
+				this.repartidores.borrarElemento(idDeLaPersonaEnCurso);		
 				break;
 			}
 			

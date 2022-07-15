@@ -1,4 +1,4 @@
-package edu.mondragon.mikel_murua.proyecto_repartidor3.cosas_comunes;
+package edu.mondragon.mikel_murua.proyecto_repartidor3.informacion_de_reparto;
 
 import java.awt.Color;
 import java.util.ArrayList;

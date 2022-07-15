@@ -21,4 +21,5 @@
     <fullyQualifiedTypeName name="javax.websocket.Session"/>
     <fullyQualifiedTypeName name="javax.transaction.Transaction"/>
     <fullyQualifiedTypeName name="org.hibernate.cfg.Configuration"/>
+    <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_recursos_codigo.DaoServices"/>
 </qualifiedTypeNameHistroy>

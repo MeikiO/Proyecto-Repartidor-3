@@ -55,7 +55,7 @@ public class ControladorVentanas {
 
 		model.addAttribute("nombreEnControlador", "soy un atributo especificado en el controlador");
 		// para usar el interface de REPARTIDORPERSISTENCIA X USAMOS EL SERVICE
-		model.addAttribute("Numero_de_objetos_database", this.repartidores.cnumero_de_elementos_totales());
+		model.addAttribute("Numero_de_objetos_database", this.repartidores.numero_de_elementos_en_database());
 
 		
 		// especificamos que pagina va ha cargar a continuacion (no hace falta poner
