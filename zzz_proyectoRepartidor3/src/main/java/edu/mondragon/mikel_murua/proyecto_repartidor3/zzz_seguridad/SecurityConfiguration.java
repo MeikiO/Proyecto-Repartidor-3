@@ -3,6 +3,7 @@ package edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -21,15 +22,33 @@ public class SecurityConfiguration {
 	
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http)  throws Exception {
-        http
+       
+		http
         //.authorizeRequests().antMatchers("/**").permitAll() //con esto quitamos toda la seguridad
            
            .authorizeRequests().antMatchers("/css/**", "/images/**" , "/js/**").permitAll() //esta es para ponerla
               
            /*
-            Limitamos el enlace la funcion del mapping -> /admin/ solo lo pueda acceder los usuarios con el roll ADMIN
+            Limitamos el enlace la funcion del mapping -> /admin/ solo lo pueda acceder los usuarios con el roll ROLE_ADMIN
+            
+            -> De esta manera tambien limitaremos el de cliente y repartidor.
+            
+            -> El admin puede acceder a todo hasique lo pondremos en todos.
+            
             */
            .antMatchers("/admin/**").hasRole("ADMIN")
+           
+
+           // Ejemplo donde se ponen multiples roles:
+           //-> https://stackoverflow.com/questions/42910708/authorize-requests-for-multiple-roles-for-different-urls
+           
+           .antMatchers("/cliente/**")
+           .access("hasRole('ADMIN') or hasAuthority('ADMIN') OR hasRole('CLIENTE') or hasAuthority('CLIENTE')")
+           
+           
+           .antMatchers("/repartidor/**")
+           .access("hasRole('ADMIN') or hasAuthority('ADMIN') OR hasRole('TRABAJADOR') or hasAuthority('TRABAJADOR')")
+           
            
            
            .anyRequest().authenticated()

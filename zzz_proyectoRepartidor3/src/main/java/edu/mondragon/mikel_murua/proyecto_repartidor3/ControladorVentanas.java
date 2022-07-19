@@ -76,23 +76,20 @@ public class ControladorVentanas {
     	
     	Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
     	
-    
-    	
-    	
     	/*
     	 Explicacion principal:
     	 	+ Funciones
     	 	-> https://stackoverflow.com/questions/31159075/how-to-find-out-the-currently-logged-in-user-in-spring-boot
     	  
     	  
-    	  	el OBJECT PRINCIPAL -> toma el usuario de MyusersDetailService es objeto-> Credentials con todos los datos recibidos
+    	  	el OBJECT PRINCIPAL -> toma el usuario de MyusersDetailService es objeto User, ya que no te coge la autoridad si no lo es
+    	  	-> si usamos Credentials todos los datos los recibimos en OBJECT y no podemos utilizar ni los datos ni las funicones de SecurityContextHolder
     	  
     	 */
     	
-    	//aqui hacemos la diferenciacion de que tipo de usuario es en base a su rol
+    	//La diferenciacion de usuarios por rol, se hace en SecurityConfiguration.
     	
-    
-    	
+
         return "index";
     }
 	
@@ -100,6 +97,10 @@ public class ControladorVentanas {
     public String mostrarLaPaginaDeCierre(Model model) {
         return "logout";
     }
+    
+    
+    //La restriccion entrada de los usuarios por rol, se hace en SecurityConfiguration.
+    //todos pueden entrar a todo, pero lo limitamos usando el rol.
     
     @GetMapping({"/admin/entrada/"})
     public String redirigirAVentanaDeAdmin() {
@@ -109,14 +110,42 @@ public class ControladorVentanas {
     	
     	Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
     	
-    	String first = roles.iterator().next().toString();
-    	
+    	System.out.println(roles);
     	
         return "/v_admin/panel_control_admin";
     }
     
-   
     
+    
+    @GetMapping({"/repartidor/entrada/"})
+    public String redirigirAEntradaRepartidor() {
+    	
+    	Object usuarioLogeado = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
+    	
+    	
+    	Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+    	
+    	System.out.println(roles);
+    	
+        return "/v_repartidor/inicio_repartidores";
+    }
+    
+    
+    
+    
+   
+    @GetMapping({"/cliente/entrada/"})
+    public String redirigirAEntradaCliente() {
+    	
+    	Object usuarioLogeado = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
+    	
+    	
+    	Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+    	
+    	System.out.println(roles);
+    	
+        return "/v_cliente/entrada_clientes";
+    }
    
     
     

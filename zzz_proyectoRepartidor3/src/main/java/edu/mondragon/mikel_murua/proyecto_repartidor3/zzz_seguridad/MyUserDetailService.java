@@ -36,7 +36,7 @@ public class MyUserDetailService implements UserDetailsService {
         
 		
 		ArrayList<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority(Roles.ROLE_ADMIN.name()));
+        roles.add(new SimpleGrantedAuthority(Roles.ROLE_CLIENTE.name()));
      
         
    //     Credencial user=new Credencial((long)1,true,nombre,contrasena,roles);
