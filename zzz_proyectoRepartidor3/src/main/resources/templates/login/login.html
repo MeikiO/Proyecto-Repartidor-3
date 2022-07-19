@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>LOGIN</title>
+	<link rel="stylesheet" type="text/css" th:href="@{css/normalize.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+</head>
+<body>
+	<h1>Esto es la pagina del LOGIN</h1>
+	<div class='login' id='login'>
+		<div class='head'>
+			<h1 class="titlee">Login</h1>
+		</div>
+		
+		
+		
+		   <form action="#" th:action="@{/login}" th:object="${datos_introducidos}" method="post">
+			<form>
+				<input id="username" type="text" name="username" required autocomplete="off" placeholder='Username' class='text'><br>
+				
+				<input id="password" type="password" name="password" required autocomplete="off" placeholder='••••••••••••••' class='password'><br>
+
+				<input type="submit" value="Login" class='btn-login' id='do-login'>
+
+			</form>
+		</div>
+	</div>
+
+
+	<footer>
+		<div class="pruebas">
+			<br>
+
+			<p>Valor del atributo pasado del modelo del controlador: 
+				<span th:text="${nombreEnControlador}"></span></p>
+
+			<p> Valor desde database (ModeloRepartidor): 
+				<span th:text="${Numero_de_objetos_database}"></span>
+			</p>
+
+		</div>
+	</footer>
+</body>
+</html>
