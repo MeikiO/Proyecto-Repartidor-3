@@ -1,63 +1,66 @@
 package edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad;
 
 
+import java.util.Arrays;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_recursos_codigo.DaoServices;
+import jdk.jshell.spi.ExecutionControl.UserException;
 
-public class CredencialesService implements DaoServices<Credencial> {
 
+@Service
+@Transactional
+public class CredencialesService implements  DaoServices<UserAccount_Pojo>{
+
+	
 	public CredencialesRepository credenciales;
 
-	public CredencialesService() {
-	}
 	
 	public CredencialesService(CredencialesRepository user) {
 		this.credenciales = user;
 	}
 
+	
 	@Override
 	public Long numero_de_elementos_en_database() {
 		return this.credenciales.count();
 	}
 
 	@Override
-	public Credencial buscarPorID(Long id) {
+	public UserAccount_Pojo buscarPorID(Long id) {
 		//Objeto Optional -> sirve para definir y automatizar el null
     	// y sirve para comprobar si esta o no esta.
-        Optional<Credencial> persona = this.credenciales.findById(id);
+        Optional<UserAccount_Pojo> persona = this.credenciales.findById(id);
         if (persona.isPresent()) {
             return persona.get();
         } else {
-            return new Credencial();
+            return new UserAccount_Pojo();
         }
 	}
 
-	
-	public Credencial buscarPorUsername(String username) {
-		//Objeto Optional -> sirve para definir y automatizar el null
-    	// y sirve para comprobar si esta o no esta.
-        Optional<Credencial> persona = this.credenciales.findByUsername(username);
-        if (persona.isPresent()) {
-            return persona.get();
-        } else {
-            return new Credencial();
-        }
-	}
-	
 
+
+	
 	@Override
-	public void registrarEnDatabase(Credencial objeto) {
-	     if (objeto.getIdInterno() != null) {
-	            // TODO actualizar sus datos ,  /¿lo hace Spring Boot el solo ? ?!?
-	        } else if (!objeto.getUsername().isBlank() && !objeto.getPassword().isBlank()) {
+	public void registrarEnDatabase(UserAccount_Pojo objeto) {
+			if (!objeto.getUsername().isBlank() && !objeto.getContrasena().isBlank()) {
 	            this.credenciales.save(objeto);
 	        }
 	}
 
 	@Override
-	public void actualizar(Credencial objeto) {
-	 	   if (objeto.getIdInterno() != null & !objeto.getUsername().isBlank() && !objeto.getPassword().isBlank()) {
+	public void actualizar(UserAccount_Pojo objeto) {
+	 	   if (objeto.getIdInterno() != null & !objeto.getUsername().isBlank() && !objeto.getContrasena().isBlank()) {
 	    		  
     		   /*
     		    Para actualizar usa save, para entender esto hay que saber estas 2 cosas:
@@ -83,5 +86,10 @@ public class CredencialesService implements DaoServices<Credencial> {
 	// JpaRepository
 
 	
+    private boolean userExists(String username) {
+        return this.credenciales.findByUsername(username) != null;
+    }
+
+
 
 }

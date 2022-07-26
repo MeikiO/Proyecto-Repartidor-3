@@ -75,6 +75,18 @@
 			<version>1.0.2</version>
 		</dependency>
 		
+
+
+		<!-- 
+			Siguiente problema que se causo
+			https://stackoverflow.com/questions/53714699/failed-to-introspect-class-org-springframework-security-config-annotation-web-c
+		 -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-web</artifactId>
+		</dependency>
+		
+		
 	</dependencies>
 
 	<build>

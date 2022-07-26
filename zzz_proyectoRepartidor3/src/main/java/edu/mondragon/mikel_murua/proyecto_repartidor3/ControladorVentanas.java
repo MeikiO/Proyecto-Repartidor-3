@@ -1,27 +1,84 @@
 package edu.mondragon.mikel_murua.proyecto_repartidor3;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.ModelAndView;
 
-import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.Credencial;
-
-
+import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.UserAccount_Pojo;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.CredencialesRepository;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.CredencialesService;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.MyUserDetailService;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.Roles;
 
 
 @Controller
 public class ControladorVentanas {
 
 	
-	public ControladorVentanas() {
+	 private final CredencialesRepository userAccountRepository;
+	 private final PasswordEncoder passwordEncoder;
+	
+	 
+	public ControladorVentanas(CredencialesRepository userAccountRepository, PasswordEncoder passwordEncoder) {
+		super();
+		this.userAccountRepository = userAccountRepository;
+		this.passwordEncoder = passwordEncoder;
 	}
+
+	
+	@GetMapping("/register") 
+	public String registrarUser(Model model, String error, String logout) {
+        
+		System.out.println("Prueba para ver si pasa");
+		return "registration";
+	}
+
+	
+	@PostMapping("/register/procesar")
+	public String register(@RequestParam("username") String username, @RequestParam("password") String password) {
+	        
+    	
+    	UserAccount_Pojo userAccount = new UserAccount_Pojo();
+        userAccount.setUsername(username);
+        userAccount.setContrasena(passwordEncoder.encode(password));
+        userAccount.setEstaActivo(true);
+        
+        ArrayList<GrantedAuthority> listaRoles= new ArrayList<>();
+        listaRoles.add(new SimpleGrantedAuthority(Roles.ROLE_ADMIN.name()));
+        
+        
+        userAccount.setListaRoles(listaRoles);
+        
+        userAccountRepository.save(userAccount);
+        
+        return "index";
+    }
 
 	/*
 	 * Cosas Importantes:
@@ -99,6 +156,7 @@ public class ControladorVentanas {
     }
     
     
+    
     //La restriccion entrada de los usuarios por rol, se hace en SecurityConfiguration.
     //todos pueden entrar a todo, pero lo limitamos usando el rol.
     
@@ -116,7 +174,8 @@ public class ControladorVentanas {
     }
     
     
-    
+
+   
     @GetMapping({"/repartidor/entrada/"})
     public String redirigirAEntradaRepartidor() {
     	
@@ -148,11 +207,10 @@ public class ControladorVentanas {
     }
    
     
-    
-    
-    
-    
-   
+ 
+
+  
+
     
     
     

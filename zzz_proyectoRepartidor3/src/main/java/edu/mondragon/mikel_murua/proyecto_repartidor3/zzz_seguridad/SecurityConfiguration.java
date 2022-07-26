@@ -6,37 +6,61 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration {
+public class SecurityConfiguration{
     
 	@Autowired
 	UserDetailsService userDetailsService;
+	    
+	
 	
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http)  throws Exception {
        
 		http
-        //.authorizeRequests().antMatchers("/**").permitAll() //con esto quitamos toda la seguridad
-           
-           .authorizeRequests().antMatchers("/css/**", "/images/**" , "/js/**").permitAll() //esta es para ponerla
+			 
+		.csrf().disable() // Parche temporal para que haga post desde el template al controlador en register
+		
+		//Era para solucionar esto
+		//-> https://stackoverflow.com/questions/50486314/how-to-solve-403-error-in-spring-boot-post-request)
+		//mas informacion de como poner el protocolo correctamente
+		//-> https://www.yawintutor.com/how-to-enable-and-disable-csrf/
+        
+		
+		
+	    //.authorizeRequests().antMatchers("/**").permitAll() //con esto quitamos toda la seguridad
+        
+		
+        .authorizeRequests().antMatchers("/css/**", "/images/**" , "/js/**").permitAll() //esta es para ponerla
               
-           /*
-            Limitamos el enlace la funcion del mapping -> /admin/ solo lo pueda acceder los usuarios con el roll ROLE_ADMIN
+        
+           
+            //Limitamos el enlace la funcion del mapping -> /admin/ solo lo pueda acceder los usuarios con el roll ROLE_ADMIN
             
-            -> De esta manera tambien limitaremos el de cliente y repartidor.
+            //-> De esta manera tambien limitaremos el de cliente y repartidor.
             
-            -> El admin puede acceder a todo hasique lo pondremos en todos.
+            //-> El admin puede acceder a todo hasique lo pondremos en todos.
             
-            */
-           .antMatchers("/admin/**").hasRole("ADMIN")
+            
+           .antMatchers("/").permitAll()
+           .antMatchers("/register").permitAll()
+           .antMatchers("/register/procesar").permitAll()
+      
+     
+      		.antMatchers("/admin/**").hasRole("ADMIN")
            
 
            // Ejemplo donde se ponen multiples roles:
@@ -49,7 +73,7 @@ public class SecurityConfiguration {
            .antMatchers("/repartidor/**")
            .access("hasRole('ADMIN') or hasAuthority('ADMIN') OR hasRole('TRABAJADOR') or hasAuthority('TRABAJADOR')")
            
-           
+     
            
            .anyRequest().authenticated()
            .and()
@@ -62,12 +86,11 @@ public class SecurityConfiguration {
            .permitAll();
         return http.build();
     }
+  
     
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(new MyUserDetailService()).
-        passwordEncoder(new BCryptPasswordEncoder());
+    @Bean
+    PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
-
  
 }
