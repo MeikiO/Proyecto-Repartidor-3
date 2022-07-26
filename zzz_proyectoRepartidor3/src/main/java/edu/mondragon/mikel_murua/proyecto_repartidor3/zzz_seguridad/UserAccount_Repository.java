@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface CredencialesRepository extends JpaRepository<UserAccount_Pojo, Long> {
+public interface UserAccount_Repository extends JpaRepository<UserAccount_Pojo, Long> {
     UserAccount_Pojo findByUsername(String username);
 
 	

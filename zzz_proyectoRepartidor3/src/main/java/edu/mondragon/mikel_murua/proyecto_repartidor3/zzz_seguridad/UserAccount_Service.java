@@ -20,13 +20,13 @@ import jdk.jshell.spi.ExecutionControl.UserException;
 
 @Service
 @Transactional
-public class CredencialesService implements  DaoServices<UserAccount_Pojo>{
+public class UserAccount_Service implements  DaoServices<UserAccount_Pojo>{
 
 	
-	public CredencialesRepository credenciales;
+	public UserAccount_Repository credenciales;
 
 	
-	public CredencialesService(CredencialesRepository user) {
+	public UserAccount_Service(UserAccount_Repository user) {
 		this.credenciales = user;
 	}
 

@@ -31,8 +31,8 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.UserAccount_Pojo;
-import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.CredencialesRepository;
-import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.CredencialesService;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.UserAccount_Repository;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.UserAccount_Service;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.MyUserDetailService;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.Roles;
 
@@ -41,16 +41,42 @@ import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.Roles;
 public class ControladorVentanas {
 
 	
-	 private final CredencialesRepository userAccountRepository;
+	 private final UserAccount_Repository userAccountRepository;
 	 private final PasswordEncoder passwordEncoder;
 	
 	 
-	public ControladorVentanas(CredencialesRepository userAccountRepository, PasswordEncoder passwordEncoder) {
+	public ControladorVentanas(UserAccount_Repository userAccountRepository, PasswordEncoder passwordEncoder) {
 		super();
 		this.userAccountRepository = userAccountRepository;
 		this.passwordEncoder = passwordEncoder;
 	}
 
+	
+    @GetMapping({"/"})
+    public String redirigirALaPaginaDeInicio() {
+    	
+    	Object usuarioLogeado = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
+    	
+    	
+    	Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+    	
+    	/*
+    	 Explicacion principal:
+    	 	+ Funciones
+    	 	-> https://stackoverflow.com/questions/31159075/how-to-find-out-the-currently-logged-in-user-in-spring-boot
+    	  
+    	  
+    	  	el OBJECT PRINCIPAL -> toma el usuario de MyusersDetailService es objeto User, ya que no te coge la autoridad si no lo es
+    	  	-> si usamos Credentials todos los datos los recibimos en OBJECT y no podemos utilizar ni los datos ni las funicones de SecurityContextHolder
+    	  
+    	 */
+    	
+    	//La diferenciacion de usuarios por rol, se hace en SecurityConfiguration.
+    	
+
+        return "index";
+    }
+	
 	
 	@GetMapping("/register") 
 	public String registrarUser(Model model, String error, String logout) {
@@ -124,32 +150,6 @@ public class ControladorVentanas {
 	}
 
 	
-	
-    @GetMapping({"/"})
-    public String redirigirALaPaginaDeInicio() {
-    	
-    	Object usuarioLogeado = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
-    	
-    	
-    	Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-    	
-    	/*
-    	 Explicacion principal:
-    	 	+ Funciones
-    	 	-> https://stackoverflow.com/questions/31159075/how-to-find-out-the-currently-logged-in-user-in-spring-boot
-    	  
-    	  
-    	  	el OBJECT PRINCIPAL -> toma el usuario de MyusersDetailService es objeto User, ya que no te coge la autoridad si no lo es
-    	  	-> si usamos Credentials todos los datos los recibimos en OBJECT y no podemos utilizar ni los datos ni las funicones de SecurityContextHolder
-    	  
-    	 */
-    	
-    	//La diferenciacion de usuarios por rol, se hace en SecurityConfiguration.
-    	
-
-        return "index";
-    }
-	
     @PostMapping("/logout")
     public String mostrarLaPaginaDeCierre(Model model) {
         return "logout";
@@ -160,7 +160,7 @@ public class ControladorVentanas {
     //La restriccion entrada de los usuarios por rol, se hace en SecurityConfiguration.
     //todos pueden entrar a todo, pero lo limitamos usando el rol.
     
-    @GetMapping({"/admin/entrada/"})
+    @GetMapping({"/admin/entrada"})
     public String redirigirAVentanaDeAdmin() {
     	
     	Object usuarioLogeado = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
@@ -176,7 +176,7 @@ public class ControladorVentanas {
     
 
    
-    @GetMapping({"/repartidor/entrada/"})
+    @GetMapping({"/repartidor/entrada"})
     public String redirigirAEntradaRepartidor() {
     	
     	Object usuarioLogeado = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
@@ -193,7 +193,7 @@ public class ControladorVentanas {
     
     
    
-    @GetMapping({"/cliente/entrada/"})
+    @GetMapping({"/cliente/entrada"})
     public String redirigirAEntradaCliente() {
     	
     	Object usuarioLogeado = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
@@ -208,11 +208,5 @@ public class ControladorVentanas {
    
     
  
-
-  
-
-    
-    
-    
     
 }

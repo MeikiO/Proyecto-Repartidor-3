@@ -28,10 +28,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @Component
 public class MyUserDetailService implements UserDetailsService {
     private final
-    CredencialesRepository userAccountRepository;
+    UserAccount_Repository userAccountRepository;
 
     
-    public MyUserDetailService(CredencialesRepository userAccountRepository) {
+    public MyUserDetailService(UserAccount_Repository userAccountRepository) {
         this.userAccountRepository = userAccountRepository;
     }
 
@@ -41,7 +41,8 @@ public class MyUserDetailService implements UserDetailsService {
         if (userAccount == null) {
             throw new UsernameNotFoundException("User with username [" + username + "] not found in the system");
         }
-        return new UserDetails_Custom(userAccount);
+        
+        return new User( userAccount.getUsername(),userAccount.getContrasena(),userAccount.getListaRoles());
     }
   
     
