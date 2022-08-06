@@ -6,8 +6,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>LOGIN</title>
-	<link rel="stylesheet" type="text/css" th:href="@{css/normalize.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+	<link rel="stylesheet" type="text/css" href="#" th:href="@{css/normalize.css}">
+	<link rel="stylesheet" type="text/css" href="#" th:href="@{/css/styles.css}">
 </head>
 <body>
 	<h1>Esto es la pagina del LOGIN</h1>
@@ -16,18 +16,14 @@
 			<h1 class="titlee">Login</h1>
 		</div>
 		
-		
-		
-		   <form action="#" th:action="@{/login}" th:object="${datos_introducidos}" method="post">
-			<form>
-				<input id="username" type="text" name="username" required autocomplete="off" placeholder='Username' class='text'><br>
-				
-				<input id="password" type="password" name="password" required autocomplete="off" placeholder='••••••••••••••' class='password'><br>
+	   <form action="#" th:action="@{/login}" th:object="${datos_introducidos}" method="post">
+			<input id="username" type="text" name="username" required autocomplete="off" placeholder='Username' class='text'><br>
+			
+			<input id="password" type="password" name="password" required autocomplete="off" placeholder='••••••••••••••' class='password'><br>
 
-				<input type="submit" value="Login" class='btn-login' id='do-login'>
+			<input type="submit" value="Login" class='btn-login' id='do-login'>
 
-			</form>
-		</div>
+		</form>
 	</div>
 
 

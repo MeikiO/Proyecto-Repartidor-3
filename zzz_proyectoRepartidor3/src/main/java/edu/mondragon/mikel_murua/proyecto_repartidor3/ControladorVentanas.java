@@ -52,7 +52,7 @@ public class ControladorVentanas {
 	}
 
 	
-    @GetMapping({"/"})
+    @GetMapping({"/indexPrueba"})
     public String redirigirALaPaginaDeInicio() {
     	
     	Object usuarioLogeado = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
@@ -154,6 +154,59 @@ public class ControladorVentanas {
     public String mostrarLaPaginaDeCierre(Model model) {
         return "logout";
     }
+    
+    
+    
+    
+    
+    
+    // La redireccion a las ventanas correspondientes, dependiendo de los roles se hace aqui.
+    
+    @GetMapping({"/"})
+    public String redirigirALaPaginaDeInicioCorrespondiente() {
+    	
+    	Object usuarioLogeado = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
+    	
+    	
+    	Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+    	
+    	/*
+    	 Explicacion principal:
+    	 	+ Funciones
+    	 	-> https://stackoverflow.com/questions/31159075/how-to-find-out-the-currently-logged-in-user-in-spring-boot
+    	  
+    	  
+    	  	el OBJECT PRINCIPAL -> toma el usuario de MyusersDetailService es objeto User, ya que no te coge la autoridad si no lo es
+    	  	-> si usamos Credentials todos los datos los recibimos en OBJECT y no podemos utilizar ni los datos ni las funicones de SecurityContextHolder
+    	  
+    	 */
+    	
+    	//La diferenciacion de usuarios por rol, se hace en SecurityConfiguration.
+    	
+    	
+    	String charged_page="";
+    	GrantedAuthority admin=new SimpleGrantedAuthority(Roles.ROLE_ADMIN.name().toString());
+    	GrantedAuthority trabajador=new SimpleGrantedAuthority(Roles.ROLE_TRABAJADOR.name().toString());
+    	GrantedAuthority cliente=new SimpleGrantedAuthority(Roles.ROLE_CLIENTE.name().toString());
+    	
+	    	
+    	if(roles.contains(admin)) {
+    		 charged_page= "redirect:/admin/entrada";
+    	}
+    	else if(roles.contains(trabajador)) {
+    		 charged_page= "redirect:/repartidor/entrada";
+    	}
+    	else if(roles.contains(cliente)) {
+    		charged_page= "redirect:/cliente/entrada";
+    	}
+		
+    	return charged_page;
+    	
+    }
+    
+    
+    
+    
     
     
     
