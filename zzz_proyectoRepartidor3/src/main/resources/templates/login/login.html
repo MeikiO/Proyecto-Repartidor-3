@@ -7,24 +7,28 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>LOGIN</title>
 	<link rel="stylesheet" type="text/css" href="#" th:href="@{css/normalize.css}">
-	<link rel="stylesheet" type="text/css" href="#" th:href="@{/css/styles.css}">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css"/>
 </head>
 <body>
-	<h1>Esto es la pagina del LOGIN</h1>
-	<div class='login' id='login'>
-		<div class='head'>
+	<h1 class="text-center">Esto es la pagina del LOGIN</h1>
+		<div class="form-group">
 			<h1 class="titlee">Login</h1>
 		</div>
 		
 	   <form action="#" th:action="@{/login}" th:object="${datos_introducidos}" method="post">
-			<input id="username" type="text" name="username" required autocomplete="off" placeholder='Username' class='text'><br>
-			
-			<input id="password" type="password" name="password" required autocomplete="off" placeholder='••••••••••••••' class='password'><br>
-
-			<input type="submit" value="Login" class='btn-login' id='do-login'>
-
-		</form>
-	</div>
+	       <div class="form-group">
+	        <label for="username">Username</label>
+	        <input type="text" class="form-control" id="username" name="username" autocomplete="new-password" required
+	               placeholder="Enter username">
+	    </div>
+	    <div class="form-group">
+	        <label for="password">Password</label>
+	        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required
+	               autocomplete="new-password">
+	    </div>
+	
+	    <input type="submit" class="btn btn-primary btn-block btn-lg" value="Log In"/>
+	</form>
 
 
 	<footer>

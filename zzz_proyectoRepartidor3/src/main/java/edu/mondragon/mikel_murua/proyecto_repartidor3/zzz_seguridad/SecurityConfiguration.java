@@ -55,7 +55,7 @@ public class SecurityConfiguration{
             //-> El admin puede acceder a todo hasique lo pondremos en todos.
             
             
-           //.antMatchers("/").permitAll()
+           .antMatchers("/indexPrueba").permitAll()
            .antMatchers("/register").permitAll()
            .antMatchers("/register/procesar").permitAll()
       

@@ -218,13 +218,16 @@ public class ControladorVentanas {
     	
     	Object usuarioLogeado = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
     	
-    	
     	Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
     	
     	System.out.println(roles);
     	
         return "/v_admin/panel_control_admin";
     }
+    
+    
+    
+    
     
     
 
@@ -241,6 +244,20 @@ public class ControladorVentanas {
     	
         return "/v_repartidor/inicio_repartidores";
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
