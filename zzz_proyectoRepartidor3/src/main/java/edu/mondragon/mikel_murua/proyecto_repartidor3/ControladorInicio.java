@@ -38,14 +38,14 @@ import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.Roles;
 
 
 @Controller
-public class ControladorVentanas {
+public class ControladorInicio {
 
 	
 	 private final UserAccount_Repository userAccountRepository;
 	 private final PasswordEncoder passwordEncoder;
 	
 	 
-	public ControladorVentanas(UserAccount_Repository userAccountRepository, PasswordEncoder passwordEncoder) {
+	public ControladorInicio(UserAccount_Repository userAccountRepository, PasswordEncoder passwordEncoder) {
 		super();
 		this.userAccountRepository = userAccountRepository;
 		this.passwordEncoder = passwordEncoder;
@@ -82,7 +82,7 @@ public class ControladorVentanas {
 	public String registrarUser(Model model, String error, String logout) {
         
 		System.out.println("Prueba para ver si pasa");
-		return "registration";
+		return "formularios/registroClientes";
 	}
 
 	
@@ -106,6 +106,15 @@ public class ControladorVentanas {
         return "index";
     }
 
+	
+	
+	
+	
+	
+	
+
+	
+	
 	/*
 	 * Cosas Importantes:
 	   2. MODEL tiene que pasarse OBLIGATORIAMENTE
@@ -130,8 +139,9 @@ public class ControladorVentanas {
 	
 	
 	@GetMapping("/login") 
-	public String paginaLogin(Model model, String error, String logout) {
+	public String paginaLogin(Model model, String error, String logout, String action) {
         
+		
 		model.addAttribute("error", error);
        
    
@@ -145,6 +155,8 @@ public class ControladorVentanas {
 		// especificamos que pagina va ha cargar a continuacion (no hace falta poner
 		// extension (.html)
 		// te lo toma directamente. Y le pasamos el modelo (que se usara como atributo)
+		
+		
 		
 		return "login/login";
 	}
@@ -205,78 +217,8 @@ public class ControladorVentanas {
     }
     
     
-    
-    
-    
-    
-    
-    //La restriccion entrada de los usuarios por rol, se hace en SecurityConfiguration.
-    //todos pueden entrar a todo, pero lo limitamos usando el rol.
-    
-    @GetMapping({"/admin/entrada"})
-    public String redirigirAVentanaDeAdmin() {
-    	
-    	Object usuarioLogeado = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
-    	
-    	Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-    	
-    	System.out.println(roles);
-    	
-        return "/v_admin/panel_control_admin";
-    }
-    
-    
-    
-    
-    
-    
+   
 
-   
-    @GetMapping({"/repartidor/entrada"})
-    public String redirigirAEntradaRepartidor() {
-    	
-    	Object usuarioLogeado = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
-    	
-    	
-    	Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-    	
-    	System.out.println(roles);
-    	
-        return "/v_repartidor/inicio_repartidores";
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-   
-    @GetMapping({"/cliente/entrada"})
-    public String redirigirAEntradaCliente() {
-    	
-    	Object usuarioLogeado = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
-    	
-    	
-    	Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-    	
-    	System.out.println(roles);
-    	
-        return "/v_cliente/entrada_clientes";
-    }
-   
-    
- 
+
     
 }

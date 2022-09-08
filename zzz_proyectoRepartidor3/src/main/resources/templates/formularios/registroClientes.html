@@ -1,14 +1,19 @@
 <!doctype html>
-<html lang="en">
+<th:block th:insert="~{fragments/components :: html}"></th:block>
 <head>
-   <meta charset="ISO-8859-1">
+
+	<!-- Uso de fragmentos para no tener que poner la cabecera todas la veces
+		el codigo esta en templates/fragments/components.html
+	 -->
+   	<th:block th:insert="~{fragments/components :: head}"></th:block>
 	<title>Register a new user</title>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css"/>
+
 </head>
+	
 <body class="container mt-5">
-<h1 class="text-center">Register</h1>
+<h1 class="text-center">Registro de clientes</h1>
 	<form method="post" action="/register/procesar" autocomplete="off">
-	       <div class="form-group">
+	   <div class="form-group">
 	        <label for="username">Username</label>
 	        <input type="text" class="form-control" id="username" name="username" autocomplete="new-password" required
 	               placeholder="Enter username">
@@ -21,6 +26,7 @@
 	
 	    <input type="submit" class="btn btn-primary btn-block btn-lg" value="Register"/>
 	</form>
+
 
 </body>
 </html>

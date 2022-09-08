@@ -37,7 +37,8 @@ public class MyUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserAccount_Pojo userAccount = userAccountRepository.findByUsername(username);
+        
+    	UserAccount_Pojo userAccount = userAccountRepository.findByUsername(username);
         if (userAccount == null) {
             throw new UsernameNotFoundException("User with username [" + username + "] not found in the system");
         }

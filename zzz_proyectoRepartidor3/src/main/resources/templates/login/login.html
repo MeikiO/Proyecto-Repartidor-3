@@ -1,21 +1,20 @@
 
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<th:block th:insert="~{fragments/components :: html}"></th:block>
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<th:block th:insert="~{fragments/components :: head}"></th:block>
 	<title>LOGIN</title>
-	<link rel="stylesheet" type="text/css" href="#" th:href="@{css/normalize.css}">
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css"/>
+
 </head>
 <body>
 	<h1 class="text-center">Esto es la pagina del LOGIN</h1>
-		<div class="form-group">
-			<h1 class="titlee">Login</h1>
-		</div>
+	
+	<div class="form-group">
+		<h1 class="titlee">Login</h1>
+	</div>
 		
-	   <form action="#" th:action="@{/login}" th:object="${datos_introducidos}" method="post">
+	 <form action="#" th:action="@{/login}" th:object="${datos_introducidos}" method="post">
 	       <div class="form-group">
 	        <label for="username">Username</label>
 	        <input type="text" class="form-control" id="username" name="username" autocomplete="new-password" required
@@ -26,11 +25,14 @@
 	        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required
 	               autocomplete="new-password">
 	    </div>
-	
-	    <input type="submit" class="btn btn-primary btn-block btn-lg" value="Log In"/>
+			<input type="submit" class="btn btn-primary btn-block btn-lg" value="Log In"/>
+		</div>
 	</form>
 
-
+ 	<form action="#" th:action="@{/register}">
+		<input type="submit" class="btn btn-primary btn-block btn-lg" value="Register"/>
+	</form>
+	
 	<footer>
 		<div class="pruebas">
 			<br>

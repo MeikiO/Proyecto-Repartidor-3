@@ -1,0 +1,31 @@
+<!doctype html>
+<th:block th:insert="~{fragments/components :: html}"></th:block>
+<head>
+
+	<!-- Uso de fragmentos para no tener que poner la cabecera todas la veces
+		el codigo esta en templates/fragments/components.html
+	 -->
+   	<th:block th:insert="~{fragments/components :: head}"></th:block>
+	<title>Register a new user</title>
+
+</head>
+	
+<body class="container mt-5">
+<h1 class="text-center">Register</h1>
+	<form method="post" action="/register/procesar" autocomplete="off">
+	       <div class="form-group">
+	        <label for="username">Username</label>
+	        <input type="text" class="form-control" id="username" name="username" autocomplete="new-password" required
+	               placeholder="Enter username">
+	    </div>
+	    <div class="form-group">
+	        <label for="password">Password</label>
+	        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required
+	               autocomplete="new-password">
+	    </div>
+	
+	    <input type="submit" class="btn btn-primary btn-block btn-lg" value="Register"/>
+	</form>
+
+</body>
+</html>
