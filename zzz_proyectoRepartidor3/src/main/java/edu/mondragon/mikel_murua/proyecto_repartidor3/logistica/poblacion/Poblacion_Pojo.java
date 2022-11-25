@@ -25,6 +25,7 @@ public class Poblacion_Pojo {
 	
 	private String codigoPostal;
 	private String region;
+	@Column(name = "nombreLocalizacion")
 	private String nombreLocalizacion;
 	
 	
@@ -48,9 +49,6 @@ public class Poblacion_Pojo {
 	public void setId_poblacion(Long id_poblacion) {
 		this.id = id_poblacion;
 	}
-
-
-
 
 	public String getCodigoPostal() {
 		return codigoPostal;

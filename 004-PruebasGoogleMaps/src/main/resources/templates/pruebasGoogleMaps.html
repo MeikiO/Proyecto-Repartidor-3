@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es-ES"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<title>Pruebas Google Maps</title>
+<link rel="stylesheet" type="text/css" th:href="@{pruebasGoogleMaps.css}"></link>
+</head>
+
+<body>
+<h1>Pruebas para aprender a trabajar con la plataforma Google Maps</h1>
+
+<p>Ruta mostrada: <strong th:utext="${nombreDeLaRuta}" /></p>
+<p><i th:utext="${descripcionDeLaRuta}" /></p>
+
+<div id="contenedor-del-mapa"></div>
+<br><br>
+<div id="informacion-adiccional">
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCdEePgg8aVDdW1R8z1zBUHQAbFKAz5Afk"></script>
+<script src="pruebasGoogleMaps.js"></script>
+<script th:inline="javascript">
+    const puntoInicial = {lat: [[${latitud}]], lng: [[${longitud}]]};
+    const mapa = new Mapa(puntoInicial);
+    [# th:each="punto : ${puntosDeLaRuta}"]
+        var coordenadasDelPunto = {lat: [[${punto.latitud}]], lng: [[${punto.longitud}]]};
+        mapa.ponerMarcador(coordenadasDelPunto, [[${punto.nombre}]]);
+        mapa.añadirUnPuntoALaRuta(coordenadasDelPunto, [[${punto.nombre}]], [[${punto.descripcion}]]);
+    [/]
+    mapa.pintarLaPolineaDeLaRutaEnBruto();
+    //mapa.pintarLaRutaASeguir();
+</script>
+
+</body>
+
+</html>

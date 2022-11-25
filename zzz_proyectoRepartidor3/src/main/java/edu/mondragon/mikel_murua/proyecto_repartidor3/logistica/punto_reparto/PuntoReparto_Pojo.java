@@ -14,6 +14,7 @@ import javax.persistence.Transient;
 
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.Pedido_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.poblacion.Poblacion_Pojo;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.UserAccount_Pojo;
 
 
 
@@ -33,8 +34,13 @@ public class PuntoReparto_Pojo {
 	private String tlf2_cliente;
 	private String tlf3_cliente;
 	
+	
+	
 	@Column(nullable = false, unique = true)
     private String direccion;
+	
+	@Column(nullable = false, unique = true)
+    private String dni;
 	
 	private String color_puntero;
 	
@@ -61,6 +67,10 @@ public class PuntoReparto_Pojo {
     //private Long id_cliente;
     
    
+    @OneToOne
+    @JoinColumn(name = "credenciales_id") 
+    private UserAccount_Pojo user;
+    
     
 //////////////////////////////////////////////////    
     
@@ -69,8 +79,8 @@ public class PuntoReparto_Pojo {
 	}
 
 	public PuntoReparto_Pojo(Long id, String nombre_cliente, String apellidos_cliente, String tlf1_cliente,
-			String tlf2_cliente, String tlf3_cliente, String direccion, String color_puntero, double coordenadasLatitud,
-			double coordenadasLongitud, Poblacion_Pojo poblacion) {
+		String tlf2_cliente, String tlf3_cliente, String direccion, String dni, String color_puntero,
+		double coordenadasLatitud, double coordenadasLongitud, Poblacion_Pojo poblacion, UserAccount_Pojo user) {
 		super();
 		this.id = id;
 		this.nombre_cliente = nombre_cliente;
@@ -79,10 +89,12 @@ public class PuntoReparto_Pojo {
 		this.tlf2_cliente = tlf2_cliente;
 		this.tlf3_cliente = tlf3_cliente;
 		this.direccion = direccion;
+		this.dni = dni;
 		this.color_puntero = color_puntero;
 		this.coordenadasLatitud = coordenadasLatitud;
 		this.coordenadasLongitud = coordenadasLongitud;
 		this.poblacion = poblacion;
+		this.user = user;
 	}
 
 	public Long getId() {
@@ -141,6 +153,14 @@ public class PuntoReparto_Pojo {
 		this.direccion = direccion;
 	}
 
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
 	public String getColor_puntero() {
 		return color_puntero;
 	}
@@ -172,6 +192,13 @@ public class PuntoReparto_Pojo {
 	public void setPoblacion(Poblacion_Pojo poblacion) {
 		this.poblacion = poblacion;
 	}
-    
+
+	public UserAccount_Pojo getUser() {
+		return user;
+	}
+
+	public void setUser(UserAccount_Pojo user) {
+		this.user = user;
+	}
 
 }

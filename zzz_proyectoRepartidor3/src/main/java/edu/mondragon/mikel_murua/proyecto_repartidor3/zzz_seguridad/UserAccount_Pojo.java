@@ -29,7 +29,8 @@ import lombok.NoArgsConstructor;
 public class UserAccount_Pojo {
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long idInterno;
+    @Column(name = "credenciales_id")
+	private Long idInterno;
     
     private boolean estaActivo;
     

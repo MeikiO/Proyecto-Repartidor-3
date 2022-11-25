@@ -48,8 +48,6 @@ public class UserAccount_Service implements  DaoServices<UserAccount_Pojo>{
         }
 	}
 
-
-
 	
 	@Override
 	public void registrarEnDatabase(UserAccount_Pojo objeto) {

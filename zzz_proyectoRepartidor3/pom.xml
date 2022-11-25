@@ -17,7 +17,13 @@
 		<java.version>15</java.version>
 	</properties>
 	<dependencies>
-<dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
@@ -43,9 +49,7 @@
 		   <groupId>org.springframework.boot</groupId>
 		   <artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
-		
-		
-		
+	
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
@@ -75,8 +79,6 @@
 			<version>1.0.2</version>
 		</dependency>
 		
-
-
 		<!-- 
 			Siguiente problema que se causo
 			https://stackoverflow.com/questions/53714699/failed-to-introspect-class-org-springframework-security-config-annotation-web-c
@@ -86,6 +88,12 @@
 		    <artifactId>spring-security-web</artifactId>
 		</dependency>
 		
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.8.9</version>
+		</dependency>
 		
 	</dependencies>
 

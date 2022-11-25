@@ -35,3 +35,8 @@ function createNewMarkers(array_with_coordinates, map){
 
 }
 
+
+
+
+
+

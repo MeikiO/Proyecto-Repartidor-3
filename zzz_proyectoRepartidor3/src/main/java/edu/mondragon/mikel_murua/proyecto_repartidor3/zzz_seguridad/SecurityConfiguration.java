@@ -58,6 +58,8 @@ public class SecurityConfiguration{
            .antMatchers("/indexPrueba").permitAll()
            .antMatchers("/register").permitAll()
            .antMatchers("/register/procesar").permitAll()
+           .antMatchers("/register2").permitAll()
+           .antMatchers("/register2/procesar").permitAll()
       
      
       		.antMatchers("/admin/**").hasRole("ADMIN")
