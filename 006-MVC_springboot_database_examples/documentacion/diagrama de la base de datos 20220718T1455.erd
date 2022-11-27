@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram version="1" name="diagrama de la base de datos 20220718T1455.erd">
+	<entities>
+		<data-source id="mariaDB-1821163b6f3-16c695f302bbae32">
+			<entity id="1" name="credenciales" fq-name="mvc_springboot.credenciales" order="0" x="247" y="331">
+				<path name="mvc_springboot"/>
+			</entity>
+			<entity id="2" name="personas" fq-name="mvc_springboot.personas" order="1" x="449" y="258">
+				<path name="mvc_springboot"/>
+			</entity>
+			<entity id="3" name="poblaciones" fq-name="mvc_springboot.poblaciones" order="2" x="730" y="372">
+				<path name="mvc_springboot"/>
+			</entity>
+		</data-source>
+	</entities>
+	<relations>
+		<relation name="FKm6adrwb3c8vbb5hxtukad1j7u" fq-name="mvc_springboot.personas.FKm6adrwb3c8vbb5hxtukad1j7u" type="fk" pk-ref="3" fk-ref="2"/>
+	</relations>
+</diagram>

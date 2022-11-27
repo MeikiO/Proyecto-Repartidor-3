@@ -2,6 +2,8 @@ drop database if exists springpruebas;
 create database springpruebas;
 use springpruebas;
 
+#SET FOREIGN_KEY_CHECKS=1; #quitamos el chequeo de los foreign key para poder crear pedidos
+
 select * from credencial;
 
 select * from punto_reparto;
@@ -520,12 +522,7 @@ values("Zierbena","Vizcaya","48508");
 
 
 
-SELECT `poblacion`.`poblacion_id`,
-    `poblacion`.`codigo_postal`,
-    `poblacion`.`nombre_localizacion`,
-    `poblacion`.`region`
-FROM `springpruebas`.`poblacion`;
-
-select * from poblacion where codigo_postal="20500";
-
 select * from punto_reparto;
+
+select * from pedidos;
+

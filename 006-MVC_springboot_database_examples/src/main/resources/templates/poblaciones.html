@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>-poblaciones-Pruebas_SpringBoot</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/susosise.css}">
+</head>
+
+<body>
+
+<header>
+    <h1>Pruebas con Spring Boot</h1>
+</header>
+
+<nav class="izquierda">
+    <a href="/personas">PERSONAS</a>
+    <a href="/poblaciones">POBLACIONES</a>
+    <a href="/credenciales">CREDENCIALES</a>
+</nav>
+<nav class="derecha">
+    [<span th:text="${nombreDelUsuario}"></span>] ---
+    <a href="javascript: document.formularioLogout.submit()">Logout</a>
+    <form name="formularioLogout" th:action="@{/logout}" method="post" th:hidden="true">
+       <input hidden="true" type="submit" value="Sign Out" />
+    </form>
+</nav>
+
+<main>
+    <h1>Poblaciones</h1>
+    <p>En la base de datos tenemos [<span th:text="${cantidadDePoblaciones}"></span>] poblaciones registradas.</p>
+    <table border="1">
+       <thead>
+       <tr>
+            <th>ID</th>
+	        <th>Codigo Postal</th>
+	        <th>Nombre</th>
+	        <th>Habitantes</th>
+       </tr>
+       </thead>
+       <tbody>
+       <tr th:if="${poblaciones.empty}">
+           <td colspan="3">No hay ninguna población registrada</td>
+       </tr>
+       <tr th:each="poblacion : ${poblaciones}">
+           <td th:text="${poblacion.idInterno}">id</td>
+           <td th:text="${poblacion.codigoPostal}">codigoPostal</td>
+           <td th:text="${poblacion.nombre}">nombre</td>
+           <td th:text="${poblacion.cantidadDeHabitantes}">habitantes</td>
+           <td style="border: none"><a th:href="@{'/poblaciones/' + ${poblacion.idInterno}}">seleccionar esta</a></td>
+       </tr>
+       </tbody>
+    </table>
+    <form name="formularioPoblacion" action="#" th:action="@{/poblaciones}" th:object="${poblacion}" method="post">
+        <button type="submit" name="action" value="limpiarDatos" class="botonPrincipal">limpiar datos , para registar una nueva</button>
+
+        <div class="campoDeFormulario">
+            <input hidden="true" type="text" th:field="*{idInterno}"/>
+        </div>
+
+        <div class="campoDeFormulario">
+            <label>Nombre:</label>
+            <input type="text" th:field="*{nombre}" />
+        </div>
+
+        <div class="campoDeFormulario">
+            <label>Código postal:</label>
+            <input type="text" th:field="*{codigoPostal}" />
+        </div>
+
+        <div class="campoDeFormulario">
+            <label>Cantidad de habitantes:</label>
+            <input type="text" th:field="*{cantidadDeHabitantes}" />
+        </div>
+
+        <p th:if="${error != null}"  th:text="${error}" class="error" />
+        <button type="submit" name="action" value="guardar" class="botonPrincipal">GUARDAR</button>
+        <button type="submit" name="action" value="eliminar" class="botonAuxiliar">ELIMINAR este registro</button>
+     </form>
+</main>
+
+<footer>
+    <a th:href="@{https://www.susosise.es}">www.susosise.es</a>
+</footer>
+
+</body>
+
+</html>

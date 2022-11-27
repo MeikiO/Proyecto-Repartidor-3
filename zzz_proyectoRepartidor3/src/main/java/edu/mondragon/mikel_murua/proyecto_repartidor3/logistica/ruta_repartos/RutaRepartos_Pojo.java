@@ -1,5 +1,6 @@
 package edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.ruta_repartos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -23,20 +24,22 @@ public class RutaRepartos_Pojo {
 	private Long id;
 	
 /////////////////////////////////
-	
+	/*
 	@OneToMany
     @JoinColumn(name="pedido_id")
-    private List<Pedido_Pojo> listaProductos;
-	
+    private List<Pedido_Pojo> listaPedidos;
+	*/
 ////////////////////////////////	
 	
     public RutaRepartos_Pojo() {
+    	
+    	//this.listaPedidos=new ArrayList<>();
 	}
     
-	public RutaRepartos_Pojo(Long id, List<Pedido_Pojo> listaProductos) {
+	public RutaRepartos_Pojo(Long id, List<Pedido_Pojo> listaPedidos) {
 		super();
 		this.id = id;
-		this.listaProductos = listaProductos;
+		//this.listaPedidos = listaPedidos;
 	}
 
 	public Long getId() {
@@ -47,12 +50,7 @@ public class RutaRepartos_Pojo {
 		this.id = id;
 	}
 
-	public List<Pedido_Pojo> getListaProductos() {
-		return listaProductos;
-	}
 
-	public void setListaProductos(List<Pedido_Pojo> listaProductos) {
-		this.listaProductos = listaProductos;
-	}
-    	
+
+
 }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>login - Pruebas_SpringBoot</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/susosise.css}">
+</head>
+
+<body>
+    <h1>Esta es la pagina para identificar al usuario.</h1>
+    
+    <form action="#" th:action="@{/login}" th:object="${usuario}" method="post">
+        <div class="campoDeFormulario">
+	        <label>Usuario:</label>
+	        <input id="username" type="text" name="username" required autocomplete="off" />
+        </div>
+        <div class="campoDeFormulario">
+	        <label>Contraseña:</label>
+	        <input id="password" type="password" name="password" required autocomplete="off" />
+        </div>
+        <p th:if="${error != null}" class="error">Credenciales no válidas, vuelva a intentarlo...</p>
+        <button type="submit" class="botonDeFormulario">ENTRAR</button>
+    </form>
+    
+    
+</body>
+
+</html>

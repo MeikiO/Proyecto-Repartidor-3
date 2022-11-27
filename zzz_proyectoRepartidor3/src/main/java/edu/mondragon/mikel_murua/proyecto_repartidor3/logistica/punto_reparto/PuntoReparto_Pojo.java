@@ -1,5 +1,7 @@
 package edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.punto_reparto;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -71,6 +74,12 @@ public class PuntoReparto_Pojo {
     @JoinColumn(name = "credenciales_id") 
     private UserAccount_Pojo user;
     
+	@OneToMany
+	@JoinColumn(name="pedido_id")
+	@org.hibernate.annotations.ForeignKey(name = "none")
+	//desabilitamos la comprobacion del foreign key de pedidos por que sino nos dara error
+	// link-> https://stackoverflow.com/questions/41729709/how-do-i-disable-hibernate-foreign-key-constraint-on-a-bidirectional-association
+	private List<Pedido_Pojo> lista_pedidos;
     
 //////////////////////////////////////////////////    
     
@@ -78,9 +87,11 @@ public class PuntoReparto_Pojo {
     public PuntoReparto_Pojo() {
 	}
 
+
 	public PuntoReparto_Pojo(Long id, String nombre_cliente, String apellidos_cliente, String tlf1_cliente,
-		String tlf2_cliente, String tlf3_cliente, String direccion, String dni, String color_puntero,
-		double coordenadasLatitud, double coordenadasLongitud, Poblacion_Pojo poblacion, UserAccount_Pojo user) {
+			String tlf2_cliente, String tlf3_cliente, String direccion, String dni, String color_puntero,
+			double coordenadasLatitud, double coordenadasLongitud, Poblacion_Pojo poblacion, UserAccount_Pojo user,
+			List<Pedido_Pojo> lista_pedidos) {
 		super();
 		this.id = id;
 		this.nombre_cliente = nombre_cliente;
@@ -95,7 +106,10 @@ public class PuntoReparto_Pojo {
 		this.coordenadasLongitud = coordenadasLongitud;
 		this.poblacion = poblacion;
 		this.user = user;
+		this.lista_pedidos = lista_pedidos;
 	}
+
+
 
 	public Long getId() {
 		return id;
@@ -199,6 +213,16 @@ public class PuntoReparto_Pojo {
 
 	public void setUser(UserAccount_Pojo user) {
 		this.user = user;
+	}
+
+
+	public List<Pedido_Pojo> getLista_pedidos() {
+		return lista_pedidos;
+	}
+
+
+	public void setLista_pedidos(List<Pedido_Pojo> lista_pedidos) {
+		this.lista_pedidos = lista_pedidos;
 	}
 
 }

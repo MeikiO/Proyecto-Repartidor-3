@@ -1,5 +1,7 @@
 package edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.repartidores;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.springframework.data.annotation.Transient;
 
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.Pedido_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.poblacion.Poblacion_Pojo;
@@ -42,20 +46,33 @@ public class Repartidor_Pojo {
     @JoinColumn(name = "poblacion_id") 
     private Poblacion_Pojo poblacion;
     
-    @OneToOne
+   /* @OneToOne
     @JoinColumn(name = "ruta_id") 
     private RutaRepartos_Pojo ruta;
-    
+   */ 
      
 ////////////////////////////////////////
 
-	
+	/*esta lista es para el reparto en el momento, 
+	  no se guarda en database, ni tiene relacion con
+	  ningun elemento en la database.
+	  
+	  La usamos unicamente para hacer los repartos
+	  
+	  Informacion de @transient
+	  ->https://stackoverflow.com/questions/64304416/make-certain-fields-in-entity-not-be-saved-to-the-database
+	  ->https://javabydeveloper.com/using-transient-in-spring-boot-examples/
+    */
+    @javax.persistence.Transient
+    private List<Pedido_Pojo> listaPedidos;
+    
 	public Repartidor_Pojo() {
+		this.listaPedidos=new ArrayList<>();
 	}
 
 	
 	public Repartidor_Pojo(Long id, String nombre, String apellidos, String dni, String tlf, String tlf2, String tlf3,
-			String direccion, Poblacion_Pojo poblacion, RutaRepartos_Pojo ruta) {
+			String direccion, Poblacion_Pojo poblacion/*, RutaRepartos_Pojo ruta*/) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -66,7 +83,9 @@ public class Repartidor_Pojo {
 		this.tlf3 = tlf3;
 		this.direccion = direccion;
 		this.poblacion = poblacion;
-		this.ruta = ruta;
+		//this.ruta = ruta;
+		
+		this.listaPedidos=new ArrayList<>();
 	}
 	
 	
@@ -159,7 +178,7 @@ public class Repartidor_Pojo {
 		this.poblacion = poblacion;
 	}
 	
-	
+	/*
 	public RutaRepartos_Pojo getRuta() {
 		return ruta;
 	}
@@ -167,6 +186,16 @@ public class Repartidor_Pojo {
 	
 	public void setRuta(RutaRepartos_Pojo ruta) {
 		this.ruta = ruta;
+	}
+*/
+
+	public List<Pedido_Pojo> getListaPedidos() {
+		return listaPedidos;
+	}
+
+
+	public void setListaPedidos(List<Pedido_Pojo> listaPedidos) {
+		this.listaPedidos = listaPedidos;
 	}
 
 }

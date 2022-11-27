@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>-personas-Pruebas_SpringBoot</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/susosise.css}">
+</head>
+
+<body>
+
+<header>
+    <h1>Pruebas con Spring Boot</h1>
+</header>
+
+<nav class="izquierda">
+	<a href="/personas">PERSONAS</a>
+	<a href="/poblaciones">POBLACIONES</a>
+	<a href="/credenciales">CREDENCIALES</a>
+</nav>
+<nav class="derecha">
+	[<span th:text="${nombreDelUsuario}"></span>] ---
+    <a href="javascript: document.formularioLogout.submit()">Logout</a>
+    <form name="formularioLogout" th:action="@{/logout}" method="post" th:hidden="true">
+       <input hidden="true" type="submit" value="Sign Out" />
+    </form>
+</nav>
+
+<main>
+    <h1>Personas</h1>
+    <p>En la base de datos tenemos [<span th:text="${cantidadDePersonas}"></span>] potenciales clientes para nuestro estupendo club de excursiones.</p>
+    <table border="1">
+       <thead>
+       <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Documento indentificador</th>
+            <th>Poblacion</th>
+       </tr>
+       </thead>
+       <tbody>
+       <tr th:if="${personas.empty}">
+           <td colspan="3">No hay ninguna persona registrada</td>
+       </tr>
+       <tr th:each="persona : ${personas}">
+           <td th:text="${persona.idInterno}">id</td>
+           <td th:text="${persona.nombre}">nombre</td>
+           <td th:text="${persona.apellidos}">apellidos</td>
+           <td th:text="${persona.dni_cedula_pasaporte_o_similar}">documento</td>
+           <td th:text="${persona.poblacion.nombre}">poblacion</td>
+           <td style="border: none"><a th:href="@{'/personas/' + ${persona.idInterno}}">seleccionar esta</a></td>
+       </tr>
+       </tbody>
+    </table>
+    <br/>
+    <form name="formularioPersona" action="#" th:action="@{/personas}" th:object="${persona}" method="post">
+        <button type="submit" name="action" value="limpiarDatos" class="botonPrincipal">limpiar datos , para registar una nueva</button>
+        <div class="campoDeFormulario">
+            <input hidden="true" type="text" th:field="*{idInterno}"/>
+        </div>
+        <div class="campoDeFormulario">
+            <label>Nombre:</label>
+            <input type="text" th:field="*{nombre}" />
+        </div>
+        <div class="campoDeFormulario">
+            <label>Apellidos:</label>
+            <input type="text" th:field="*{apellidos}" />
+        </div>
+        <div class="campoDeFormulario">
+            <label>Documento de identificacion personal (DNI, cédula, pasaporte,... o similar):</label>
+            <input type="text" th:field="*{dni_cedula_pasaporte_o_similar}" />
+        </div>
+
+        <div class="campoDeFormulario">
+            <label>Población donde reside:</label>
+	        <select th:field="*{poblacion}">
+	            <option value="0">despliega y elige una</option>
+	            <option th:each="poblacion : ${poblaciones}" th:value="${poblacion.idInterno}" th:text="${poblacion.nombre} + ' -' + ${poblacion.codigoPostal} + '-'" /> 
+	        </select>
+        </div>
+
+        <button type="submit" name="action" value="guardar" class="botonPrincipal">GUARDAR</button>
+        <button type="submit" name="action" value="eliminar" class="botonAuxiliar">ELIMINAR este registro</button>
+    </form>
+</main>
+
+<footer>
+    <a th:href="@{https://www.susosise.es}">www.susosise.es</a>
+</footer>
+    
+</body>
+
+</html>

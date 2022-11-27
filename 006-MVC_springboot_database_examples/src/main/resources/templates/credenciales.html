@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>-credenciales-Pruebas_SpringBoot</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/susosise.css}">
+</head>
+
+<body>
+
+<header>
+    <h1>Pruebas con Spring Boot</h1>
+</header>
+
+<nav class="izquierda">
+    <a href="/personas">PERSONAS</a>
+    <a href="/poblaciones">POBLACIONES</a>
+    <a href="/credenciales">CREDENCIALES</a>
+</nav>
+<nav class="derecha restringido">
+    [<span th:text="${nombreDelUsuario}"></span>] ---
+    <a href="javascript: document.formularioLogout.submit()">Logout</a>
+    <form name="formularioLogout" th:action="@{/logout}" method="post" th:hidden="true">
+       <input hidden="true" type="submit" value="Sign Out" />
+    </form>
+</nav>
+
+<main>
+    <h2>Gestión de usuarios autorizados a usar esta aplicación</h2>
+    <p>Para poder usar la aplicación, el o la usuario tendrá que identificarse.</p>
+    <p>En la base de datos tenemos [<span th:text="${cantidadDeCredenciales}"></span>] credenciales registradas.</p>
+    <br/>
+    <form name="formularioCredenciales" action="#" th:action="@{/credenciales}" th:object="${credencialDTO}" method="post">
+        <button type="submit" name="action" value="mostrarAnterior" class="botonAuxiliar">ver anterior</button>
+        <button type="submit" name="action" value="mostrarSiguiente" class="botonAuxiliar">ver siguiente</button>
+        <button type="submit" name="action" value="limpiarDatos" class="botonPrincipal">limpiar datos , para registar una nueva</button>
+        <div class="campoDeFormulario">
+            <input hidden="true" type="text" th:field="*{idInterno}"/>
+        </div>
+        <div class="campoDeFormulario">
+            <label>Nombre de usuario:</label>
+            <input type="text" th:field="*{nombreDeUsuario}" />
+        </div>
+        <div class="campoDeFormulario">
+            <label>Contraseña:</label>
+            <input type="password" th:field="*{contraseña}" />
+        </div>
+        <div class="campoDeFormulario">
+            <label>Esta credencial está activa:</label>
+            <input type="checkbox" th:field="*{estaActiva}" style="width:auto"/>
+        </div>
+        <div class="campoDeFormulario">
+            <p>Roles asignados:</p>
+            <p><input type="checkbox" th:field="*{tieneRolCurrela}" style="width:auto"/>
+            <label>CURRELA</label></p>
+            <p><input type="checkbox" th:field="*{tieneRolAdministrador}" style="width:auto"/>
+            <label>ADMINISTRADOR</label></p>
+            <p><input type="checkbox" th:field="*{tieneRolVisitante}" style="width:auto"/>
+            <label>VISITANTE</label></p>
+        </div>
+        <button type="submit" name="action" value="guardar" class="botonPrincipal">GUARDAR</button>
+        <button type="submit" name="action" value="eliminar" class="botonAuxiliar">ELIMINAR este registro</button>
+    </form>
+</main>
+   
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+nav {
+	width: 100%;
+	display: block;
+	background-color: aliceblue;
+}
+
+nav.izquierda {
+    text-align: left;
+}
+nav.izquierda a {
+    padding: 20px;
+}
+
+nav.derecha {
+    text-align: right;
+}
+
+nav.restringido {
+	color: springgreen;
+    background-color: red;
+}
+
+footer {
+    width: 100%;
+    display: block;
+    background-color: aliceblue;
+	text-align: right;
+}
+
+.error {
+	color: orange;
+}
+
+.campoDeFormulario {
+	margin: 15px;
+}
+
+input {
+	width: 250px;
+	padding: 10px;
+	border-radius: 10px;
+}
+
+.botonPrincipal {
+    min-width: 100px;
+    min-height: 50px;
+	margin: 30px;
+}
+
+.botonAuxiliar {
+    min-width: 50px;
+    min-height: 25px;
+    margin: 10px;
+}
