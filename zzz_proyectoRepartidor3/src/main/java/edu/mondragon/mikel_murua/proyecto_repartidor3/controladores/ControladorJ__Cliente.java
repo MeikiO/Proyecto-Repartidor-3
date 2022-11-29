@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.Estado_Pedido;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.Pedido_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.Pedidos_Repository;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.poblacion.Poblacion_Repository;
@@ -65,13 +66,24 @@ public class ControladorJ__Cliente {
 	    	for(int i=1;i<=3;i++) {
 	    		Pedido_Pojo pedido=new Pedido_Pojo();
 	        	pedido.setObservaciones("Es el "+i);
+	        	pedido.setEstado_pedido(Estado_Pedido.ESTADO_EN_ESPERA_DE_MANDAR.toString());
 	        	pedido.setPuntoReparto(punto.get());
-	        	this.pedidos_repository.save(pedido); //da error del foreign key al guardar
+	        	//this.pedidos_repository.save(pedido); //da error del foreign key al guardar
 	    	}
 	    	
 	    	
 	    	
-	        return "/v_cliente/entrada_clientes";
+	    	
+	        return "/zzz-pruebas_layouts/pagina_prueba1";
 	    }
+	    
+	    
+	    @GetMapping({"/cliente/ensenarLayoutDemo"})
+	    public String enseñarLayoutDemo(Model model, String error, String logout) {
+	    	
+	    	
+	        return "/zzz-pruebas_layouts/pagina_prueba1";
+	    }
+	    
    
 }

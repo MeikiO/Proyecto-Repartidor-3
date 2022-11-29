@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+
+<!-- Este es la pagina donde definimos el layout que se va a usar 
+
+-> en la primera parte tomamos la libreria de layouts
+
+layout:decorate="layout que vamos a usar en esta pagina">
+-->
+
+
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/zzz-pruebas_layouts/definicion_layout">
+
+<head>
+	<title>Prueba1</title>
+	<meta charset="UTF-8"/>
+</head>
+
+<body>
+
+	<!-- Respecto a su uso si que tenemos que poner 
+ 		-> layout:fragment="X"> 
+ 		para poder usar la parte que nos interesa del layout.
+	 -->
+
+	<header>
+		<h1 layout:fragment="header">por si falla el content</h1>
+	</header>
+
+	<footer >
+		<p layout:fragment="custom-footer">Texto Por si falla el Content.html--footer</p>
+	</footer>
+	
+</body>
+
+</html>

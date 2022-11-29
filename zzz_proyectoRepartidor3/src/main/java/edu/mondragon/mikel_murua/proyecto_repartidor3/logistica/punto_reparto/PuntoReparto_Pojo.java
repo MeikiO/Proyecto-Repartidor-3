@@ -1,6 +1,8 @@
 package edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.punto_reparto;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -79,7 +81,7 @@ public class PuntoReparto_Pojo {
 	@org.hibernate.annotations.ForeignKey(name = "none")
 	//desabilitamos la comprobacion del foreign key de pedidos por que sino nos dara error
 	// link-> https://stackoverflow.com/questions/41729709/how-do-i-disable-hibernate-foreign-key-constraint-on-a-bidirectional-association
-	private List<Pedido_Pojo> lista_pedidos;
+	private Set<Pedido_Pojo> lista_pedidos;
     
 //////////////////////////////////////////////////    
     
@@ -87,11 +89,10 @@ public class PuntoReparto_Pojo {
     public PuntoReparto_Pojo() {
 	}
 
-
 	public PuntoReparto_Pojo(Long id, String nombre_cliente, String apellidos_cliente, String tlf1_cliente,
 			String tlf2_cliente, String tlf3_cliente, String direccion, String dni, String color_puntero,
 			double coordenadasLatitud, double coordenadasLongitud, Poblacion_Pojo poblacion, UserAccount_Pojo user,
-			List<Pedido_Pojo> lista_pedidos) {
+			Set<Pedido_Pojo> lista_pedidos) {
 		super();
 		this.id = id;
 		this.nombre_cliente = nombre_cliente;
@@ -108,8 +109,6 @@ public class PuntoReparto_Pojo {
 		this.user = user;
 		this.lista_pedidos = lista_pedidos;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -215,14 +214,14 @@ public class PuntoReparto_Pojo {
 		this.user = user;
 	}
 
-
-	public List<Pedido_Pojo> getLista_pedidos() {
+	public Set<Pedido_Pojo> getLista_pedidos() {
 		return lista_pedidos;
 	}
 
-
-	public void setLista_pedidos(List<Pedido_Pojo> lista_pedidos) {
+	public void setLista_pedidos(Set<Pedido_Pojo> lista_pedidos) {
 		this.lista_pedidos = lista_pedidos;
 	}
 
+
+	
 }

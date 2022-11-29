@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="org.springframework.security.core.userdetails.UserDetailsService"/>
-    <fullyQualifiedTypeName name="org.springframework.security.core.userdetails.UsernameNotFoundException"/>
-    <fullyQualifiedTypeName name="lombok.RequiredArgsConstructor"/>
     <fullyQualifiedTypeName name="org.springframework.security.core.userdetails.UserDetails"/>
     <fullyQualifiedTypeName name="java.util.Collections"/>
     <fullyQualifiedTypeName name="org.springframework.security.core.GrantedAuthority"/>
@@ -25,7 +22,6 @@
     <fullyQualifiedTypeName name="org.springframework.security.crypto.password.PasswordEncoder"/>
     <fullyQualifiedTypeName name="org.springframework.security.core.authority.SimpleGrantedAuthority"/>
     <fullyQualifiedTypeName name="javax.persistence.Transient"/>
-    <fullyQualifiedTypeName name="java.util.Set"/>
     <fullyQualifiedTypeName name="java.awt.Color"/>
     <fullyQualifiedTypeName name="lombok.Getter"/>
     <fullyQualifiedTypeName name="lombok.Setter"/>
@@ -35,7 +31,6 @@
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.Pedidos_Pojo"/>
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.repartidor.Repartidor_Repository"/>
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.repartidor.Repartidor_Pojo"/>
-    <fullyQualifiedTypeName name="java.util.HashSet"/>
     <fullyQualifiedTypeName name="java.util.Collection"/>
     <fullyQualifiedTypeName name="javax.persistence.FetchType"/>
     <fullyQualifiedTypeName name="org.hibernate.annotations.OnDeleteAction"/>
@@ -58,6 +53,11 @@
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_recursos_coordenadas.Coordenadas"/>
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.ruta_repartos.RutaRepartos_Pojo"/>
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.ruta_repartos.RutaRepartos_Repository"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="org.springframework.data.annotation.Transient"/>
+    <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.Estado_Pedido"/>
+    <fullyQualifiedTypeName name="org.thymeleaf.spring5.SpringTemplateEngine"/>
+    <fullyQualifiedTypeName name="nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect"/>
+    <fullyQualifiedTypeName name="java.util.HashSet"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.util.Set"/>
 </qualifiedTypeNameHistroy>
