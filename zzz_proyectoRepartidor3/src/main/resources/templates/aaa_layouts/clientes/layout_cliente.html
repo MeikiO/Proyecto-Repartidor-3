@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<!-- Este titulo se mezcla con el puesto en el otro -->
+   <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Cliente</title>
+   
+   <meta charset="UTF-8" />
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   
+   <!-- Esta linea es para que el contenido se escale correctamente en cada dispositivo -->
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+ 
+ 	<!-- 
+ 		PEQUEÑO INCISO DE COMO SE HA HECHO, UNIR BIEN LOS LINKS DE ESTA PAGINA
+ 		-> https://www.baeldung.com/spring-thymeleaf-css-js
+ 	 -->
+ 
+	<link rel="stylesheet" type="text/css" href="#" th:href="@{css/zzz_commons/normalize.css}">
+
+    <link rel="stylesheet" type="text/css" href="#" th:href="@{/css/clientes/styles.css}">
+	
+	<!-- my js to activate movement of the sidebar-->
+   	<script type="text/javascript" th:src="@{/js/clientes/script.js}"></script>
+
+
+
+    <!-- Bootstrap CSS CDN -->
+     <link rel="stylesheet" type="text/css" href="#" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css}" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+	
+    <!-- Font Awesome JS - Para poner el iconito en -->
+    <script type="text/javascript" th:src="@{https://use.fontawesome.com/releases/v5.0.13/js/solid.js}"></script>
+    <script type="text/javascript" th:src="@{https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js}"></script>
+
+	<!-- jQuery CDN - Slim version (=without AJAX) (hace que funcione el menu desplegable del sidebar)-->
+  	<script type="text/javascript" th:src="@{https://code.jquery.com/jquery-3.3.1.slim.min.js}"></script>
+   	<!-- Bootstrap JS -->
+  	<script type="text/javascript" th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js}"></script>
+	<!-- Popper.JS, es para hacer los dropdown, las partes moviles del los menus y la barra de la derecha -->
+  	<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js}"></script>
+   	
+</head>
+<body>
+	
+        <!-- Sidebar -->
+        <nav id="sidebar" class="navigation_sidebar">
+            <div class="sidebar-header">
+                <h3>Repartidores 3</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+               <li>
+                    <a href="/cliente/entrada">Entrada</a>
+                </li>
+                <li>
+                    <a href="/cliente/pedido">Hacer pedido</a>
+                </li>
+                <li>
+                    <a href="/cliente/reclamaciones">Reclamaciones</a>
+                </li>
+       
+                <li class="red">
+                    <a href="/logout">Logout</a>
+                </li>
+            </ul>
+        </nav>
+
+
+        <header>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="d-flex flex-row">
+
+                        <div class="p-12">
+                            <img src="https://picsum.photos/80/80/" alt="imagen random">
+                        </div>
+
+                        <div class="p-4">
+                            <button type="button" id="sidebarCollapse" class="btn btn-info">
+                                <i class="fas fa-align-left"></i>
+                                <span>SIDEBAR</span>
+                            </button>
+                        </div>
+                        <div class="p-4">
+                            <a class="btn btn-info" href="/cliente/entrada">HOME</a>
+                        </div>
+                        <div class="p-4">
+                            <a class="btn btn-info" href="#">CONTACT</a>
+                        </div>
+                    </div>
+                </nav>
+        </header>
+
+        <section class="document_content">
+            <div>
+                <p>patata </p>
+            </div>
+        </section>
+	
+
+</body>
+</html>

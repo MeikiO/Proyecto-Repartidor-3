@@ -1,10 +1,30 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/aaa_layouts/clientes/layout_cliente">
+
 <head> 
-    <title>Getting Started: Serving Web Content</title> 
+    <title>Entrada</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
     <p th:text="'EL CLIENTE se queja desde esta ventana'" />
+    
+    <nav layout:fragment="nav">
+    	<p> Por si falla el nav </p>
+    </nav>
+    
+    <header layout:fragment="header">
+    	<p> Por si falla el header</p>
+    </header>
+       
+   <section>
+  		<p layout:fragment="section">pues aqui continuamos <p>
+   		<p> caliente </p>
+   </section>
+    
+    <div>
+    	Este es mi momento de gloria
+    <</div>
+    
 </body>
 </html>

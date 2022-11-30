@@ -74,7 +74,7 @@ public class ControladorJ__Cliente {
 	    	
 	    	
 	    	
-	        return "/zzz-pruebas_layouts/pagina_prueba1";
+	        return "/v_cliente/entrada_clientes.html";
 	    }
 	    
 	    

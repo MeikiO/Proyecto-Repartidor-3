@@ -1,0 +1,143 @@
+:root{
+
+    --number_of_columns:1;
+    --border_radious_value:0.5rem;
+    --padding_value:0.5rem;
+    --margin_value:0.5rem;
+
+
+    --sidebar_size:250px;
+
+    --sidebar_color: black;
+    --sidebar_light:darkgray;
+
+    --text_color_dark:black;
+    --text_color_light:white;
+
+    --header_background: white;
+    --body_background:lightgray;
+
+    --logout_color:firebrick;
+}
+
+*, *::before,*::after{
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+}
+
+img{
+
+    /*para ponerlos grandes y que no den problemas pon los siguientes comandos*/
+
+    max-width: 100%; /*hasi nunca ocupara mas que su tamaño*/
+
+    display: block; /* quita el espacio de abajo de la imagen.*/
+
+}
+
+h1,h2 { margin-top:0;}
+
+
+body{
+    display: grid;
+    grid-template: 
+    "navigation__part header" 
+    "navigation__part document__content";
+
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 0.1fr 1fr;
+}
+
+header{
+    grid-area: header;
+    display: flex;
+    flex-flow: row ;
+    flex-align: flex-start ;
+
+    width: 100vw;
+
+    background-color: var(--header_background);
+
+}
+
+.navigation_sidebar{
+    grid-area: navigation__part;
+}
+
+.document_content{
+    grid-area:document__content ;
+    background-color: var(--body_background);
+}
+
+.red{
+    background-color: var(--logout_color);
+}
+
+/*
+    ----SIDEBAR THINGS----------------------------
+*/
+
+
+#sidebar.active {
+    margin-left: calc(var(--sidebar_size) * -1);
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+#sidebar {
+    min-width: var(--sidebar_size);
+    max-width: var(--sidebar_size);
+    min-height: 100vh;
+
+    background: var(--sidebar_color);
+    color: var(--text_color_light);
+    transition: all 0.3s;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: var(--sidebar_color);
+
+    border-bottom: 1px solid var(--sidebar_light);
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+}
+
+#sidebar ul li a {
+    display: block;
+    padding: 10px 3rem ;
+    font-size: 1.1em;
+    color: var(--text_color_light);
+}
+#sidebar ul li a:hover {
+    background: var(--sidebar_light);
+}
+
+/* le da estilo a la lista interior */
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 3rem!important;
+    background:var(--sidebar_light)
+}
+
+
+/*si el medio query es mas pequeño que esto el sidebar no se abrira*/
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: calc(var(--sidebar_size) * -2);
+    }
+}
