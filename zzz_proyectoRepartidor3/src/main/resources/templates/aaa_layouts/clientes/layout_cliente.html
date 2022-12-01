@@ -13,91 +13,90 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
  
  
- 	<!-- 
- 		PEQUEÑO INCISO DE COMO SE HA HECHO, UNIR BIEN LOS LINKS DE ESTA PAGINA
- 		-> https://www.baeldung.com/spring-thymeleaf-css-js
- 	 -->
+ 	<link rel="stylesheet" type="text/css" href="#" th:href="@{/css/clientes/layout_styles.css}">
+
  
-	<link rel="stylesheet" type="text/css" href="#" th:href="@{css/zzz_commons/normalize.css}">
+ 	<!-- importamos bootstrap 5 Css y javascript-->
+ 	<link rel="stylesheet" type="text/css" href="#" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css}">
+    <script type="text/javascript" th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js}" crossorigin="anonymous"></script>
+ 
+    <!-- Archivo para que se vea igual en todos los browsers -->
+   	<link rel="stylesheet" type="text/css" href="#" th:href="@{/css/zzz_commons/normalize.css}">
 
-    <link rel="stylesheet" type="text/css" href="#" th:href="@{/css/clientes/styles.css}">
-	
-	<!-- my js to activate movement of the sidebar-->
-   	<script type="text/javascript" th:src="@{/js/clientes/script.js}"></script>
-
-
-
-    <!-- Bootstrap CSS CDN -->
-     <link rel="stylesheet" type="text/css" href="#" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css}" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-	
-    <!-- Font Awesome JS - Para poner el iconito en -->
-    <script type="text/javascript" th:src="@{https://use.fontawesome.com/releases/v5.0.13/js/solid.js}"></script>
-    <script type="text/javascript" th:src="@{https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js}"></script>
-
-	<!-- jQuery CDN - Slim version (=without AJAX) (hace que funcione el menu desplegable del sidebar)-->
-  	<script type="text/javascript" th:src="@{https://code.jquery.com/jquery-3.3.1.slim.min.js}"></script>
-   	<!-- Bootstrap JS -->
-  	<script type="text/javascript" th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js}"></script>
-	<!-- Popper.JS, es para hacer los dropdown, las partes moviles del los menus y la barra de la derecha -->
-  	<script type="text/javascript" th:src="@{https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js}"></script>
-   	
 </head>
 <body>
 	
+    <header class="navbar navbar-expand-md navbar-light bg-light border-3 border-bottom border-primary ">
+            <div class="container-fluid">
+                
+              <a href="/cliente/entrada" class="navbar-brand">REPARTIDORES 3</a>
+                <button type="button"
+                    class="navbar-toggler"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#MenuNavegacion">
+                        <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        
+            <div id="MenuNavegacion" class="collapse navbar-collapse">
+              <ul class="navbar-nav ms-1">
+                <li class="nav-item">
+                  <a class="nav-link active" href="/cliente/pedido">+Pedido</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cliente/reclamacion">Reclamaciones</a>
+                </li>
+                
+
+        <!-- 
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                      Opciones de soporte
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Manuales</a></li>
+                      <li><a class="dropdown-item" href="#">Base de conocimientos</a></li>
+                      <li><a class="dropdown-item" href="#">Contacta con nosotros</a></li>
+                    </ul>
+                </li>
+        -->        
+              </ul>
+        
+              <ul class="navbar-nav ms-3">
+                <li class="nav-item">
+                    <a class="nav-link text-nowrap" href="/logout">Cerrar Sesion</a>
+                </li>
+              </ul>
+            </div>
+          </header>
+
+
         <!-- Sidebar -->
         <nav id="sidebar" class="navigation_sidebar">
             <div class="sidebar-header">
-                <h3>Repartidores 3</h3>
+                <h3></h3>
             </div>
 
             <ul class="list-unstyled components">
-               <li>
-                    <a href="/cliente/entrada">Entrada</a>
+                <li>
+                    <a href="/cliente/entrada">Home</a>
                 </li>
                 <li>
-                    <a href="/cliente/pedido">Hacer pedido</a>
+                    <a href="/cliente/pedido">+Hacer Pedido</a>
                 </li>
                 <li>
-                    <a href="/cliente/reclamaciones">Reclamaciones</a>
+                    <a href="#">Reclamaciones</a>
                 </li>
-       
                 <li class="red">
                     <a href="/logout">Logout</a>
                 </li>
             </ul>
         </nav>
 
-
-        <header>
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="d-flex flex-row">
-
-                        <div class="p-12">
-                            <img src="https://picsum.photos/80/80/" alt="imagen random">
-                        </div>
-
-                        <div class="p-4">
-                            <button type="button" id="sidebarCollapse" class="btn btn-info">
-                                <i class="fas fa-align-left"></i>
-                                <span>SIDEBAR</span>
-                            </button>
-                        </div>
-                        <div class="p-4">
-                            <a class="btn btn-info" href="/cliente/entrada">HOME</a>
-                        </div>
-                        <div class="p-4">
-                            <a class="btn btn-info" href="#">CONTACT</a>
-                        </div>
-                    </div>
-                </nav>
-        </header>
-
-        <section class="document_content">
-            <div>
-                <p>patata </p>
-            </div>
-        </section>
-	
-
+          
+         <section layout:fragment="custom-content">
+           <p>Por si no funciona el layout custom footer</p>
+         </section>
+          
 </body>
 </html>

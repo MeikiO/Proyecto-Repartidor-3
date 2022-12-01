@@ -5,26 +5,63 @@
 <head> 
     <title>Entrada</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+	<link rel="stylesheet" type="text/css" href="#" th:href="@{/css/clientes/entrada_styles.css}">
+ 	
+ 	
 </head>
 <body>
     <p th:text="'EL CLIENTE se queja desde esta ventana'" />
     
-    <nav layout:fragment="nav">
-    	<p> Por si falla el nav </p>
-    </nav>
-    
     <header layout:fragment="header">
-    	<p> Por si falla el header</p>
+    	<p> Por si falla el nav </p>
     </header>
+    
        
-   <section>
-  		<p layout:fragment="section">pues aqui continuamos <p>
-   		<p> caliente </p>
-   </section>
-    
-    <div>
-    	Este es mi momento de gloria
-    <</div>
-    
-</body>
+   <section layout:fragment="custom-content" class="document__content">
+  		<!-- aqui escribimos todo lo que va en el contenido -->
+  	<div class="actions__buttons">
+
+                <div>
+                    <a id="realizar_pedido" class="btn btn-info" href="/cliente/pedido"> Realizar Pedido</a>
+                </div>
+
+            </div>
+
+            <div class="contenido__pedidos">
+                <h2>Pedidos Realizados</h2>
+
+                <table class="tabla__pedidos">
+                    <thead class="tabla__info">
+                        <tr>
+                            <td>N.Pedido</td>
+                            <td>Repartidor</td>
+                            <td>Estado</td>
+                            <td ></td>
+                            <td class="acciones"></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="pedido">
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                Repartidor X
+                            </td>
+                            <td>
+                                Repartiendose
+                            </td>
+                                <td class="">
+                                    <a class="btn btn-info" href="">Ver</a>
+                                </td>
+                                <td class="acciones">
+                                    <a class="btn btn-info" href="">Queja</a>
+                                </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </body>
 </html>
