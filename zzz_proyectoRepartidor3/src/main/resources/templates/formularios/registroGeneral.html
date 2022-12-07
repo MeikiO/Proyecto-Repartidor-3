@@ -12,7 +12,7 @@
 	
 <body class="container mt-5">
 <h1 class="text-center">Register</h1>
-	<form method="post" action="/register/procesar" autocomplete="off">
+	<form action="/register/procesar"  autocomplete="off" method="post">
 	       <div class="form-group">
 	        <label for="username">Username</label>
 	        <input type="text" class="form-control" id="username" name="username" autocomplete="new-password" required
@@ -24,7 +24,8 @@
 	               autocomplete="new-password">
 	    </div>
 	
-	    <input type="submit" class="btn btn-primary btn-block btn-lg" value="Register"/>
+	    <button type="submit" class="btn btn-primary btn-block btn-lg" name="action"  value="registro_credenciales">Registro credenciales</button>
+		<button type="submit" class="btn btn-primary btn-block btn-lg" name="action"  value="exit">Exit</button>
 	</form>
 
 </body>

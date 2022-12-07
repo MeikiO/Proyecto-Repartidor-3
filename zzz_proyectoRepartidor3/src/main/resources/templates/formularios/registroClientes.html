@@ -12,7 +12,7 @@
 </head>
 	
 <body class="container mt-5">
-<h1 class="text-center">Registro de clientes</h1>
+	<h1 class="text-center">Registro de clientes</h1>
 
 	<form method="post" action="#" th:action="@{/register2/procesar}" th:object="${cliente}" autocomplete="off">
 	    <div class="form-group">
@@ -86,9 +86,11 @@
 	               autocomplete="new-password">
 	    </div>
 	
-	    <input type="submit" class="btn btn-primary btn-block btn-lg" value="Register"/>
-	</form>
 
+	   	<button type="submit" class="btn btn-primary btn-block btn-lg" name="action"  value="registro_cliente">Registrar cliente</button>
+		<button type="submit" class="btn btn-primary btn-block btn-lg" name="action"  value="exit">Exit</button>
+		
+	</form>
 	
 </body>
 </html>

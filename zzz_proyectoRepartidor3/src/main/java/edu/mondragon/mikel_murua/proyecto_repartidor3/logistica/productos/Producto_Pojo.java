@@ -32,26 +32,18 @@ public class Producto_Pojo {
 	private String nombre;
 	private String precio_producto;
 	private String descripcion;
-	
+	private double descuento;
 	
 	public Producto_Pojo() {
 	}
-		
-	public Producto_Pojo(Long id, String nombre, String precio, String descripcion) {
+
+	public Producto_Pojo(Long id, String nombre, String precio_producto, String descripcion, double descuento) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
-		this.precio_producto = precio;
+		this.precio_producto = precio_producto;
 		this.descripcion = descripcion;
-	}
-
-	
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+		this.descuento = descuento;
 	}
 
 	public Long getId() {
@@ -78,5 +70,21 @@ public class Producto_Pojo {
 		this.precio_producto = precio_producto;
 	}
 
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public double getDescuento() {
+		return descuento;
+	}
+
+	public void setDescuento(double descuento) {
+		this.descuento = descuento;
+	}
+	
 	
 }

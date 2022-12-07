@@ -39,15 +39,15 @@
             </div>
         
             <div id="MenuNavegacion" class="collapse navbar-collapse">
-              <ul class="navbar-nav ms-1">
+            	<form action="#" th:action="@{/cliente/procesarAcciones}" method="post">
+   				<ul class="navbar-nav ms-1">
                 <li class="nav-item">
-                  <a class="nav-link active" href="/cliente/pedido">+Pedido</a>
+                	<button type="submit" name="action" value="hacer_pedido" class="nav-link active">+Pedido</button>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/cliente/reclamacion">Reclamaciones</a>
+                	<button type="submit" name="action" value="ver_todas_las_reclamaciones" class="nav-link active">Reclamaciones</button>
                 </li>
                 
-
         <!-- 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
@@ -61,6 +61,7 @@
                 </li>
         -->        
               </ul>
+        	  </form>
         
               <ul class="navbar-nav ms-3">
                 <li class="nav-item">
@@ -77,20 +78,22 @@
                 <h3></h3>
             </div>
 
-            <ul class="list-unstyled components">
-                <li>
-                    <a href="/cliente/entrada">Home</a>
-                </li>
-                <li>
-                    <a href="/cliente/pedido">+Hacer Pedido</a>
-                </li>
-                <li>
-                    <a href="#">Reclamaciones</a>
-                </li>
-                <li class="red">
-                    <a href="/logout">Logout</a>
-                </li>
-            </ul>
+			<form action="#" th:action="@{/cliente/procesarAcciones}" method="post">
+	            <ul class="list-unstyled components">
+	                <li>
+	                    <a href="/cliente/entrada">Home</a>
+	                </li>
+	                <li>
+	                  <button type="submit" name="action" value="hacer_pedido" class="nav-link active">+Pedido</button>
+	                </li>
+	                <li>
+	                   	<button type="submit" name="action" value="ver_todas_las_reclamaciones" class="nav-link active">Reclamaciones</button>
+	                </li>
+	                <li class="red">
+	                    <a href="/logout">Logout</a>
+	                </li>
+	            </ul>
+	        </form>
         </nav>
 
           

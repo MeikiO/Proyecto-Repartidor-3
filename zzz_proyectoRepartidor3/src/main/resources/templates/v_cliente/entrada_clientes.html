@@ -19,11 +19,13 @@
     
        
    <section layout:fragment="custom-content" class="document__content">
-  		<!-- aqui escribimos todo lo que va en el contenido -->
-  	<div class="actions__buttons">
+  			<!-- aqui escribimos todo lo que va en el contenido -->
+  			<div class="actions__buttons">
 
                 <div>
-                    <a id="realizar_pedido" class="btn btn-info" href="/cliente/pedido"> Realizar Pedido</a>
+                	<form action="#" th:action="@{/cliente/procesarAcciones}" method="post">
+	        			<button id="realizar_pedido" type="submit" name="action" value="hacer_pedido" class="btn btn-info">Realizar Pedido</button>
+	        		</form>
                 </div>
 
             </div>
@@ -35,30 +37,33 @@
                     <thead class="tabla__info">
                         <tr>
                             <td>N.Pedido</td>
-                            <td>Repartidor</td>
-                            <td>Estado</td>
+                            <td>Observaciones_para_Repartidor</td>
+                            <td>Estado_del_Pedido</td>
                             <td ></td>
                             <td class="acciones"></td>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="pedido">
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                Repartidor X
-                            </td>
-                            <td>
-                                Repartiendose
-                            </td>
-                                <td class="">
-                                    <a class="btn btn-info" href="">Ver</a>
-                                </td>
-                                <td class="acciones">
-                                    <a class="btn btn-info" href="">Queja</a>
-                                </td>
-                        </tr>
+                   		<tr th:each="pedido : ${listaPedidos}" class="pedido">
+                   		 <form action="#" th:action="@{/cliente/procesarAcciones}" th:object="${pedido}" method="post">
+      
+	                            <td>
+	                                <td th:text="${pedido.id}"></td> 
+	                            </td>
+	                            <td>
+	                                <td th:text="${pedido.observaciones}"></td> 
+	                            </td>
+	                            <td>
+	                                <td th:text="${pedido.estado_pedido}"></td> 
+	                            </td>
+	                                <td class="">
+	                         	       <button type="submit" name="action" value="ver" class="btn btn-info">Ver</button>
+	                                </td>
+	                                <td class="acciones">
+	                                	<button type="submit" name="action" value="hacer_una_queja" class="btn btn-info">Queja</button>
+	                                </td>
+	                    	</form>
+	                      </tr>
                     </tbody>
                 </table>
             </div>

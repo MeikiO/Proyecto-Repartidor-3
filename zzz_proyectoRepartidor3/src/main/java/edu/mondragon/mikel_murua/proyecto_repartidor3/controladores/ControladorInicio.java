@@ -35,6 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.UserAccount_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.UserAccount_Repository;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.UserAccount_Service;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.Pedido_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.poblacion.Poblacion_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.poblacion.Poblacion_Repository;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.punto_reparto.PuntoReparto_Pojo;
@@ -101,6 +102,21 @@ public class ControladorInicio {
 	}
 
 	
+	@GetMapping("/register2") 
+	public String registrarCliente(Model model, String error, String logout) {
+        
+		model.addAttribute("cliente",new PuntoReparto_Pojo());
+		
+		List<Poblacion_Pojo> poblaciones=this.poblacionRepository.findAll();
+		
+		model.addAttribute("listaPoblaciones", poblaciones);
+		
+		System.out.println("Prueba para ver si pasa");
+		return "formularios/registroClientes";
+	}
+	
+    
+
 	@PostMapping("/register/procesar")
 	public String register(@RequestParam("username") String username, @RequestParam("password") String password) {
 	        
@@ -123,18 +139,6 @@ public class ControladorInicio {
 	
 	
 	
-	@GetMapping("/register2") 
-	public String registrarUser(Model model, String error, String logout) {
-        
-		model.addAttribute("cliente",new PuntoReparto_Pojo());
-		
-		List<Poblacion_Pojo> poblaciones=this.poblacionRepository.findAll();
-		
-		model.addAttribute("listaPoblaciones", poblaciones);
-		
-		System.out.println("Prueba para ver si pasa");
-		return "formularios/registroClientes";
-	}
 
 	
 	

@@ -97,37 +97,47 @@ public class Pedido_Pojo {
     private PuntoReparto_Pojo puntoReparto;
 	
     
-    @OneToMany
+    /* Al guardar los pedidos con todos los linea de pedido da el 
+     error:object references an unsaved transient instance - save the transient instance before flushing: edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.LineaPedido_Pojo
+     
+     +Para arreglar eso guardamos todo en cascada.
+     
+     Link de referencia:
+     ->https://howtodoinjava.com/hibernate/hibernate-jpa-cascade-types/ 
+
+     */
+    
+    @OneToMany(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name="lineapedido_id")
-    private List<LineaPedido_Pojo> listaProductos;
+    private List<LineaPedido_Pojo> listaLineas;
 	
     
 //////////////////////////////////////////////////
 	
-	
 	public Pedido_Pojo() {
-	    listaProductos=new ArrayList<>();	
+		this.listaLineas=new ArrayList<>();
 	}
 
 
 	public Pedido_Pojo(Long id, String estado_pedido, String observaciones, PuntoReparto_Pojo puntoReparto,
-			List<Producto_Pojo> listaProductos) {
+			List<LineaPedido_Pojo> listaLineas) {
 		super();
 		this.id = id;
 		this.estado_pedido = estado_pedido;
 		this.observaciones = observaciones;
 		this.puntoReparto = puntoReparto;
-	    listaProductos=new ArrayList<Producto_Pojo>();
+		this.listaLineas = listaLineas;
 	}
+
 
 	public Long getId() {
 		return id;
 	}
 
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 
 
 	public String getEstado_pedido() {
@@ -135,11 +145,9 @@ public class Pedido_Pojo {
 	}
 
 
-
 	public void setEstado_pedido(String estado_pedido) {
 		this.estado_pedido = estado_pedido;
 	}
-
 
 
 	public String getObservaciones() {
@@ -147,11 +155,9 @@ public class Pedido_Pojo {
 	}
 
 
-
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
 	}
-
 
 
 	public PuntoReparto_Pojo getPuntoReparto() {
@@ -159,20 +165,18 @@ public class Pedido_Pojo {
 	}
 
 
-
 	public void setPuntoReparto(PuntoReparto_Pojo puntoReparto) {
 		this.puntoReparto = puntoReparto;
 	}
 
 
-	public List<LineaPedido_Pojo> getListaProductos() {
-		return listaProductos;
+	public List<LineaPedido_Pojo> getListaLineas() {
+		return listaLineas;
 	}
 
 
-	public void setListaProductos(List<LineaPedido_Pojo> listaProductos) {
-		this.listaProductos = listaProductos;
+	public void setListaLineas(List<LineaPedido_Pojo> listaLineas) {
+		this.listaLineas = listaLineas;
 	}
-
-
+	
 }

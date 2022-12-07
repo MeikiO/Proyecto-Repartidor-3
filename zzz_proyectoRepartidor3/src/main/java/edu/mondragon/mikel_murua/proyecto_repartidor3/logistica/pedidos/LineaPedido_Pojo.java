@@ -22,8 +22,6 @@ public class LineaPedido_Pojo {
 	
 	int candidad;
 	
-	double descuento;
-	
 ////////////////////////////////////////
 	
     @OneToOne
@@ -35,44 +33,36 @@ public class LineaPedido_Pojo {
     public LineaPedido_Pojo() {
 	}
 
-	public LineaPedido_Pojo(Long id, int candidad, double descuento, Producto_Pojo producto) {
+	public LineaPedido_Pojo(Long id, int candidad, Producto_Pojo producto) {
 		super();
 		this.id = id;
 		this.candidad = candidad;
-		this.descuento = descuento;
 		this.producto = producto;
 	}
-
+	
 	public Long getId() {
 		return id;
 	}
-
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+	
 	public int getCandidad() {
 		return candidad;
 	}
-
+	
 	public void setCandidad(int candidad) {
 		this.candidad = candidad;
 	}
-
-	public double getDescuento() {
-		return descuento;
-	}
-
-	public void setDescuento(double descuento) {
-		this.descuento = descuento;
-	}
-
+	
 	public Producto_Pojo getProducto() {
 		return producto;
 	}
-
+	
 	public void setProducto(Producto_Pojo producto) {
 		this.producto = producto;
 	}
+
 	
 }

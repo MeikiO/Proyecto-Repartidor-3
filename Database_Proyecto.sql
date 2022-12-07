@@ -2,11 +2,13 @@ drop database if exists springpruebas;
 create database springpruebas;
 use springpruebas;
 
-#SET FOREIGN_KEY_CHECKS=1; #quitamos el chequeo de los foreign key para poder crear pedidos
+#SET FOREIGN_KEY_CHECKS=0; #quitamos el chequeo de los foreign key para poder crear pedidos
 
 select * from credencial;
 
 select * from punto_reparto;
+
+
 
 # ---------------------Poblacion------------------------------------
 # Informacion aqui:  https://www.uncodigopostal.nom.es/espana/1/index.php
@@ -522,7 +524,19 @@ values("Zierbena","Vizcaya","48508");
 
 
 
+#--------------Productos------------------------
+INSERT INTO `productos`(`descripcion`,`nombre`,`precio_producto`)
+VALUES("comida deliciosa de dioses","patata","10");
+INSERT INTO `productos`(`descripcion`,`nombre`,`precio_producto`)
+VALUES("Fluido vital de la creacion","agua","3");
+INSERT INTO `productos`(`descripcion`,`nombre`,`precio_producto`)
+VALUES("El que no puede faltar","pan","5");
+
+
+
 select * from punto_reparto;
 
 select * from pedidos;
+
+select * from productos;
 

@@ -1,6 +1,7 @@
 package edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.punto_reparto;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -78,7 +79,7 @@ public class PuntoReparto_Pojo {
     
 	@OneToMany
 	@JoinColumn(name="pedido_id")
-	@org.hibernate.annotations.ForeignKey(name = "none")
+	//@org.hibernate.annotations.ForeignKey(name = "none")
 	//desabilitamos la comprobacion del foreign key de pedidos por que sino nos dara error
 	// link-> https://stackoverflow.com/questions/41729709/how-do-i-disable-hibernate-foreign-key-constraint-on-a-bidirectional-association
 	private Set<Pedido_Pojo> lista_pedidos;
@@ -87,6 +88,7 @@ public class PuntoReparto_Pojo {
     
 
     public PuntoReparto_Pojo() {
+    	this.lista_pedidos=new HashSet<>();
 	}
 
 	public PuntoReparto_Pojo(Long id, String nombre_cliente, String apellidos_cliente, String tlf1_cliente,
