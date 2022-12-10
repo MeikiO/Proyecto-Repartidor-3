@@ -525,13 +525,13 @@ values("Zierbena","Vizcaya","48508");
 
 
 #--------------Productos------------------------
-INSERT INTO `productos`(`descripcion`,`nombre`,`precio_producto`)
-VALUES("comida deliciosa de dioses","patata","10");
-INSERT INTO `productos`(`descripcion`,`nombre`,`precio_producto`)
-VALUES("Fluido vital de la creacion","agua","3");
-INSERT INTO `productos`(`descripcion`,`nombre`,`precio_producto`)
-VALUES("El que no puede faltar","pan","5");
 
+INSERT INTO `productos`(`descripcion`,`nombre`,`precio_producto`,`descuento`)
+VALUES("comida deliciosa de dioses","patata","10",6);
+INSERT INTO `productos`(`descripcion`,`nombre`,`precio_producto`,`descuento`)
+VALUES("Fluido vital de la creacion","agua","3",4);
+INSERT INTO `productos`(`descripcion`,`nombre`,`precio_producto`,`descuento`)
+VALUES("El que no puede faltar","pan","5",5);
 
 
 select * from punto_reparto;
@@ -539,4 +539,6 @@ select * from punto_reparto;
 select * from pedidos;
 
 select * from productos;
+
+select * from lineapedidos;
 

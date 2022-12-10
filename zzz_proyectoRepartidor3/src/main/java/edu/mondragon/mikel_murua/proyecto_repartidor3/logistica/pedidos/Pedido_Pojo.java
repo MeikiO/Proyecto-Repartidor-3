@@ -21,6 +21,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.data.annotation.Transient;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -38,7 +40,7 @@ public class Pedido_Pojo {
 	@Column(name = "pedido_id")
 	private Long id;
 	
-	private String estado_pedido;
+	private String estadoPedido;
 	
 	private String observaciones;
 	
@@ -107,76 +109,137 @@ public class Pedido_Pojo {
 
      */
     
-    @OneToMany(cascade=CascadeType.ALL,fetch = FetchType.LAZY)
+   
+    @OneToMany(cascade=CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name="lineapedido_id")
-    private List<LineaPedido_Pojo> listaLineas;
+    @org.hibernate.annotations.ForeignKey(name = "none")
+  	//desabilitamos la comprobacion del foreign key de pedidos por que sino nos dara error
+  	// link-> https://stackoverflow.com/questions/41729709/how-do-i-disable-hibernate-foreign-key-constraint-on-a-bidirectional-association
+  	
+    private Set<LineaPedido_Pojo> listaLineas;
 	
+   
+    private double precio_total;
     
 //////////////////////////////////////////////////
 	
 	public Pedido_Pojo() {
-		this.listaLineas=new ArrayList<>();
+		this.listaLineas=new HashSet<>();
+		this.precio_total=0;
 	}
 
+public Pedido_Pojo(Long id, String estadoPedido, String observaciones, PuntoReparto_Pojo puntoReparto,
+		Set<LineaPedido_Pojo> listaLineas, double precio_total) {
+	super();
+	this.id = id;
+	this.estadoPedido = estadoPedido;
+	this.observaciones = observaciones;
+	this.puntoReparto = puntoReparto;
+	this.listaLineas = listaLineas;
+	this.precio_total = precio_total;
+}
 
-	public Pedido_Pojo(Long id, String estado_pedido, String observaciones, PuntoReparto_Pojo puntoReparto,
-			List<LineaPedido_Pojo> listaLineas) {
-		super();
-		this.id = id;
-		this.estado_pedido = estado_pedido;
-		this.observaciones = observaciones;
-		this.puntoReparto = puntoReparto;
-		this.listaLineas = listaLineas;
-	}
+public Long getId() {
+	return id;
+}
 
+public void setId(Long id) {
+	this.id = id;
+}
 
-	public Long getId() {
-		return id;
-	}
+public String getEstadoPedido() {
+	return estadoPedido;
+}
 
+public void setEstadoPedido(String estadoPedido) {
+	this.estadoPedido = estadoPedido;
+}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+public String getObservaciones() {
+	return observaciones;
+}
 
+public void setObservaciones(String observaciones) {
+	this.observaciones = observaciones;
+}
 
-	public String getEstado_pedido() {
-		return estado_pedido;
-	}
+public PuntoReparto_Pojo getPuntoReparto() {
+	return puntoReparto;
+}
 
+public void setPuntoReparto(PuntoReparto_Pojo puntoReparto) {
+	this.puntoReparto = puntoReparto;
+}
 
-	public void setEstado_pedido(String estado_pedido) {
-		this.estado_pedido = estado_pedido;
-	}
+public Set<LineaPedido_Pojo> getListaLineas() {
+	return listaLineas;
+}
 
+public void setListaLineas(Set<LineaPedido_Pojo> listaLineas) {
+	this.listaLineas = listaLineas;
+}
 
-	public String getObservaciones() {
-		return observaciones;
-	}
+public double getPrecio_total() {
+	return precio_total;
+}
 
+public void setPrecio_total(double precio_total) {
+	this.precio_total = precio_total;
+}
 
-	public void setObservaciones(String observaciones) {
-		this.observaciones = observaciones;
-	}
+@Override
+public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((estadoPedido == null) ? 0 : estadoPedido.hashCode());
+	result = prime * result + ((id == null) ? 0 : id.hashCode());
+	result = prime * result + ((listaLineas == null) ? 0 : listaLineas.hashCode());
+	result = prime * result + ((observaciones == null) ? 0 : observaciones.hashCode());
+	long temp;
+	temp = Double.doubleToLongBits(precio_total);
+	result = prime * result + (int) (temp ^ (temp >>> 32));
+	result = prime * result + ((puntoReparto == null) ? 0 : puntoReparto.hashCode());
+	return result;
+}
 
+@Override
+public boolean equals(Object obj) {
+	if (this == obj)
+		return true;
+	if (obj == null)
+		return false;
+	if (getClass() != obj.getClass())
+		return false;
+	Pedido_Pojo other = (Pedido_Pojo) obj;
+	if (estadoPedido == null) {
+		if (other.estadoPedido != null)
+			return false;
+	} else if (!estadoPedido.equals(other.estadoPedido))
+		return false;
+	if (id == null) {
+		if (other.id != null)
+			return false;
+	} else if (!id.equals(other.id))
+		return false;
+	if (listaLineas == null) {
+		if (other.listaLineas != null)
+			return false;
+	} else if (!listaLineas.equals(other.listaLineas))
+		return false;
+	if (observaciones == null) {
+		if (other.observaciones != null)
+			return false;
+	} else if (!observaciones.equals(other.observaciones))
+		return false;
+	if (Double.doubleToLongBits(precio_total) != Double.doubleToLongBits(other.precio_total))
+		return false;
+	if (puntoReparto == null) {
+		if (other.puntoReparto != null)
+			return false;
+	} else if (!puntoReparto.equals(other.puntoReparto))
+		return false;
+	return true;
+}
 
-	public PuntoReparto_Pojo getPuntoReparto() {
-		return puntoReparto;
-	}
-
-
-	public void setPuntoReparto(PuntoReparto_Pojo puntoReparto) {
-		this.puntoReparto = puntoReparto;
-	}
-
-
-	public List<LineaPedido_Pojo> getListaLineas() {
-		return listaLineas;
-	}
-
-
-	public void setListaLineas(List<LineaPedido_Pojo> listaLineas) {
-		this.listaLineas = listaLineas;
-	}
 	
 }

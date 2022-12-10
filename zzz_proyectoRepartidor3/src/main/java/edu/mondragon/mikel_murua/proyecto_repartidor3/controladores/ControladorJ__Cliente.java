@@ -1,9 +1,12 @@
 package edu.mondragon.mikel_murua.proyecto_repartidor3.controladores;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -113,15 +116,19 @@ public class ControladorJ__Cliente {
 	public String procesarAccion(String action, @ModelAttribute("pedido") Pedido_Pojo pedido_seleccionado, Model model) {
     
     	System.out.println(action);
+    	String id="";
+    	String split[]=action.split("/");
+    	action=split[0];
+    	if(action.equals("ver") || action.equals("queja")) {
+    		id=split[1];    		
+    	}
     	
 	    switch (action) {
             //en la entrada_clientes, los botones de la tabla
 	    	case "ver":
-            	model.addAttribute("id_pedido_elegido",pedido_seleccionado.getId());
-                return "redirect:/cliente/ver";
-            case "hacer_una_queja":
-            	model.addAttribute("id_pedido_elegido",pedido_seleccionado.getId());
-                return "redirect:/cliente/hacer_una_queja";
+            	return "redirect:/cliente/ver/"+id;
+            case "queja":
+                return "redirect:/cliente/hacer_una_queja"+id;
                 
             //en el layout_cliente, todas las acciones
             case "hacer_pedido":
@@ -149,22 +156,63 @@ public class ControladorJ__Cliente {
     	
     	model.addAttribute("listaProductos", listaProductos);
     	
+    
+    	Pedido_Pojo pedido=new Pedido_Pojo();
+    	
+    	pedido=this.cargarPedidoEncursoDeUserLogeado();
+    	
     	
     	/*Para pasar un nuevo objeto tenemos 
     	 * que pasarlo por aqui ya inicializado en los atribute
     	 	--> https://stackoverflow.com/questions/8781558/neither-bindingresult-nor-plain-target-object-for-bean-name-available-as-request 
     	 */
-    	model.addAttribute("linea_pedido", new LineaPedido_Pojo());
+    	model.addAttribute("pedido", pedido);
+        model.addAttribute("linea_pedido", new LineaPedido_Pojo());
     	
         return "/formularios/Formulario_Pedido";
     }
     
     
-	@PostMapping("/cliente/procesarPedido")
+    
+    
+	private Pedido_Pojo cargarPedidoEncursoDeUserLogeado() {
+
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	UserAccount_Pojo logged_user= this.userAccountRepository.findByUsername(auth.getName());
+    	PuntoReparto_Pojo punto=this.puntoRepartoRepository.findByUser(logged_user);
+    	
+    	
+    	//buscar en pedido, cual tiene estado [ ESTADO_HACIENDO_EL_PEDIDO ]
+    	List<Pedido_Pojo> todos_los_pedidos_en_curso=this.pedidos_repository.findByEstadoPedido(Estado_Pedido.ESTADO_HACIENDO_EL_PEDIDO.toString());
+    	boolean tiene_pedido_en_curso=false;
+    	Pedido_Pojo pedido=new Pedido_Pojo();
+    	
+    	if(!todos_los_pedidos_en_curso.isEmpty()) {		
+    		for(Pedido_Pojo actual: todos_los_pedidos_en_curso) {
+    			if(actual.getPuntoReparto().getUser().equals(logged_user)) {
+    				pedido=actual;
+    				tiene_pedido_en_curso=true;
+    				pedido.setPrecio_total(this.calcularPrecioTotal(pedido));
+    			}
+    		}    		
+    	}
+    	
+
+    	if(!tiene_pedido_en_curso) {
+    		Set<LineaPedido_Pojo> lineasPedido=new HashSet<>();
+    		pedido.setListaLineas(lineasPedido);
+    		pedido.setEstadoPedido(Estado_Pedido.ESTADO_HACIENDO_EL_PEDIDO.toString());
+    		pedido.setPuntoReparto(punto);
+   		
+    		this.pedidos_repository.save(pedido);
+    	}
+		return pedido;
+	}
+
+	@PostMapping("/cliente/procesarLinea")
 	public String register(
 			@RequestParam("producto_formulario") String productoElegido,
-			@RequestParam("candidad") String cantidad,
-			@RequestParam("observaciones") String observaciones) {
+			@RequestParam("candidad") String cantidad) {
 	        
 		/*
 		  	   NECESITAMOS PROCESAR 1 ELEMENTO DE LINEA DE PEDIDOS
@@ -185,20 +233,11 @@ public class ControladorJ__Cliente {
     	
     	System.out.println(productoElegido);
     	System.out.println(cantidad);
-    	System.out.println(observaciones);
+ 
     	
-    	Pedido_Pojo pedido=new Pedido_Pojo();
-    	
-    	pedido.setEstado_pedido(Estado_Pedido.ESTADO_EN_ESPERA_DE_MANDAR.toString());
-    	pedido.setObservaciones(observaciones);
-    	
-    	
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    	UserAccount_Pojo logged_user= this.userAccountRepository.findByUsername(auth.getName());
-    	PuntoReparto_Pojo punto=this.puntoRepartoRepository.findByUser(logged_user);
-    	pedido.setPuntoReparto(punto);
-    	
-    	
+
+    	Pedido_Pojo pedido=this.cargarPedidoEncursoDeUserLogeado();
+    	System.out.println(pedido.getListaLineas());
     	
     	LineaPedido_Pojo una_linea=new LineaPedido_Pojo();
     	Producto_Pojo producto=this.productos_repository.findByNombre(productoElegido);
@@ -220,14 +259,100 @@ public class ControladorJ__Cliente {
 
         */    	
 
-    	pedido.getListaLineas().add(una_linea);
+    	
+    	if(!pedido.getListaLineas().contains(una_linea)) {
+    		una_linea.setId(this.lineaProductos_repository.count()+1);
+    		pedido.getListaLineas().add(una_linea);	
+    		this.pedidos_repository.save(pedido);    		
+    	}
+    	
+        return "redirect:/cliente/hacer_pedido";
+    }
+	 
+	
+	private double calcularPrecioTotal(Pedido_Pojo pedido) {
+		double value=0;
+		for(LineaPedido_Pojo actual:pedido.getListaLineas()) {
+			double precioActual=pedido.getPrecio_total();
+			Integer precio=Integer.parseInt(actual.getProducto().getPrecio_producto());
+			int n_cantidad=actual.getCandidad();
+			double descuento=actual.getProducto().getDescuento();
+			
+			value=precioActual+(precio*n_cantidad-(precio*n_cantidad*(descuento/100)));			
+		}
+		
+		return value;
+	}
 
+	
+	
+	
+	@PostMapping("/cliente/eliminarLinea/{id}")
+	public String borrarLineaProducto(
+			@PathVariable String id) {
+		
+		Pedido_Pojo pedido=this.cargarPedidoEncursoDeUserLogeado();
+		
+		Long id_lineaABorrar=(long) Integer.parseInt(id);
+		
+		Optional<LineaPedido_Pojo> linea=this.lineaProductos_repository.findById(id_lineaABorrar);	
+		if(!linea.isEmpty()) {
+			pedido.getListaLineas().remove(linea.get());			
+			this.lineaProductos_repository.delete(linea.get());	
+		}
+		
+		return "redirect:/cliente/hacer_pedido";
+	}
+	
+	
+	@PostMapping("/cliente/terminarPedido")
+	public String terminarPedido(
+			@RequestParam("observaciones") String observaciones) {
+	        
+		/*
+		  	   NECESITAMOS PROCESAR 1 ELEMENTO DE LINEA DE PEDIDOS
+	   -> LA LISTA DE PRODUCTOS YA ESTA HECHA
+	   
+	   +NECESITAMOS PODER SELECCIONAR EL PRODUCTO Y SU CANTIDAD
+	   +DESPUES MANDARLA A PROCESAR (cliente/procesar_pedido) Y GUARDARLO EN DATABASE
+	   , junto con su datos (pedido y punto reparto (el punto reparto se extrae de las credenciales de session)).
+
+
+	   +Despues tenemos que poder hacerlo con varios (linea productos), pudiedo aumentar
+	   el numero de lineas de producto 
+
+
+		EJEMPLO
+		 */
+		
+    	
+
+    	System.out.println(observaciones);
+    	
+    	Pedido_Pojo pedido=this.cargarPedidoEncursoDeUserLogeado();
+    	pedido.setEstadoPedido(Estado_Pedido.ESTADO_EN_ESPERA_DE_MANDAR.toString());
+    	pedido.setObservaciones(observaciones);
+    	pedido.setPrecio_total(this.calcularPrecioTotal(pedido));
     	
     	this.pedidos_repository.save(pedido);
 		
-    	
         return "redirect:/cliente/entrada";
     }
-	    
    
+	
+	
+	
+	 @GetMapping("/cliente/ver/{id}")
+	public String verPedido(@PathVariable String id,Model model, String error, String logout) {
+	    
+	    	Optional<Pedido_Pojo> pedido=this.pedidos_repository.findById((long) Integer.parseInt(id));
+
+	    	model.addAttribute("pedido", pedido.get());
+		 
+	    	return "v_cliente/ver_cliente";
+    }
+   
+	
+	
+	
 }

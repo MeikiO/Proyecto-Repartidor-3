@@ -105,6 +105,54 @@ public class UserAccount_Pojo {
 	}
 
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((contrasena == null) ? 0 : contrasena.hashCode());
+		result = prime * result + (estaActivo ? 1231 : 1237);
+		result = prime * result + ((idInterno == null) ? 0 : idInterno.hashCode());
+		result = prime * result + ((listaRoles == null) ? 0 : listaRoles.hashCode());
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserAccount_Pojo other = (UserAccount_Pojo) obj;
+		if (contrasena == null) {
+			if (other.contrasena != null)
+				return false;
+		} else if (!contrasena.equals(other.contrasena))
+			return false;
+		if (estaActivo != other.estaActivo)
+			return false;
+		if (idInterno == null) {
+			if (other.idInterno != null)
+				return false;
+		} else if (!idInterno.equals(other.idInterno))
+			return false;
+		if (listaRoles == null) {
+			if (other.listaRoles != null)
+				return false;
+		} else if (!listaRoles.equals(other.listaRoles))
+			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
+	}
+
+
     
 
 }

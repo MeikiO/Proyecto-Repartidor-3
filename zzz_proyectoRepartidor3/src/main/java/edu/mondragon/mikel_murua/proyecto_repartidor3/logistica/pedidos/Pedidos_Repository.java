@@ -9,4 +9,5 @@ import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.punto_reparto.Pu
 
 public interface Pedidos_Repository extends JpaRepository<Pedido_Pojo, Long> {
 	List<Pedido_Pojo> findByPuntoReparto(PuntoReparto_Pojo puntoReparto);
+	List<Pedido_Pojo> findByEstadoPedido(String estadoPedido);
 }

@@ -85,6 +85,54 @@ public class Producto_Pojo {
 	public void setDescuento(double descuento) {
 		this.descuento = descuento;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((descripcion == null) ? 0 : descripcion.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(descuento);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result + ((precio_producto == null) ? 0 : precio_producto.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Producto_Pojo other = (Producto_Pojo) obj;
+		if (descripcion == null) {
+			if (other.descripcion != null)
+				return false;
+		} else if (!descripcion.equals(other.descripcion))
+			return false;
+		if (Double.doubleToLongBits(descuento) != Double.doubleToLongBits(other.descuento))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.nombre))
+			return false;
+		if (precio_producto == null) {
+			if (other.precio_producto != null)
+				return false;
+		} else if (!precio_producto.equals(other.precio_producto))
+			return false;
+		return true;
+	}
 	
 	
 }

@@ -15,7 +15,8 @@ import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.poblacion.Poblac
 public class ApplicationProyectoRepartidor3 {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ApplicationProyectoRepartidor3.class, args);
+		SpringApplication app = new SpringApplication(ApplicationProyectoRepartidor3.class);
+		app.run(args);
 	}
 
 		

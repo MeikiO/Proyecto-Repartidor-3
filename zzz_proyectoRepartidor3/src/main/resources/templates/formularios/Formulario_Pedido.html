@@ -26,7 +26,7 @@
 
 		<h1 class="text-center">Registro de Pedido</h1>
 	
-		<form method="post" action="#" th:action="@{/cliente/procesarPedido}" th:object="${linea_pedido}" autocomplete="off">
+		<form method="post" action="#" th:action="@{/cliente/procesarLinea}" th:object="${linea_pedido}" autocomplete="off">
 		    <div class="form-group">
 	       		<input hidden="true" type="text" th:field="*{id}" />
 	       		<input hidden="true" type="text" th:field="*{candidad}"/>
@@ -44,32 +44,86 @@
 		        </select>   
 		  	</div>
 			  
-<!-- Link para hacer el contador chulo (manda a la siguiente ventana) 
-	--------------------https://stackoverflow.com/questions/54398234/style-input-type-number-more-plus-button-on-the-side
--->
+				<!-- Link para hacer el contador chulo (manda a la siguiente ventana) 
+					--------------------https://stackoverflow.com/questions/54398234/style-input-type-number-more-plus-button-on-the-side
+				-->
 
 			<div class="form-group">
 			 	<label for="candidad">Cantidad: </label>
-<!-- How to get correctly the input values 
---------https://stackoverflow.com/questions/40899494/how-to-get-input-values-from-spring-boot-thyme-leaf-to-java-class
- -->    
+				<!-- How to get correctly the input values 
+				--------https://stackoverflow.com/questions/40899494/how-to-get-input-values-from-spring-boot-thyme-leaf-to-java-class
+				 -->    
 			  <input for="candidad" min="0"  name="quantity" value="1" th:field="*{candidad}" type="number">
 			</div>
 		
-<!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea -->
-			<div class="form-group">
-			 	<label for="observaciones">Observaciones: </label>
-
-				<textarea id="observaciones"
-				          rows="5" cols="33" name="observaciones">
-				
-				</textarea>
-			</div>
 		
+			<button type="submit" class="btn btn-primary btn-block btn-lg" name="action"  value="anadir_producto">Añadir Producto</button>
 		
-		   	<button type="submit" class="btn btn-primary btn-block btn-lg" name="action"  value="hacer_pedido">Hacer Pedido</button>
-			
 		</form>
+		
+<!-- ---------------------------------------------------------- -->
+
+			 <table class="tabla__pedidos">
+				   <thead>
+                        <tr>
+                            <td>Nombre Producto</td>
+                            <td>Cantidad</td>
+                            <td>Precio base</td>
+                            <td>Descuento</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                   		<tr th:each="linea : ${pedido.listaLineas}" class="pedido">
+                   		 <form action="#" th:action="@{'/cliente/eliminarLinea/' + ${linea.producto.id}}" method="post">
+	                            <td>
+	                                <td th:text="${linea.producto.nombre}"></td> 
+	                            </td>
+	                            <td>
+	                                <td th:text="${linea.candidad}"></td> 
+	                            </td>
+	                            <td>
+	                                <td th:text="${linea.producto.precio_producto}"></td> 
+	                            </td>
+	                            <td>
+	                                <td th:text="${linea.producto.descuento}"></td> 
+	                            </td>
+                                <td class="acciones">
+                                	<button type="submit" name="action" value="borrar" class="btn btn-info">-</button>
+                                </td>
+	                    	</form>
+	                      </tr>
+                    </tbody>
+                </table>
+
+
+
+
+
+
+<!-- -------------------------------------------------------- -->
+
+
+		    <div>
+                <label for="precio_total">Precio Total: </label>
+                <input id="precio" type="text" th:value="${pedido.precio_total}" readonly="readonly">
+            </div>
+		
+		
+					
+			<form method="post" action="#" th:action="@{/cliente/terminarPedido}"  autocomplete="off">
+				<!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea -->
+				<div class="form-group">
+				 	<label for="observaciones">Observaciones: </label>
+	
+					<textarea id="observaciones"
+					          rows="5" cols="33" name="observaciones">
+					</textarea>
+				</div>	  
+				 	
+			   	<button type="submit" class="btn btn-primary btn-block btn-lg" name="action"  value="hacer_pedido">Hacer Pedido</button>
+			</form>	
+		
 	
 	</section>
 	
