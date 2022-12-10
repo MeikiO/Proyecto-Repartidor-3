@@ -77,8 +77,9 @@ public class PuntoReparto_Pojo {
     @JoinColumn(name = "credenciales_id") 
     private UserAccount_Pojo user;
     
-	@OneToMany
-	@JoinColumn(name="pedido_id")
+    
+    @OneToMany(mappedBy = "puntoReparto",
+            fetch = FetchType.LAZY)
 	//@org.hibernate.annotations.ForeignKey(name = "none")
 	//desabilitamos la comprobacion del foreign key de pedidos por que sino nos dara error
 	// link-> https://stackoverflow.com/questions/41729709/how-do-i-disable-hibernate-foreign-key-constraint-on-a-bidirectional-association

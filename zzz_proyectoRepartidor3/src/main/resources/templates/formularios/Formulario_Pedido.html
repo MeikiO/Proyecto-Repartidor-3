@@ -4,12 +4,9 @@
 
 <head> 
     <title>Register new Order</title> 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	
+
 	<link rel="stylesheet" type="text/css" href="#" th:href="@{/css/clientes/entrada_styles.css}">
 	<link rel="stylesheet" type="text/css" href="#" th:href="@{/css/clientes/formulario.css}">
- 	
- 	
 </head>
 	
 <body class="container mt-5">
@@ -18,7 +15,6 @@
     
     <header layout:fragment="header">
     	<p> Por si falla el nav </p>
-    	
     </header>
     
        
@@ -57,7 +53,7 @@
 			</div>
 		
 		
-			<button type="submit" class="btn btn-primary btn-block btn-lg" name="action"  value="anadir_producto">AÃ±adir Producto</button>
+			<button type="submit" class="btn btn-primary btn-block btn-lg" name="action"  value="anadir_producto">Añadir Producto</button>
 		
 		</form>
 		
@@ -75,19 +71,11 @@
                     </thead>
                     <tbody>
                    		<tr th:each="linea : ${pedido.listaLineas}" class="pedido">
-                   		 <form action="#" th:action="@{'/cliente/eliminarLinea/' + ${linea.producto.id}}" method="post">
-	                            <td>
+                   		 <form action="#" th:action="@{'/cliente/eliminarLinea/' + ${linea.id}}" method="post">
 	                                <td th:text="${linea.producto.nombre}"></td> 
-	                            </td>
-	                            <td>
 	                                <td th:text="${linea.candidad}"></td> 
-	                            </td>
-	                            <td>
 	                                <td th:text="${linea.producto.precio_producto}"></td> 
-	                            </td>
-	                            <td>
 	                                <td th:text="${linea.producto.descuento}"></td> 
-	                            </td>
                                 <td class="acciones">
                                 	<button type="submit" name="action" value="borrar" class="btn btn-info">-</button>
                                 </td>
@@ -98,10 +86,7 @@
 
 
 
-
-
-
-<!-- -------------------------------------------------------- -->
+<!-- ____________________________ -->
 
 
 		    <div>

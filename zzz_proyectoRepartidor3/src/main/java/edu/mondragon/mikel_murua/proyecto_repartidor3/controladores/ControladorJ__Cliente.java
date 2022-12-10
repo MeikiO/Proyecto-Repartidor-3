@@ -89,15 +89,6 @@ public class ControladorJ__Cliente {
     	
     	model.addAttribute("listaPedidos", listaPedidos);
     	
-    	/*
-    	for(int i=1;i<=3;i++) {
-    		Pedido_Pojo pedido=new Pedido_Pojo();
-        	pedido.setObservaciones("Es el "+i);
-        	pedido.setEstado_pedido(Estado_Pedido.ESTADO_EN_ESPERA_DE_MANDAR.toString());
-        	pedido.setPuntoReparto(punto.get());
-        	//this.pedidos_repository.save(pedido); //da error del foreign key al guardar
-    	}
-    	*/
     	
     	
         return "/v_cliente/entrada_clientes.html";
@@ -156,11 +147,32 @@ public class ControladorJ__Cliente {
     	
     	model.addAttribute("listaProductos", listaProductos);
     	
+    	
+    	/*
+		Para arreglar el problema de que solo se podia poner 1
+		
+		- Aqui se carga el user
+
+    	 */
     
     	Pedido_Pojo pedido=new Pedido_Pojo();
-    	
     	pedido=this.cargarPedidoEncursoDeUserLogeado();
     	
+    	/*
+			Y las lineas de pedido se tratan de forma separada
+			- y cuando se necesiten se cargan de database 
+			y se le asignan al pedido concreto
+			
+			+Nota: NO SE PUEDE GUARDAR PEDIDO, SI SE LE ASIGNAN LINEA PEDIDO.
+			
+    	 */
+    	
+    	
+    	Set<LineaPedido_Pojo> lista=this.lineaProductos_repository.findByPedido_id(pedido.getId());
+    	pedido.setListaLineas(lista);
+ 
+    	pedido.setPrecio_total(this.calcularPrecioTotal(lista));
+		
     	
     	/*Para pasar un nuevo objeto tenemos 
     	 * que pasarlo por aqui ya inicializado en los atribute
@@ -192,7 +204,6 @@ public class ControladorJ__Cliente {
     			if(actual.getPuntoReparto().getUser().equals(logged_user)) {
     				pedido=actual;
     				tiene_pedido_en_curso=true;
-    				pedido.setPrecio_total(this.calcularPrecioTotal(pedido));
     			}
     		}    		
     	}
@@ -203,7 +214,7 @@ public class ControladorJ__Cliente {
     		pedido.setListaLineas(lineasPedido);
     		pedido.setEstadoPedido(Estado_Pedido.ESTADO_HACIENDO_EL_PEDIDO.toString());
     		pedido.setPuntoReparto(punto);
-   		
+    		pedido.setId((long) 0);
     		this.pedidos_repository.save(pedido);
     	}
 		return pedido;
@@ -215,20 +226,8 @@ public class ControladorJ__Cliente {
 			@RequestParam("candidad") String cantidad) {
 	        
 		/*
-		  	   NECESITAMOS PROCESAR 1 ELEMENTO DE LINEA DE PEDIDOS
-	   -> LA LISTA DE PRODUCTOS YA ESTA HECHA
-	   
-	   +NECESITAMOS PODER SELECCIONAR EL PRODUCTO Y SU CANTIDAD
-	   +DESPUES MANDARLA A PROCESAR (cliente/procesar_pedido) Y GUARDARLO EN DATABASE
-	   , junto con su datos (pedido y punto reparto (el punto reparto se extrae de las credenciales de session)).
-
-
-	   +Despues tenemos que poder hacerlo con varios (linea productos), pudiedo aumentar
-	   el numero de lineas de producto 
-
-
-		EJEMPLO
-		 */
+			- Aqui solo se guarda 1 linea de pedido.			
+		*/
 		
     	
     	System.out.println(productoElegido);
@@ -237,11 +236,12 @@ public class ControladorJ__Cliente {
     	
 
     	Pedido_Pojo pedido=this.cargarPedidoEncursoDeUserLogeado();
-    	System.out.println(pedido.getListaLineas());
+    
     	
     	LineaPedido_Pojo una_linea=new LineaPedido_Pojo();
     	Producto_Pojo producto=this.productos_repository.findByNombre(productoElegido);
     	una_linea.setProducto(producto);
+    	una_linea.setPedido(pedido);
     	
     	String[] contenido_cantidad=cantidad.split("[,]");
     	una_linea.setCandidad(Integer.parseInt(contenido_cantidad[1]));
@@ -259,26 +259,37 @@ public class ControladorJ__Cliente {
 
         */    	
 
+    	/*
+    	 Para que no haya problemas de id ni integridad referencial
+    	 -> https://stackoverflow.com/questions/25636091/org-hibernate-persistentobjectexception-detached-entity-passed-to-persist-excep 
+    	 quitamos el id auto generated.identity, para crearlo nosotros a mano.
+    	 */
+    	
+    	/*
+    	 	Al final, al modificar linea pedido, para que tuviera la referencia
+    	 	de pedido_id en la database, solo ha sido asignarle el id de pedido.
+    	 	
+    	 	Con eso ya lo podemos tratar aparte, guardarlo el solo y cargarlo
+    	 	cuando sea necesario, para enseñarlo.
+    	 */
     	
     	if(!pedido.getListaLineas().contains(una_linea)) {
-    		una_linea.setId(this.lineaProductos_repository.count()+1);
-    		pedido.getListaLineas().add(una_linea);	
-    		this.pedidos_repository.save(pedido);    		
+    		pedido.getListaLineas().add(una_linea);			
+    		this.lineaProductos_repository.save(una_linea); 
     	}
     	
         return "redirect:/cliente/hacer_pedido";
     }
 	 
 	
-	private double calcularPrecioTotal(Pedido_Pojo pedido) {
+	private double calcularPrecioTotal(Set<LineaPedido_Pojo> lista) {
 		double value=0;
-		for(LineaPedido_Pojo actual:pedido.getListaLineas()) {
-			double precioActual=pedido.getPrecio_total();
+		for(LineaPedido_Pojo actual:lista) {	
 			Integer precio=Integer.parseInt(actual.getProducto().getPrecio_producto());
 			int n_cantidad=actual.getCandidad();
 			double descuento=actual.getProducto().getDescuento();
-			
-			value=precioActual+(precio*n_cantidad-(precio*n_cantidad*(descuento/100)));			
+	
+			value=value+(precio*n_cantidad-(precio*n_cantidad*(descuento/100)));			
 		}
 		
 		return value;
@@ -291,13 +302,10 @@ public class ControladorJ__Cliente {
 	public String borrarLineaProducto(
 			@PathVariable String id) {
 		
-		Pedido_Pojo pedido=this.cargarPedidoEncursoDeUserLogeado();
-		
 		Long id_lineaABorrar=(long) Integer.parseInt(id);
 		
 		Optional<LineaPedido_Pojo> linea=this.lineaProductos_repository.findById(id_lineaABorrar);	
-		if(!linea.isEmpty()) {
-			pedido.getListaLineas().remove(linea.get());			
+		if(!linea.isEmpty()) {			
 			this.lineaProductos_repository.delete(linea.get());	
 		}
 		
@@ -310,29 +318,25 @@ public class ControladorJ__Cliente {
 			@RequestParam("observaciones") String observaciones) {
 	        
 		/*
-		  	   NECESITAMOS PROCESAR 1 ELEMENTO DE LINEA DE PEDIDOS
-	   -> LA LISTA DE PRODUCTOS YA ESTA HECHA
-	   
-	   +NECESITAMOS PODER SELECCIONAR EL PRODUCTO Y SU CANTIDAD
-	   +DESPUES MANDARLA A PROCESAR (cliente/procesar_pedido) Y GUARDARLO EN DATABASE
-	   , junto con su datos (pedido y punto reparto (el punto reparto se extrae de las credenciales de session)).
-
-
-	   +Despues tenemos que poder hacerlo con varios (linea productos), pudiedo aumentar
-	   el numero de lineas de producto 
-
-
-		EJEMPLO
+		  	 Daba problemas, porque no puedes guardar 2 entidades a la vez.
+		  	 Cada una se tiene que guardar por separado.
+		  	 -> lineaPedido por su lado
+		  	 -> pedido por su lado.
 		 */
 		
-    	
 
     	System.out.println(observaciones);
     	
     	Pedido_Pojo pedido=this.cargarPedidoEncursoDeUserLogeado();
     	pedido.setEstadoPedido(Estado_Pedido.ESTADO_EN_ESPERA_DE_MANDAR.toString());
     	pedido.setObservaciones(observaciones);
-    	pedido.setPrecio_total(this.calcularPrecioTotal(pedido));
+    	
+     	Set<LineaPedido_Pojo> lista=this.lineaProductos_repository.findByPedido_id(pedido.getId());
+     	//En este caso utilizamos las linea producto
+     	//solo para calcular precio total
+     	//no los asignamos a pedido
+    	pedido.setPrecio_total(this.calcularPrecioTotal(lista));
+		
     	
     	this.pedidos_repository.save(pedido);
 		
@@ -346,7 +350,8 @@ public class ControladorJ__Cliente {
 	public String verPedido(@PathVariable String id,Model model, String error, String logout) {
 	    
 	    	Optional<Pedido_Pojo> pedido=this.pedidos_repository.findById((long) Integer.parseInt(id));
-
+	    	Set<LineaPedido_Pojo> lista=this.lineaProductos_repository.findByPedido_id(pedido.get().getId());
+	    	pedido.get().setListaLineas(lista);
 	    	model.addAttribute("pedido", pedido.get());
 		 
 	    	return "v_cliente/ver_cliente";
