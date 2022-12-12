@@ -81,23 +81,13 @@ public class ControladorJ__Cliente {
     public String redirigirAEntradaCliente(Model model, String error, String logout) {
     	
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-    	Collection<? extends GrantedAuthority> roles =auth.getAuthorities();
-
-    	System.out.println(roles);
-    	
-    	System.out.println(auth.getName()); //esto es el usuario logeado
+    	UserAccount_Pojo logged_user= this.userAccountRepository.findByUsername(auth.getName());
+    	PuntoReparto_Pojo punto=this.puntoRepartoRepository.findByUser(logged_user);
     	
     	
-  
-    	//PuntoReparto_Pojo punto=puntoService.findByNombre_cliente(auth.getName());
-    	long id=1;
-    	Optional<PuntoReparto_Pojo> punto=this.puntoRepartoRepository.findById(id);
-    	
-    	List<Pedido_Pojo> listaPedidos=this.pedidos_repository.findByPuntoReparto(punto.get());
+    	List<Pedido_Pojo> listaPedidos=this.pedidos_repository.findByPuntoReparto(punto);
     	
     	model.addAttribute("listaPedidos", listaPedidos);
-    	
     	
     	
         return "/v_cliente/entrada_clientes.html";
@@ -139,8 +129,8 @@ public class ControladorJ__Cliente {
             
             
             	
-            case "ver_todas_las_reclamaciones":
-            	return "redirect:/cliente/ver_todas_las_reclamaciones";
+            case "ver_todas_las_quejas":
+            	return "redirect:/cliente/ver_todas_las_quejas";
 
                 
             default:
@@ -426,5 +416,30 @@ public class ControladorJ__Cliente {
 			
 	        return "redirect:/cliente/entrada";
 	    }
+	 
+	 
+	 
+	 @GetMapping({"/cliente/ver_todas_las_quejas"})
+	    public String verTodasLasQuejas(Model model, String error, String logout) {
+	    	
+	    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    	UserAccount_Pojo logged_user= this.userAccountRepository.findByUsername(auth.getName());
+	    	PuntoReparto_Pojo punto=this.puntoRepartoRepository.findByUser(logged_user);
+	    	
+	    	List<Pedido_Pojo> listaPedidos=this.pedidos_repository.findByPuntoReparto(punto);
+	    	
+	    	List<Queja_Pojo> listaQuejas=new ArrayList<>();
+	    	for(Pedido_Pojo actual:listaPedidos) {
+	    		if(actual.getQueja()!=null) {
+	    			listaQuejas.add(actual.getQueja());
+	    		}		
+	    	}
+	    	
+	    	model.addAttribute("lista_quejas", listaQuejas);
+	    	
+	    	
+	        return "/v_cliente/verQuejas";
+	    }
+	    
 	 
 }
