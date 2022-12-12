@@ -3,6 +3,8 @@ package edu.mondragon.mikel_murua.proyecto_repartidor3.controladores;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +33,9 @@ import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.productos.Produc
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.productos.Producto_Repository;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.punto_reparto.PuntoReparto_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.punto_reparto.PuntoReparto_Repository;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.quejas.ClasificacionQuejas;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.quejas.Queja_Pojo;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.quejas.Queja_Repository;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.Roles;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.UserAccount_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.UserAccount_Repository;
@@ -47,12 +52,14 @@ public class ControladorJ__Cliente {
 	private Pedidos_Repository pedidos_repository;
 	private Producto_Repository productos_repository;
 	private LineaPedido_Repository lineaProductos_repository;
+	private Queja_Repository queja_repository;
 
 	public ControladorJ__Cliente(PuntoReparto_Repository puntoRepartoRepository,
 			UserAccount_Repository userAccountRepository, Poblacion_Repository poblacionRepository,
 			PasswordEncoder passwordEncoder,Pedidos_Repository pedidosRepository,
 			Producto_Repository productosRepository,
-			LineaPedido_Repository lineaProductos_repository) {
+			LineaPedido_Repository lineaProductos_repository,
+			Queja_Repository queja_repository) {
 		super();
 		this.puntoRepartoRepository = puntoRepartoRepository;
 		this.userAccountRepository = userAccountRepository;
@@ -62,6 +69,8 @@ public class ControladorJ__Cliente {
 		this.pedidos_repository=pedidosRepository;
 		this.productos_repository=productosRepository;
 		this.lineaProductos_repository=lineaProductos_repository;
+		
+		this.queja_repository=queja_repository;
 	}
 
 	//La restriccion entrada de los usuarios por rol, se hace en SecurityConfiguration.
@@ -119,7 +128,7 @@ public class ControladorJ__Cliente {
 	    	case "ver":
             	return "redirect:/cliente/ver/"+id;
             case "queja":
-                return "redirect:/cliente/hacer_una_queja"+id;
+                return "redirect:/cliente/hacer_una_queja/"+id;
                 
             //en el layout_cliente, todas las acciones
             case "hacer_pedido":
@@ -357,7 +366,65 @@ public class ControladorJ__Cliente {
 	    	return "v_cliente/ver_cliente";
     }
    
+	 
+	 @GetMapping("/cliente/hacer_una_queja/{id}")
+		public String hacerQueja(@PathVariable String id,Model model, String error, String logout) {	    
 	
+		 
+		 	model.addAttribute("id_pedido", id);
+	    	
+	    	Queja_Pojo queja=new Queja_Pojo();
+	    	model.addAttribute("queja", queja);
+	    	
+	   
+	    	List<String> tiposQuejas=new ArrayList<>();
+	    	ClasificacionQuejas[] clasificacion=ClasificacionQuejas.values();
+	    	for(int i=0;i<clasificacion.length;i++) {
+	    		tiposQuejas.add(clasificacion[i].toString());
+	    	}
+	    
+	    	model.addAttribute("tiposQuejas",tiposQuejas);
+	    	
+	    	return "v_cliente/queja_cliente";
+	 }
+	 
+	 
 	
-	
+	 @PostMapping("/cliente/terminarQueja/{id}")
+		public String terminarQueja(
+				@PathVariable String id,
+				@RequestParam("clasificacion") String clasificacion,
+				@RequestParam("razones") String razones) {
+		 
+		 	System.out.println(clasificacion);
+		 	System.out.println(razones);
+			System.out.println(id);
+			
+			Optional<Pedido_Pojo> pedido=this.pedidos_repository.findById((long) Integer.parseInt(id));
+	    	
+		
+	     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    	UserAccount_Pojo logged_user= this.userAccountRepository.findByUsername(auth.getName());
+	    	PuntoReparto_Pojo punto=this.puntoRepartoRepository.findByUser(logged_user);
+	    	
+	    	
+	    	Queja_Pojo queja=new Queja_Pojo();
+	    	queja.setPedido(pedido.get());
+	    	queja.setPunto(punto);
+	    	queja.setClasificacion(clasificacion);
+	    	queja.setRazones(razones);
+	    	
+	        java.util.Date date = new java.util.Date();    
+	        System.out.println(date);   
+	    	
+	        queja.setFechaQueja(date);
+	  
+	        this.queja_repository.save(queja);
+	    	
+	        pedido.get().setQueja(queja);
+	        this.pedidos_repository.save(pedido.get());
+			
+	        return "redirect:/cliente/entrada";
+	    }
+	 
 }

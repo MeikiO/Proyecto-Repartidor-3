@@ -49,7 +49,7 @@
                          	       <button type="submit" name="action" th:value="'ver/'+${pedido.id}" class="btn btn-info">Ver</button>
                                 </td>
                                 <td class="acciones">
-                                	<button type="submit" name="action" value="'queja'+${pedido.id}" class="btn btn-info">Queja</button>
+                                	<button type="submit" name="action" th:value="'queja/'+${pedido.id}" class="btn btn-info">Queja</button>
                               	</td>
 		                      </tr>
 	                    </tbody>

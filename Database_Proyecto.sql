@@ -542,3 +542,5 @@ select * from productos;
 
 select * from lineapedidos;
 
+select * from queja;
+

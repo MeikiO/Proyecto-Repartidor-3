@@ -28,6 +28,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.productos.Producto_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.punto_reparto.PuntoReparto_Pojo;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.quejas.Queja_Pojo;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -121,6 +122,10 @@ public class Pedido_Pojo {
    
     private double precio_total;
     
+    @OneToOne
+    @JoinColumn(name = "queja_id") 
+    private Queja_Pojo queja;
+    
 //////////////////////////////////////////////////
 	
 	public Pedido_Pojo() {
@@ -128,118 +133,133 @@ public class Pedido_Pojo {
 		this.precio_total=0;
 	}
 
-public Pedido_Pojo(Long id, String estadoPedido, String observaciones, PuntoReparto_Pojo puntoReparto,
-		Set<LineaPedido_Pojo> listaLineas, double precio_total) {
-	super();
-	this.id = id;
-	this.estadoPedido = estadoPedido;
-	this.observaciones = observaciones;
-	this.puntoReparto = puntoReparto;
-	this.listaLineas = listaLineas;
-	this.precio_total = precio_total;
-}
+	public Pedido_Pojo(Long id, String estadoPedido, String observaciones, PuntoReparto_Pojo puntoReparto,
+			Set<LineaPedido_Pojo> listaLineas, double precio_total, Queja_Pojo queja) {
+		super();
+		this.id = id;
+		this.estadoPedido = estadoPedido;
+		this.observaciones = observaciones;
+		this.puntoReparto = puntoReparto;
+		this.listaLineas = listaLineas;
+		this.precio_total = precio_total;
+		this.queja = queja;
+	}
 
-public Long getId() {
-	return id;
-}
+	public Long getId() {
+		return id;
+	}
 
-public void setId(Long id) {
-	this.id = id;
-}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-public String getEstadoPedido() {
-	return estadoPedido;
-}
+	public String getEstadoPedido() {
+		return estadoPedido;
+	}
 
-public void setEstadoPedido(String estadoPedido) {
-	this.estadoPedido = estadoPedido;
-}
+	public void setEstadoPedido(String estadoPedido) {
+		this.estadoPedido = estadoPedido;
+	}
 
-public String getObservaciones() {
-	return observaciones;
-}
+	public String getObservaciones() {
+		return observaciones;
+	}
 
-public void setObservaciones(String observaciones) {
-	this.observaciones = observaciones;
-}
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
+	}
 
-public PuntoReparto_Pojo getPuntoReparto() {
-	return puntoReparto;
-}
+	public PuntoReparto_Pojo getPuntoReparto() {
+		return puntoReparto;
+	}
 
-public void setPuntoReparto(PuntoReparto_Pojo puntoReparto) {
-	this.puntoReparto = puntoReparto;
-}
+	public void setPuntoReparto(PuntoReparto_Pojo puntoReparto) {
+		this.puntoReparto = puntoReparto;
+	}
 
-public Set<LineaPedido_Pojo> getListaLineas() {
-	return listaLineas;
-}
+	public Set<LineaPedido_Pojo> getListaLineas() {
+		return listaLineas;
+	}
 
-public void setListaLineas(Set<LineaPedido_Pojo> listaLineas) {
-	this.listaLineas = listaLineas;
-}
+	public void setListaLineas(Set<LineaPedido_Pojo> listaLineas) {
+		this.listaLineas = listaLineas;
+	}
 
-public double getPrecio_total() {
-	return precio_total;
-}
+	public double getPrecio_total() {
+		return precio_total;
+	}
 
-public void setPrecio_total(double precio_total) {
-	this.precio_total = precio_total;
-}
+	public void setPrecio_total(double precio_total) {
+		this.precio_total = precio_total;
+	}
 
-@Override
-public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + ((estadoPedido == null) ? 0 : estadoPedido.hashCode());
-	result = prime * result + ((id == null) ? 0 : id.hashCode());
-	result = prime * result + ((listaLineas == null) ? 0 : listaLineas.hashCode());
-	result = prime * result + ((observaciones == null) ? 0 : observaciones.hashCode());
-	long temp;
-	temp = Double.doubleToLongBits(precio_total);
-	result = prime * result + (int) (temp ^ (temp >>> 32));
-	result = prime * result + ((puntoReparto == null) ? 0 : puntoReparto.hashCode());
-	return result;
-}
+	public Queja_Pojo getQueja() {
+		return queja;
+	}
 
-@Override
-public boolean equals(Object obj) {
-	if (this == obj)
+	public void setQueja(Queja_Pojo queja) {
+		this.queja = queja;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((estadoPedido == null) ? 0 : estadoPedido.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((listaLineas == null) ? 0 : listaLineas.hashCode());
+		result = prime * result + ((observaciones == null) ? 0 : observaciones.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(precio_total);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((puntoReparto == null) ? 0 : puntoReparto.hashCode());
+		result = prime * result + ((queja == null) ? 0 : queja.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pedido_Pojo other = (Pedido_Pojo) obj;
+		if (estadoPedido == null) {
+			if (other.estadoPedido != null)
+				return false;
+		} else if (!estadoPedido.equals(other.estadoPedido))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (listaLineas == null) {
+			if (other.listaLineas != null)
+				return false;
+		} else if (!listaLineas.equals(other.listaLineas))
+			return false;
+		if (observaciones == null) {
+			if (other.observaciones != null)
+				return false;
+		} else if (!observaciones.equals(other.observaciones))
+			return false;
+		if (Double.doubleToLongBits(precio_total) != Double.doubleToLongBits(other.precio_total))
+			return false;
+		if (puntoReparto == null) {
+			if (other.puntoReparto != null)
+				return false;
+		} else if (!puntoReparto.equals(other.puntoReparto))
+			return false;
+		if (queja == null) {
+			if (other.queja != null)
+				return false;
+		} else if (!queja.equals(other.queja))
+			return false;
 		return true;
-	if (obj == null)
-		return false;
-	if (getClass() != obj.getClass())
-		return false;
-	Pedido_Pojo other = (Pedido_Pojo) obj;
-	if (estadoPedido == null) {
-		if (other.estadoPedido != null)
-			return false;
-	} else if (!estadoPedido.equals(other.estadoPedido))
-		return false;
-	if (id == null) {
-		if (other.id != null)
-			return false;
-	} else if (!id.equals(other.id))
-		return false;
-	if (listaLineas == null) {
-		if (other.listaLineas != null)
-			return false;
-	} else if (!listaLineas.equals(other.listaLineas))
-		return false;
-	if (observaciones == null) {
-		if (other.observaciones != null)
-			return false;
-	} else if (!observaciones.equals(other.observaciones))
-		return false;
-	if (Double.doubleToLongBits(precio_total) != Double.doubleToLongBits(other.precio_total))
-		return false;
-	if (puntoReparto == null) {
-		if (other.puntoReparto != null)
-			return false;
-	} else if (!puntoReparto.equals(other.puntoReparto))
-		return false;
-	return true;
-}
+	}
 
 	
 }

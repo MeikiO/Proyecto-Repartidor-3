@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/aaa_layouts/clientes/layout_cliente">
+
+<head> 
+    <title>Nueva queja</title> 
+
+	<link rel="stylesheet" type="text/css" href="#" th:href="@{/css/clientes/entrada_styles.css}">
+	<link rel="stylesheet" type="text/css" href="#" th:href="@{/css/clientes/formulario.css}">
+</head>
+	
+<body class="container mt-5">
+
+    <p th:text="'EL CLIENTE se queja desde esta ventana'" />
+    
+    <header layout:fragment="header">
+    	<p> Por si falla el nav </p>
+    </header>
+    
+       
+   <section layout:fragment="custom-content" class="document__content">
+
+		<h1 class="text-center">Registro de Queja de pedido <p> </p></h1>
+	
+		<form method="post" action="#" th:action="'/cliente/terminarQueja/'+ ${id_pedido}" th:object="${queja}" autocomplete="off">
+		    <div class="form-group">
+	       		<input hidden="true" type="text" th:field="*{id}" />
+	       		<input hidden="true" type="text" th:field="*{fechaQueja}"/>	       		
+		    </div>
+		      
+		    <div class="form-group">
+			  	<label for="producto">Categoria de Queja</label>
+			      
+			    <select for="clasificacion" name="clasificacion">
+		      		<option value="default">Selecciona categoria</option>
+		    		<option th:each="actual: ${tiposQuejas}" 
+		    		th:value="${actual}"
+		    		th:text="${actual}"/>
+		        </select>   
+		  	</div>
+
+
+			<div class="form-group">
+			 	<label for="razones">Razones de la queja: </label>
+
+				<textarea id="razones"
+				          rows="5" cols="33" name="razones" 
+				          th:value=${queja.razones} >
+				</textarea>
+			</div>	  
+		
+		
+			<button type="submit" class="btn btn-primary btn-block btn-lg" name="action"  value="realizar_queja">Realizar Queja</button>
+		
+		</form>
+
+		
+	
+	</section>
+	
+</body>
+</html>

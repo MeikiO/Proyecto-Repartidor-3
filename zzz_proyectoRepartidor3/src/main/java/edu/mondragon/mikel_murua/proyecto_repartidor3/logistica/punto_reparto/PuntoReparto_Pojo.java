@@ -20,6 +20,7 @@ import javax.persistence.Transient;
 
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.Pedido_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.poblacion.Poblacion_Pojo;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.quejas.Queja_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.UserAccount_Pojo;
 
 
@@ -85,17 +86,22 @@ public class PuntoReparto_Pojo {
 	// link-> https://stackoverflow.com/questions/41729709/how-do-i-disable-hibernate-foreign-key-constraint-on-a-bidirectional-association
 	private Set<Pedido_Pojo> lista_pedidos;
     
+	@OneToMany
+	@JoinColumn(name = "queja_id") 
+	private Set<Queja_Pojo> listaQuejas;
+	
 //////////////////////////////////////////////////    
     
 
     public PuntoReparto_Pojo() {
     	this.lista_pedidos=new HashSet<>();
+    	this.listaQuejas=new HashSet<>();
 	}
 
 	public PuntoReparto_Pojo(Long id, String nombre_cliente, String apellidos_cliente, String tlf1_cliente,
 			String tlf2_cliente, String tlf3_cliente, String direccion, String dni, String color_puntero,
 			double coordenadasLatitud, double coordenadasLongitud, Poblacion_Pojo poblacion, UserAccount_Pojo user,
-			Set<Pedido_Pojo> lista_pedidos) {
+			Set<Pedido_Pojo> lista_pedidos, Set<Queja_Pojo> listaQuejas) {
 		super();
 		this.id = id;
 		this.nombre_cliente = nombre_cliente;
@@ -111,6 +117,7 @@ public class PuntoReparto_Pojo {
 		this.poblacion = poblacion;
 		this.user = user;
 		this.lista_pedidos = lista_pedidos;
+		this.listaQuejas = listaQuejas;
 	}
 
 	public Long getId() {
@@ -225,6 +232,14 @@ public class PuntoReparto_Pojo {
 		this.lista_pedidos = lista_pedidos;
 	}
 
+	public Set<Queja_Pojo> getListaQuejas() {
+		return listaQuejas;
+	}
+
+	public void setListaQuejas(Set<Queja_Pojo> listaQuejas) {
+		this.listaQuejas = listaQuejas;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -239,6 +254,7 @@ public class PuntoReparto_Pojo {
 		result = prime * result + ((direccion == null) ? 0 : direccion.hashCode());
 		result = prime * result + ((dni == null) ? 0 : dni.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((listaQuejas == null) ? 0 : listaQuejas.hashCode());
 		result = prime * result + ((lista_pedidos == null) ? 0 : lista_pedidos.hashCode());
 		result = prime * result + ((nombre_cliente == null) ? 0 : nombre_cliente.hashCode());
 		result = prime * result + ((poblacion == null) ? 0 : poblacion.hashCode());
@@ -287,6 +303,11 @@ public class PuntoReparto_Pojo {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (listaQuejas == null) {
+			if (other.listaQuejas != null)
+				return false;
+		} else if (!listaQuejas.equals(other.listaQuejas))
+			return false;
 		if (lista_pedidos == null) {
 			if (other.lista_pedidos != null)
 				return false;
@@ -324,9 +345,8 @@ public class PuntoReparto_Pojo {
 			return false;
 		return true;
 	}
-
+	    
 	
-
 
 	
 }
