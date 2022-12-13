@@ -113,7 +113,7 @@ public class Pedido_Pojo {
    
     @OneToMany(cascade=CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name="lineapedido_id")
-    //@org.hibernate.annotations.ForeignKey(name = "none")
+    @org.hibernate.annotations.ForeignKey(name = "none")
   	//desabilitamos la comprobacion del foreign key de pedidos por que sino nos dara error
   	// link-> https://stackoverflow.com/questions/41729709/how-do-i-disable-hibernate-foreign-key-constraint-on-a-bidirectional-association
   	
