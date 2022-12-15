@@ -1,37 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/aaa_layouts/general/layout_general">
 
-<!DOCTYPE html>
-<th:block th:insert="~{aaa_fragments/components :: html}"></th:block>
-<head>
-	
-	<th:block th:insert="~{aaa_fragments/components :: head}"></th:block>
-	<title>LOGIN</title>
-
+<head> 
+    <title>Login</title> 
 </head>
 <body>
-	<h1 class="text-center">Esto es la pagina del LOGIN</h1>
-	
-	<div class="form-group">
-		<h1 class="titlee">Login</h1>
-	</div>
+ 	
+ 	<section layout:fragment="custom-content" class="document__content">
+  		
+		<h1 class="text-center">Esto es la pagina del LOGIN</h1>
 		
-	 <form action="#" th:action="@{/login}" th:object="${datos_introducidos}" method="post">
-	       <div class="form-group">
-	        <label for="username">Username</label>
-	        <input type="text" class="form-control" id="username" name="username" autocomplete="new-password" required
-	               placeholder="Enter username">
-	    </div>
-	    <div class="form-group">
-	        <label for="password">Password</label>
-	        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required
-	               autocomplete="new-password">
-	    </div>
-			<input type="submit" class="btn btn-primary btn-block btn-lg" value="Log In"/>
+		<div class="form-group">
+			<h1 class="titlee">Login</h1>
 		</div>
-	</form>
-
- 	<form action="#" th:action="@{/register2}">
-		<input type="submit" class="btn btn-primary btn-block btn-lg" value="Register"/>
-	</form>
+			
+		 <form action="#" th:action="@{/login}" th:object="${datos_introducidos}" method="post">
+		    <div class="form-group">
+		        <label for="username">Username</label>
+		        <input type="text" class="form-control" id="username" name="username" autocomplete="new-password" required
+		               placeholder="Enter username">
+		    </div>
+		    <div class="form-group">
+		        <label for="password">Password</label>
+		        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required
+		               autocomplete="new-password">
+		    </div>
+			
+			<input type="submit" class="btn btn-primary btn-block btn-lg" value="Log In"/>
+			
+		</form>
+	
+	 	<form action="#" th:action="@{/register2}">
+			<input type="submit" class="btn btn-primary btn-block btn-lg" value="Register"/>
+		</form>
+	
+	</section>
+	
 	
 	<footer>
 		<div class="pruebas">

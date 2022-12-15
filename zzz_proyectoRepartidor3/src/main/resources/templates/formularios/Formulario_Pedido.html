@@ -24,15 +24,15 @@
 	
 		<form method="post" action="#" th:action="@{/cliente/procesarLinea}" th:object="${linea_pedido}" autocomplete="off">
 		    <div class="form-group">
-	       		<input hidden="true" type="text" th:field="*{id}" />
-	       		<input hidden="true" type="text" th:field="*{candidad}"/>
-	       		<input hidden="true" type="text" th:field="*{producto}"/>
+	       		<input hidden type="text" th:field="*{id}" />
+	       		<input hidden type="text" th:field="*{candidad}"/>
+	       		<input hidden type="text" th:field="*{producto}"/>
 		    </div>
 		      
 		    <div class="form-group">
 			  	<label for="producto">Producto</label>
 			      
-			    <select for="producto_formulario" name="producto_formulario">
+			    <select name="producto_formulario">
 		      		<option value="default">Selecciona Producto</option>
 		    		<option th:each="producto: ${listaProductos}" 
 		    		th:value="${producto.nombre}"
@@ -41,15 +41,15 @@
 		  	</div>
 			  
 				<!-- Link para hacer el contador chulo (manda a la siguiente ventana) 
-					--------------------https://stackoverflow.com/questions/54398234/style-input-type-number-more-plus-button-on-the-side
+					https://stackoverflow.com/questions/54398234/style-input-type-number-more-plus-button-on-the-side
 				-->
 
 			<div class="form-group">
 			 	<label for="candidad">Cantidad: </label>
 				<!-- How to get correctly the input values 
-				--------https://stackoverflow.com/questions/40899494/how-to-get-input-values-from-spring-boot-thyme-leaf-to-java-class
+					https://stackoverflow.com/questions/40899494/how-to-get-input-values-from-spring-boot-thyme-leaf-to-java-class
 				 -->    
-			  <input for="candidad" min="0"  name="quantity" value="1" th:field="*{candidad}" type="number">
+			  <input min="0"  name="quantity" value="1" th:field="*{candidad}" type="number">
 			</div>
 		
 		
@@ -57,7 +57,7 @@
 		
 		</form>
 		
-<!-- ---------------------------------------------------------- -->
+<!-- __________________________________________ -->
 
 			 <table class="tabla__pedidos">
 				   <thead>
@@ -90,7 +90,7 @@
 
 
 		    <div>
-                <label for="precio_total">Precio Total: </label>
+                <label>Precio Total: </label>
                 <input id="precio" type="text" th:value="${pedido.precio_total}" readonly="readonly">
             </div>
 		
