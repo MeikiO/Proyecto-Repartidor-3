@@ -127,7 +127,6 @@ public class ControladorJ__Cliente {
             case "procesar_pedido":
             	return "redirect:/cliente/entrada";
             
-            
             	
             case "ver_todas_las_quejas":
             	return "redirect:/cliente/ver_todas_las_quejas";
@@ -336,6 +335,10 @@ public class ControladorJ__Cliente {
      	//no los asignamos a pedido
     	pedido.setPrecio_total(this.calcularPrecioTotal(lista));
 		
+    	java.util.Date date = new java.util.Date();    
+	    System.out.println(date);   
+	    	
+	    pedido.setFechaPedido(date);
     	
     	this.pedidos_repository.save(pedido);
 		

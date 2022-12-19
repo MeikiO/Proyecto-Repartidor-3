@@ -2,6 +2,7 @@ package edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -44,6 +45,8 @@ public class Pedido_Pojo {
 	private String estadoPedido;
 	
 	private String observaciones;
+	
+	private Date fechaPedido;
 	
 ////////////////////////////////////////
 	
@@ -133,12 +136,13 @@ public class Pedido_Pojo {
 		this.precio_total=0;
 	}
 
-	public Pedido_Pojo(Long id, String estadoPedido, String observaciones, PuntoReparto_Pojo puntoReparto,
-			Set<LineaPedido_Pojo> listaLineas, double precio_total, Queja_Pojo queja) {
+	public Pedido_Pojo(Long id, String estadoPedido, String observaciones, Date fechaPedido,
+			PuntoReparto_Pojo puntoReparto, Set<LineaPedido_Pojo> listaLineas, double precio_total, Queja_Pojo queja) {
 		super();
 		this.id = id;
 		this.estadoPedido = estadoPedido;
 		this.observaciones = observaciones;
+		this.fechaPedido = fechaPedido;
 		this.puntoReparto = puntoReparto;
 		this.listaLineas = listaLineas;
 		this.precio_total = precio_total;
@@ -167,6 +171,14 @@ public class Pedido_Pojo {
 
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
+	}
+
+	public Date getFechaPedido() {
+		return fechaPedido;
+	}
+
+	public void setFechaPedido(Date fechaPedido) {
+		this.fechaPedido = fechaPedido;
 	}
 
 	public PuntoReparto_Pojo getPuntoReparto() {
@@ -206,6 +218,7 @@ public class Pedido_Pojo {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((estadoPedido == null) ? 0 : estadoPedido.hashCode());
+		result = prime * result + ((fechaPedido == null) ? 0 : fechaPedido.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((listaLineas == null) ? 0 : listaLineas.hashCode());
 		result = prime * result + ((observaciones == null) ? 0 : observaciones.hashCode());
@@ -230,6 +243,11 @@ public class Pedido_Pojo {
 			if (other.estadoPedido != null)
 				return false;
 		} else if (!estadoPedido.equals(other.estadoPedido))
+			return false;
+		if (fechaPedido == null) {
+			if (other.fechaPedido != null)
+				return false;
+		} else if (!fechaPedido.equals(other.fechaPedido))
 			return false;
 		if (id == null) {
 			if (other.id != null)

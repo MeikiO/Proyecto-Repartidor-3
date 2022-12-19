@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/aaa_layouts/admin/layout_admin">
+
+<head> 
+    <title>Entrada</title> 
+	<link rel="stylesheet" type="text/css" href="#" th:href="@{/css/clientes/entrada_styles.css}">
+</head>
+<body>
+
+    <header layout:fragment="header">
+    	<p> Por si falla el nav </p>
+    </header>
+    
+       
+   <section layout:fragment="custom-content" class="document__content">
+  			<!-- aqui escribimos todo lo que va en el contenido -->
+
+		<div class="container">
+		  <div class="row">
+		    <div class="col-sm order-first">
+		      
+		       <table class="tabla__pedidos">
+                   <thead class="tabla__info">
+                       <tr>
+                           <td></td>
+                           <td></td>
+                  			<td></td>
+                       </tr>
+                   </thead>
+                   <tbody>
+                  		<tr th:each="pedido : ${lista}">
+                   		<td th:text="${pedido.id}"></td> 
+                              <td th:text="${pedido.estadoPedido}"></td> 
+                              <td>
+                       	       <a th:href="'/admin/ver/'+${pedido.id}" class="btn btn-primary">Ver</a>
+                              </td>
+                      </tr>
+                   </tbody>
+               </table>
+
+		    </div>
+		    
+		    <!-- https://stackoverflow.com/questions/13494078/how-to-do-if-else-in-thymeleaf -->
+		    
+		    <div th:switch="${puntoReparto != null}">
+			    <div th:case="false" class="col-sm order-last">
+			    	<p>No hay datos seleccionados</p>
+			    </div>
+			    <div th:case="true" class="col-sm order-last">
+			        <div>
+				        <label for="">Pedido</label>
+				        <label th:text="${pedido.id}"></label>
+				    </div>
+				       <div>
+				        <label th:text="${pedido.fechaPedido}"></label>
+				    </div>
+				    <div>
+				        <label th:text="${puntoReparto.direccion}"></label>
+				    </div>
+				    <div>
+				        <label th:text="${puntoReparto.poblacion.codigoPostal}">,</label>
+				         <label th:text="${puntoReparto.poblacion.nombreLocalizacion}"></label>
+				    </div>
+				
+				    <div>
+				 			 <table class="tabla__pedidos">
+							   <thead>
+				                    <tr>
+				                        <td>Nombre Producto</td>
+				                        <td>Cantidad</td>
+				                        <td>Precio base</td>
+				                        <td>Descuento</td>
+				                    </tr>
+				                </thead>
+				                <tbody>
+				               		<tr th:each="linea : ${pedido.listaLineas}" class="pedido">
+				                     <td th:text="${linea.producto.nombre}"></td> 
+				                     <td th:text="${linea.candidad}"></td> 
+				                     <td th:text="${linea.producto.precio_producto}"></td> 
+				                     <td th:text="${linea.producto.descuento}"></td> 
+				                	</tr>
+				                </tbody>
+				            </table>
+				
+				
+						    <div>
+				                <label for="precio">Precio Total: </label>
+				                <input id="precio" type="text" th:value="${pedido.precio_total}" readonly="readonly">
+				            </div>
+						
+						
+							<div class="form-group">
+							 	<label for="observaciones">Observaciones: </label>
+				
+								<textarea id="observaciones"
+								          rows="5" cols="33" name="observaciones" 
+								          th:text=${pedido.observaciones} readonly="readonly">
+								</textarea>
+							</div>	  
+			    </div>
+			    
+
+			  </div>
+			</div>
+		 </div>
+	</section>
+
+
+</body>
+
+
+</html>
