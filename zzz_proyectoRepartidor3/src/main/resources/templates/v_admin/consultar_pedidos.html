@@ -16,30 +16,107 @@
    <section layout:fragment="custom-content" class="document__content">
   			<!-- aqui escribimos todo lo que va en el contenido -->
 
-		<div class="container">
-		  <div class="row">
-		    <div class="col-sm order-first">
-		      
-		       <table class="tabla__pedidos">
-                   <thead class="tabla__info">
-                       <tr>
-                           <td></td>
-                           <td></td>
-                  			<td></td>
-                       </tr>
-                   </thead>
-                   <tbody>
-                  		<tr th:each="pedido : ${lista}">
-                   		<td th:text="${pedido.id}"></td> 
-                              <td th:text="${pedido.estadoPedido}"></td> 
-                              <td>
-                       	       <a th:href="'/admin/ver/'+${pedido.id}" class="btn btn-primary">Ver</a>
-                              </td>
-                      </tr>
-                   </tbody>
-               </table>
 
+<div>
+<!-- Enseñarlo agrupado aqui -->
+
+ 		<div th:switch="${mapa.get('ESTADO_EN_ESPERA_DE_MANDAR').isEmpty()}">
+		    <div th:case="false" class="col-sm order-last">
+		    	<h1>EN ESPERA</h1>
+		    	<br>
+		       <table class="tabla__pedidos">
+	                  <thead class="tabla__info">
+	                      <tr>
+	                          <td></td>
+	                          <td></td>
+	                 			<td></td>
+	                      </tr>
+	                  </thead>
+	                  <tbody>
+	                 		<tr th:each="pedido : ${mapa.get('ESTADO_EN_ESPERA_DE_MANDAR')}">
+	                  		<td th:text="${pedido.id}"></td> 
+	                             <td th:text="${pedido.estadoPedido}"></td> 
+	                             <td>
+	                      	       <a th:href="'/admin/verPedido/'+${pedido.id}" class="btn btn-primary">Ver</a>
+	                             </td>
+	                     </tr>
+	                  </tbody>
+	              </table>
 		    </div>
+		</div>	
+		<div th:switch="${mapa.get('ESTADO_EN_CAMINO').isEmpty()}">
+		    <div th:case="false" class="col-sm order-last">
+		    	<h1>EN CAMINO</h1>
+		    	<br>
+		       <table class="tabla__pedidos">
+	                  <thead class="tabla__info">
+	                      <tr>
+	                          <td></td>
+	                          <td></td>
+	                 			<td></td>
+	                      </tr>
+	                  </thead>
+	                  <tbody>
+	                 		<tr th:each="pedido : ${mapa.get('ESTADO_EN_CAMINO')}">
+	                  		<td th:text="${pedido.id}"></td> 
+	                             <td th:text="${pedido.estadoPedido}"></td> 
+	                             <td>
+	                      	       <a th:href="'/admin/verPedido/'+${pedido.id}" class="btn btn-primary">Ver</a>
+	                             </td>
+	                     </tr>
+	                  </tbody>
+	              </table>
+		    </div>
+		</div>	
+		<div th:switch="${mapa.get('ESTADO_ENTREGADO').isEmpty()}">
+			    <div th:case="false" class="col-sm order-last">
+			    	<h1>ENTREGADO</h1>
+			    	<br>
+			       <table class="tabla__pedidos">
+		                  <thead class="tabla__info">
+		                      <tr>
+		                          <td></td>
+		                          <td></td>
+		                 			<td></td>
+		                      </tr>
+		                  </thead>
+		                  <tbody>
+		                 		<tr th:each="pedido : ${mapa.get('ESTADO_ENTREGADO')}">
+		                  		<td th:text="${pedido.id}"></td> 
+		                             <td th:text="${pedido.estadoPedido}"></td> 
+		                             <td>
+		                      	       <a th:href="'/admin/verPedido/'+${pedido.id}" class="btn btn-primary">Ver</a>
+		                             </td>
+		                     </tr>
+		                  </tbody>
+		              </table>
+			    </div>
+			</div>	
+			<div th:switch="${mapa.get('ESTADO_CANCELADO').isEmpty()}">
+			    <div th:case="false" class="col-sm order-last">
+			    	<h1>CANCELADO</h1>
+			    	<br>
+			       <table class="tabla__pedidos">
+		                  <thead class="tabla__info">
+		                      <tr>
+		                          <td></td>
+		                          <td></td>
+		                 			<td></td>
+		                      </tr>
+		                  </thead>
+		                  <tbody>
+		                 		<tr th:each="pedido : ${mapa.get('ESTADO_CANCELADO')}">
+		                  		<td th:text="${pedido.id}"></td> 
+		                             <td th:text="${pedido.estadoPedido}"></td> 
+		                             <td>
+		                      	       <a th:href="'/admin/verPedido/'+${pedido.id}" class="btn btn-primary">Ver</a>
+		                             </td>
+		                     </tr>
+		                  </tbody>
+		              </table>
+			    </div>
+			</div>	
+
 		    
 		    <!-- https://stackoverflow.com/questions/13494078/how-to-do-if-else-in-thymeleaf -->
 		    
@@ -62,48 +139,48 @@
 				        <label th:text="${puntoReparto.poblacion.codigoPostal}">,</label>
 				         <label th:text="${puntoReparto.poblacion.nombreLocalizacion}"></label>
 				    </div>
-				
+		
+		 			 <table class="tabla__pedidos">
+					   <thead>
+		                    <tr>
+		                        <td>Nombre Producto</td>
+		                        <td>Cantidad</td>
+		                        <td>Precio base</td>
+		                        <td>Descuento</td>
+		                    </tr>
+		                </thead>
+		                <tbody>
+		                
+		               		<tr th:each="linea : ${pedido.listaLineas}" class="pedido">
+		                     <td th:text="${linea.producto.nombre}"></td> 
+		                     <td th:text="${linea.candidad}"></td> 
+		                     <td th:text="${linea.producto.precio_producto}"></td> 
+		                     <td th:text="${linea.producto.descuento}"></td> 
+		                	</tr>
+		                </tbody>
+		            </table>
+		
+		
 				    <div>
-				 			 <table class="tabla__pedidos">
-							   <thead>
-				                    <tr>
-				                        <td>Nombre Producto</td>
-				                        <td>Cantidad</td>
-				                        <td>Precio base</td>
-				                        <td>Descuento</td>
-				                    </tr>
-				                </thead>
-				                <tbody>
-				               		<tr th:each="linea : ${pedido.listaLineas}" class="pedido">
-				                     <td th:text="${linea.producto.nombre}"></td> 
-				                     <td th:text="${linea.candidad}"></td> 
-				                     <td th:text="${linea.producto.precio_producto}"></td> 
-				                     <td th:text="${linea.producto.descuento}"></td> 
-				                	</tr>
-				                </tbody>
-				            </table>
+		                <label for="precio">Precio Total: </label>
+		                <input id="precio" type="text" th:value="${pedido.precio_total}" readonly="readonly">
+		            </div>
 				
 				
-						    <div>
-				                <label for="precio">Precio Total: </label>
-				                <input id="precio" type="text" th:value="${pedido.precio_total}" readonly="readonly">
-				            </div>
-						
-						
-							<div class="form-group">
-							 	<label for="observaciones">Observaciones: </label>
-				
-								<textarea id="observaciones"
-								          rows="5" cols="33" name="observaciones" 
-								          th:text=${pedido.observaciones} readonly="readonly">
-								</textarea>
-							</div>	  
+					<div class="form-group">
+					 	<label for="observaciones">Observaciones: </label>
+		
+						<textarea id="observaciones"
+						          rows="5" cols="33" name="observaciones" 
+						          th:text=${pedido.observaciones} readonly="readonly">
+						</textarea>
+					</div>	  
 			    </div>
 			    
 
 			  </div>
-			</div>
-		 </div>
+		</div>
+		
 	</section>
 
 

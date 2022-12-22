@@ -48,9 +48,13 @@
                                 <td class="">
                          	       <button type="submit" name="action" th:value="'ver/'+${pedido.id}" class="btn btn-info">Ver</button>
                                 </td>
-                                <td class="acciones">
-                                	<button type="submit" name="action" th:value="'queja/'+${pedido.id}" class="btn btn-info">Queja</button>
-                              	</td>
+                                <div th:switch="${pedido.queja==null}">
+		    						<div th:case="true" class="col-sm order-last">
+		                                <td class="acciones">
+		                                	<button type="submit" name="action" th:value="'queja/'+${pedido.id}" class="btn btn-info">Queja</button>
+		                              	</td>
+		                            </div>
+		                         </div>
 		                      </tr>
 	                    </tbody>
 	                </table>

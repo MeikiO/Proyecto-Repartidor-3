@@ -536,9 +536,9 @@ VALUES("El que no puede faltar","pan","5",5);
 
 select * from punto_reparto;
 
-select * from pedidos;
-
 select * from productos;
+
+select * from pedidos;
 
 select * from lineapedidos;
 

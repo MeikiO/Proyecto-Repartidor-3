@@ -1,7 +1,9 @@
 package edu.mondragon.mikel_murua.proyecto_repartidor3.controladores;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -63,50 +65,62 @@ public class ControladorJ__Admin {
         return "/v_admin/panel_control_admin";
     }
     
-    @GetMapping({"/admin/consultarPedidos"})
-    public String consultarPedidos(Model model) {
+    
+    public Map<String,List<Pedido_Pojo>> extraerMapaNecesario(){
+    	Map<String,List<Pedido_Pojo>> mapaPedidosEstados=new HashMap<>();
     	
-    	List<Pedido_Pojo> todos_pedidos = this.pedidos_repository.findAll();
+    	//para enseñarlo agrupado
     	
     	for(Estado_Pedido actual:Estado_Pedido.values()) {
     		
     		if(actual!=Estado_Pedido.ESTADO_HACIENDO_EL_PEDIDO && actual!=Estado_Pedido.ESTADO_EN_ESPERA_DE_EMPEZAR_REPARTO) {
-    			
-    			
+    			List<Pedido_Pojo> listaExtraida=this.pedidos_repository.findByEstadoPedido(actual.toString());
+    			mapaPedidosEstados.put(actual.toString(), listaExtraida);
     		}
-    		
     	}
     	
+    	return mapaPedidosEstados;
+    }
+    
+    @GetMapping({"/admin/consultarPedidos"})
+    public String consultarPedidos(Model model) {
+    	   	
+    	Map<String,List<Pedido_Pojo>> mapaPedidosEstados=this.extraerMapaNecesario();
+    	model.addAttribute("mapa", mapaPedidosEstados);
     	
-    	model.addAttribute("lista", todos_pedidos);
-    	
-    	
-    	
-    	
-    	
+       	/*Los links usados
+		   	 -> para usar maps en los templates:
+		   	 https://stackoverflow.com/questions/28621301/how-to-use-map-getkey-in-thymeleaf-broadleaf-ecom
+		   	 
+		   	 -> Para usar if, y elses:
+		   	 https://stackoverflow.com/questions/13494078/how-to-do-if-else-in-thymeleaf
+		*/
+ 
     	model.addAttribute("pedido",null);
     	model.addAttribute("puntoReparto", null);
-    	model.addAttribute("lista_lineas", null);
-    	
     	
     	
         return "/v_admin/consultar_pedidos";
     }
     
-    @GetMapping({"/admin/ver/{id}"})
+    @GetMapping({"/admin/verPedido/{id}"})
     public String consultarPedidos(@PathVariable String id,Model model) {
     	
-    	List<Pedido_Pojo> todos_pedidos = this.pedidos_repository.findAll();
-    	model.addAttribute("lista", todos_pedidos);
+    	Map<String,List<Pedido_Pojo>> mapaPedidosEstados=this.extraerMapaNecesario();
+    	model.addAttribute("mapa", mapaPedidosEstados);
     	
     	long id_pedido=(long)Integer.parseInt(id);
     	
     	Optional<Pedido_Pojo> pedidoSeleccionado = this.pedidos_repository.findById(id_pedido);
+    	Pedido_Pojo pedido=pedidoSeleccionado.get();
     	
-    	model.addAttribute("pedido",pedidoSeleccionado.get());
-    	model.addAttribute("puntoReparto", pedidoSeleccionado.get().getPuntoReparto());
     	Set<LineaPedido_Pojo> listaLinea = this.linea_repository.findByPedido_id(id_pedido);
-    	model.addAttribute("lista_lineas", listaLinea);
+    	pedido.setListaLineas(listaLinea);
+     	model.addAttribute("pedido",pedido);
+    	
+     	model.addAttribute("puntoReparto", pedido.getPuntoReparto());
+    	
+ 
     	
         return "/v_admin/consultar_pedidos";
     }
