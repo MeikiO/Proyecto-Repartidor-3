@@ -544,3 +544,6 @@ select * from lineapedidos;
 
 select * from queja;
 
+select * from `repartidores`;
+
+select * from `credencial`;

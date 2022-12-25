@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/aaa_layouts/admin/layout_admin">
+
+<head> 
+    <title>Entrada</title> 
+	<link rel="stylesheet" type="text/css" href="#" th:href="@{/css/clientes/entrada_styles.css}">
+</head>
+<body>
+
+    <header layout:fragment="header">
+    	<p> Por si falla el nav </p>
+    </header>
+    
+       
+   <section layout:fragment="custom-content" class="document__content">
+  			<!-- aqui escribimos todo lo que va en el contenido -->
+
+
+
+
+
+
+	 		<div th:switch="${listaRepartidores.isEmpty()}">
+	 			<div th:case="true" class="col-sm order-last">
+	 				<p>No hay repartidores Actualmente</p>
+	 			</div>
+			    <div th:case="false" class="col-sm order-last">
+		
+			       <table >
+		                  <thead class="tabla__info">
+		                      <tr>
+		                          <td>Id Usuario</td>
+		                          <td>Nombre</td>
+		                 		  <td>Apellidos</td>
+		                 		  <td>Correo Electronico</td>
+		                          <td></td>
+		                 		  <td></td>
+		                      </tr>
+		                  </thead>
+		                  <tbody>
+		                 		<tr th:each="repartidor : ${listaRepartidores}">
+		                  		<td th:text="${repartidor.id}"></td> 
+		                  		<td th:text="${repartidor.nombre}"></td>
+		                  		<td th:text="${repartidor.apellidos}"></td>
+		                  		<td th:text="${repartidor.gmail}"></td>    
+	                            <td>
+	                      	       <a th:href="'/admin/editarRepartidor/'+${repartidor.id}" class="btn btn-primary">Editar</a>
+	                            </td>
+	                            <td>
+	                      	       <a th:href="'/admin/borrarRepartidor/'+${repartidor.id}" class="btn btn-primary">Borrar</a>
+	                            </td>
+		                     </tr>
+		                  </tbody>
+		              </table>
+			    </div>
+			</div>	
+		
+		</div>
+		
+	</section>
+
+
+</body>
+
+
+</html>

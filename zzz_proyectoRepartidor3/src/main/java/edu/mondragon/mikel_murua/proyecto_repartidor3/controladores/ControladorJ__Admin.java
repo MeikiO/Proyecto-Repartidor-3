@@ -1,5 +1,6 @@
 package edu.mondragon.mikel_murua.proyecto_repartidor3.controladores;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -8,20 +9,34 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.Estado_Pedido;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.LineaPedido_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.LineaPedido_Repository;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.Pedido_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.Pedidos_Repository;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.poblacion.Poblacion_Pojo;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.poblacion.Poblacion_Repository;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.punto_reparto.PuntoReparto_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.punto_reparto.PuntoReparto_Repository;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.quejas.Queja_Repository;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.repartidores.Repartidor_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.repartidores.Repartidor_Repository;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_recursos_coordenadas.ConvertirDireccionACoordenadas;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_recursos_coordenadas.Coordenadas;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.Roles;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.UserAccount_Pojo;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.UserAccount_Repository;
 
 @Controller
 public class ControladorJ__Admin {
@@ -31,24 +46,32 @@ public class ControladorJ__Admin {
 	private Repartidor_Repository repartidor_repository;
 	private Queja_Repository queja_repository;
 	private LineaPedido_Repository linea_repository;
+	private Poblacion_Repository poblacionRepository;
+	private UserAccount_Repository userAccountRepository;
+	private PasswordEncoder passwordEncoder;
 	
 	
 	public ControladorJ__Admin(Pedidos_Repository pedidos_repository, PuntoReparto_Repository punto_reparto_repository,
 			Repartidor_Repository repartidor_repository, Queja_Repository queja_repository,
-			LineaPedido_Repository linea_repository) {
+			LineaPedido_Repository linea_repository, Poblacion_Repository poblacionRepository,
+			UserAccount_Repository userAccountRepository, PasswordEncoder passwordEncoder) {
 		super();
 		this.pedidos_repository = pedidos_repository;
 		this.punto_reparto_repository = punto_reparto_repository;
 		this.repartidor_repository = repartidor_repository;
 		this.queja_repository = queja_repository;
 		this.linea_repository = linea_repository;
+		this.poblacionRepository = poblacionRepository;
+		this.userAccountRepository = userAccountRepository;
+		this.passwordEncoder = passwordEncoder;
 	}
+
 
 	//La restriccion entrada de los usuarios por rol, se hace en SecurityConfiguration.
     //todos pueden entrar a todo, pero lo limitamos usando el rol.
-    
-	
-    @GetMapping({"/admin/entrada"})
+
+
+	@GetMapping({"/admin/entrada"})
     public String redirigirAVentanaDeAdmin(Model model) {
     	
     	Object usuarioLogeado = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
@@ -127,16 +150,138 @@ public class ControladorJ__Admin {
     
     
     
+  
+    @GetMapping({"/admin/consultarRepartidores"})
+    public String consultarRepartidores(Model model) {
+    	
+    	List<Repartidor_Pojo>listaRepartidores=this.repartidor_repository.findAll();
+    	model.addAttribute("listaRepartidores", listaRepartidores);
+    	
+        return "/v_admin/consultar_repartidores";
+    }
+    
+    
+    @GetMapping({"/admin/crearRepartidor"})
+    public String crearRepartidor(Model model) {
+    	
+    	System.out.println("A crear");
+    	
+    	model.addAttribute("repartidor",new Repartidor_Pojo());
+		
+		List<Poblacion_Pojo> poblaciones=this.poblacionRepository.findAll();
+		
+		model.addAttribute("listaPoblaciones", poblaciones);
+		
+    	
+    	
+        return "/v_admin/formulario_repartidor";
+    }
+    
+    
+    
+    @GetMapping({"/admin/editarRepartidor/{id}"})
+    public String editarRepartidor(@PathVariable String id,Model model) {
+    	
+    	System.out.println("A editar");
+    	long id_mandado=Integer.parseInt(id);
+    	
+    	model.addAttribute("repartidor",this.repartidor_repository.findById(id_mandado).get());
+	
+		List<Poblacion_Pojo> poblaciones=this.poblacionRepository.findAll();
+		
+		model.addAttribute("listaPoblaciones", poblaciones);
+		
+    	// poner los parametros de repartidor en el formulario al inicio
+		
+        return "/v_admin/formulario_repartidor";
+    }
+    
+    
+    @PostMapping({"/admin/procesarRepartidor"})
+    public String procesarRepartidor(Model model,
+    @ModelAttribute("repartidor") Repartidor_Pojo repartidor,
+	@RequestParam("username") String username, @RequestParam("password") String password,
+	@RequestParam("poblacion_formulario") String poblacion_elegida) {
+    		
+    	System.out.println(repartidor);
+    	System.out.println(poblacion_elegida);
+
+		try {
+			Optional<Poblacion_Pojo> miPoblacion=this.poblacionRepository.findByNombreLocalizacion(poblacion_elegida);
+			
+			UserAccount_Pojo userAccount=this.formulary_credentials_processing(username,password,Roles.ROLE_CLIENTE.name());
+			
+			this.formulary_repartidor_processing(miPoblacion.get(),userAccount,repartidor);
+	        
+		} 
+		/*
+		catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		*/	
+		finally {
+			System.out.println("Repartidor creado----------");
+		}
+    	
+    	
+        return "redirect:/admin/consultarRepartidores";
+    }
+    
+    
+    
+	private UserAccount_Pojo formulary_credentials_processing(String username, String password,String role) {
+		UserAccount_Pojo userAccount = new UserAccount_Pojo();
+        userAccount.setUsername(username);
+        userAccount.setContrasena(passwordEncoder.encode(password));
+        userAccount.setEstaActivo(true);
+        
+        ArrayList<GrantedAuthority> listaRoles= new ArrayList<>();
+        listaRoles.add(new SimpleGrantedAuthority(role));
+        
+        userAccount.setListaRoles(listaRoles);
+        
+        userAccountRepository.save(userAccount);
+        
+        return userAccount;
+	}
+	
+	private void formulary_repartidor_processing(Poblacion_Pojo poblacion_Pojo, UserAccount_Pojo userAccount,
+			Repartidor_Pojo repartidor) {
+		Repartidor_Pojo a_registrar=repartidor;
+		
+		a_registrar.setPoblacion(poblacion_Pojo);
+		a_registrar.setUser(userAccount);
+		
+		this.repartidor_repository.save(a_registrar);
+	}
+
+    
+	
+    
+    @GetMapping({"/admin/borrarRepartidor/{id}"})
+    public String borrarRepartidor(@PathVariable String id,Model model) {
+    	
+    	long id_mandado=Integer.parseInt(id);
+    	
+    	Optional<Repartidor_Pojo> elegido=this.repartidor_repository.findById(id_mandado);
+  
+    	long idUserRepository=elegido.get().getUser().getIdInterno();
+    	//borramos primero el child (repartidor) y despues el padre (credencial)
+    	this.repartidor_repository.deleteById(id_mandado);
+    	this.userAccountRepository.deleteById(idUserRepository);
+    	
+        return "redirect:/admin/consultarRepartidores";
+    }
+    
+    
+    
+    
     @GetMapping({"/admin/consultarClientes"})
     public String consultarClientes(Model model) {
     	
         return "/v_admin/consultar_clientes";
-    }
-    
-    @GetMapping({"/admin/consultarRepartidores"})
-    public String consultarRepartidores(Model model) {
-    	
-        return "/v_admin/consultar_repartidores";
     }
     
     @GetMapping({"/admin/consultarQuejas"})
