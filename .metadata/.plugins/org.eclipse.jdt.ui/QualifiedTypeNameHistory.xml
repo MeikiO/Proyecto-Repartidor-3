@@ -34,7 +34,6 @@
     <fullyQualifiedTypeName name="java.util.Set"/>
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.LineaPedido_Pojo"/>
     <fullyQualifiedTypeName name="java.sql.Date"/>
-    <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.punto_reparto.PuntoReparto_Pojo"/>
     <fullyQualifiedTypeName name="java.util.Collections"/>
     <fullyQualifiedTypeName name="java.util.EnumSet"/>
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.quejas.ClasificacionQuejas"/>
@@ -60,4 +59,5 @@
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_utils.Procesador_Formularios"/>
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.repartidores.Repartidor_Pojo"/>
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.Pedido_Pojo"/>
+    <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.punto_reparto.PuntoReparto_Pojo"/>
 </qualifiedTypeNameHistroy>

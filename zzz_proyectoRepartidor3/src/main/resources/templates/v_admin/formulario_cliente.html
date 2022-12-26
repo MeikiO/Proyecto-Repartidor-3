@@ -17,34 +17,33 @@
   		<!-- aqui escribimos todo lo que va en el contenido -->
 
 		
-		<h1 class="text-center">Registro de Repartidor</h1>
+		<h1 class="text-center">Registro de Cliente</h1>
 	
-		<form method="post" action="#" th:action="@{/admin/procesarRepartidor}" th:object="${repartidor}" autocomplete="off">
+		<form method="post" action="#" th:action="@{/admin/procesarCliente}" th:object="${cliente}" autocomplete="off">
 		    <div class="form-group">
 	       		<input hidden type="text" th:field="*{id}" />
-		       	<input hidden type="text" th:field="*{listaPedidos}" />
 		    	<input hidden type="text" th:field="*{poblacion}" />  
 		    </div>
 	      
 		  	<div class="form-group">
 	            <label>Nombre:</label>
-	            <input type="text" th:field="*{nombre}" class="form-control" required/>
+	            <input type="text" th:field="*{nombre_cliente}" class="form-control" required/>
 	
 	            <label>Apellidos:</label>
-	            <input type="text" th:field="*{apellidos}" class="form-control" />
+	            <input type="text" th:field="*{apellidos_cliente}" class="form-control" />
 	        </div>
 		
 		  	<div class="form-group">
 	            <label>Tlf1:</label>
-	            <input type="tel" th:field="*{tlf}" class="form-control" pattern="[0-9]{9}" required 
+	            <input type="tel" th:field="*{tlf1_cliente}" class="form-control" pattern="[0-9]{9}" required 
 	            title="introduzca telefono valido (9 numeros)"/>
 	       
 	            <label>Tlf2:</label>
-	            <input type="tel" th:field="*{tlf2}" class="form-control" pattern="[0-9]{9}" 
+	            <input type="tel" th:field="*{tlf2_cliente}" class="form-control" pattern="[0-9]{9}" 
 	            title="introduzca telefono valido (9 numeros)"/>
 	       
 	            <label>Tlf3:</label>
-	            <input type="tel" th:field="*{tlf3}" class="form-control" pattern="[0-9]{9}" 
+	            <input type="tel" th:field="*{tlf3_cliente}" class="form-control" pattern="[0-9]{9}" 
 	            title="introduzca telefono valido (9 numeros)"/>
 	       
 	        </div>
@@ -87,33 +86,24 @@
 		   		title="Debe poner 8 números y una letra" required/>
 		    </div>
 		    
-		    <!-- Para hacer el pattern del gmail (con idea para hacer, de visual si esta validado)
-		    	https://elcssar.com/html5/input-type-email-regex-pattern
-		     -->
-		    <div class="form-group">
-		        <label for="direccion">Gmail</label>
-		        
-		        <input type="text" th:field="*{gmail}" class="form-control" id="gmail" 
-		        name="gmail" title="gmail no valido" pattern="[a-zA-Z0-9!#$%&'*_+-]([\.]?[a-zA-Z0-9!#$%&'*_+-])+@[a-zA-Z0-9]([^@&%$\/()=?¿!.,:;]|\d)+[a-zA-Z0-9][\.][a-zA-Z]{2,4}([\.][a-zA-Z]{2})?" required>
-		    </div>
 		  
 		  
 		  	<div th:switch="*{user==null}">
-		 			<div th:case="true" class="col-sm order-last">
- 					   	<div class="form-group">
-					        <label for="username">Username</label>
-					        <input type="text" class="form-control" id="username" name="username" autocomplete="new-password" required
-					               placeholder="Enter username">
-					    </div>
-		 			</div>
-		 			<div th:case="false" class="col-sm order-last">
-			 		   	<div class="form-group">
-					        <label for="username">Username</label>
-					        <input type="text" th:value="*{user.username}" class="form-control" id="username" name="username" autocomplete="new-password" required
-					               placeholder="Enter username">
-					    </div>
-					    
-		 			</div>
+	 			<div th:case="true" class="col-sm order-last">
+					   	<div class="form-group">
+				        <label for="username">Username</label>
+				        <input type="text" class="form-control" id="username" name="username" autocomplete="new-password" required
+				               placeholder="Enter username">
+				    </div>
+	 			</div>
+	 			<div th:case="false" class="col-sm order-last">
+		 		   	<div class="form-group">
+				        <label for="username">Username</label>
+				        <input type="text" th:value="*{user.username}" class="form-control" id="username" name="username" autocomplete="new-password" required
+				               placeholder="Enter username">
+				    </div>
+				    
+	 			</div>
 	 		</div>
 	 		
 	 		<div class="form-group">
@@ -121,7 +111,8 @@
         		<input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required
                	autocomplete="new-password">
    			</div>
-	
+	      		
+
 		   	<button type="submit" class="btn btn-primary btn-block btn-lg" name="action"  value="registro_repartidor">Registrar Repartidor</button>
 		</form>
 		<form method="get" action="#" th:action="@{/admin/consultarRepartidores}" autocomplete="off">

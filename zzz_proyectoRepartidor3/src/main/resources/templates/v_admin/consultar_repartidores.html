@@ -23,11 +23,12 @@
 			</div>
 
 	 		<div th:switch="${listaRepartidores.isEmpty() || listaRepartidores==null}">
+	 			
 	 			<div th:case="true" class="col-sm order-last">
 	 				<p>No hay repartidores Actualmente</p>
 	 			</div>
+	 			
 			    <div th:case="false" class="col-sm order-last">
-		
 			       <table >
 		                  <thead class="tabla__info">
 		                      <tr>

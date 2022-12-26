@@ -191,8 +191,6 @@ public class ControladorJ__Admin {
 		
 		model.addAttribute("listaPoblaciones", poblaciones);
 		
-    	// poner los parametros de repartidor en el formulario al inicio
-		
         return "/v_admin/formulario_repartidor";
     }
     
@@ -214,6 +212,117 @@ public class ControladorJ__Admin {
 			this.formulary_repartidor_processing(miPoblacion.get(),userAccount,repartidor);
 	        
 		} 
+		finally {
+			System.out.println("Repartidor creado----------");
+		}
+    	
+    	
+        return "redirect:/admin/consultarRepartidores";
+    }
+        
+    @GetMapping({"/admin/borrarRepartidor/{id}"})
+    public String borrarRepartidor(@PathVariable String id,Model model) {
+    	
+    	long id_mandado=Integer.parseInt(id);
+    	
+    	Optional<Repartidor_Pojo> elegido=this.repartidor_repository.findById(id_mandado);
+    	
+    	if(!elegido.isEmpty()) {
+    		long idUserRepository=elegido.get().getUser().getIdInterno();
+    		//borramos primero el child (repartidor) y despues el padre (credencial)
+    		this.repartidor_repository.deleteById(id_mandado);
+    		this.userAccountRepository.deleteById(idUserRepository);    		
+    	}
+    	
+        return "redirect:/admin/consultarRepartidores";
+    }
+    
+    
+    
+    
+    @GetMapping({"/admin/consultarClientes"})
+    public String consultarClientes(Model model) {
+    	
+    	model.addAttribute("listaClientes",this.punto_reparto_repository.findAll());
+        
+    	return "/v_admin/consultar_clientes";
+    }
+    
+    @GetMapping({"/admin/borrarCliente/{id}"})
+    public String borrarCliente(@PathVariable String id,Model model) {
+    	
+    	long id_mandado=Integer.parseInt(id);
+    	
+    	Optional<PuntoReparto_Pojo> elegido=this.punto_reparto_repository.findById(id_mandado);
+  
+    	if(!elegido.isEmpty()) {
+    		long idUserRepository=elegido.get().getUser().getIdInterno();
+    		//borramos primero el child (repartidor) y despues el padre (credencial)
+    		this.punto_reparto_repository.deleteById(id_mandado);
+    		this.userAccountRepository.deleteById(idUserRepository);    		
+    		System.out.println("----------Cliente Borrado");
+    	}
+    	
+        return "redirect:/admin/consultar_clientes";
+    }
+
+    @GetMapping({"/admin/crearCliente"})
+    public String crearCliente(Model model) {
+    	
+    	System.out.println("A crear cliente");
+    	
+    	model.addAttribute("cliente",new PuntoReparto_Pojo());
+		
+		List<Poblacion_Pojo> poblaciones=this.poblacionRepository.findAll();
+		
+		model.addAttribute("listaPoblaciones", poblaciones);
+		
+        return "/v_admin/formulario_cliente";
+    }
+    
+    
+    
+    @GetMapping({"/admin/editarCliente/{id}"})
+    public String editarCliente(@PathVariable String id,Model model) {
+    	
+    	System.out.println("A editar cliente");
+    	long id_mandado=Integer.parseInt(id);
+    	
+    	model.addAttribute("cliente",this.punto_reparto_repository.findById(id_mandado).get());
+	
+		List<Poblacion_Pojo> poblaciones=this.poblacionRepository.findAll();
+		
+		model.addAttribute("listaPoblaciones", poblaciones);
+		
+        return "/v_admin/formulario_cliente";
+    }
+    
+    @PostMapping({"/admin/procesarCliente"})
+    public String procesarCliente(Model model,
+    @ModelAttribute("cliente") PuntoReparto_Pojo cliente,
+	@RequestParam("username") String username, @RequestParam("password") String password,
+	@RequestParam("poblacion_formulario") String poblacion_elegida) {
+    		
+    	System.out.println(cliente);
+    	System.out.println(poblacion_elegida);
+
+		try {
+			Optional<Poblacion_Pojo> miPoblacion=this.poblacionRepository.findByNombreLocalizacion(poblacion_elegida);
+			
+			UserAccount_Pojo userAccount=this.formulary_credentials_processing(username,password,Roles.ROLE_CLIENTE.name());
+			
+			
+			ConvertirDireccionACoordenadas conversor=new ConvertirDireccionACoordenadas();
+			
+			//Coordenadas coordenadasCliente= conversor.realizarConsultaDeCoordenada(cliente.getDireccion(),miPoblacion.get());
+		
+			Coordenadas coordenadasCliente= new Coordenadas(0,0);
+			
+			
+			
+			this.formulary_cliente_processing(miPoblacion.get(),userAccount,cliente,coordenadasCliente);
+	        
+		} 
 		/*
 		catch (IOException e) {
 			e.printStackTrace();
@@ -226,7 +335,7 @@ public class ControladorJ__Admin {
 		}
     	
     	
-        return "redirect:/admin/consultarRepartidores";
+        return "redirect:/admin/consultarClientes";
     }
     
     
@@ -257,34 +366,25 @@ public class ControladorJ__Admin {
 		this.repartidor_repository.save(a_registrar);
 	}
 
-    
+	private void formulary_cliente_processing(Poblacion_Pojo poblacion_Pojo, UserAccount_Pojo userAccount,
+			PuntoReparto_Pojo cliente, Coordenadas coordenadasCliente) {
 	
-    
-    @GetMapping({"/admin/borrarRepartidor/{id}"})
-    public String borrarRepartidor(@PathVariable String id,Model model) {
-    	
-    	long id_mandado=Integer.parseInt(id);
-    	
-    	Optional<Repartidor_Pojo> elegido=this.repartidor_repository.findById(id_mandado);
-  
-    	long idUserRepository=elegido.get().getUser().getIdInterno();
-    	//borramos primero el child (repartidor) y despues el padre (credencial)
-    	this.repartidor_repository.deleteById(id_mandado);
-    	this.userAccountRepository.deleteById(idUserRepository);
-    	
-        return "redirect:/admin/consultarRepartidores";
-    }
+		PuntoReparto_Pojo a_registrar=cliente;
+		
+		a_registrar.setPoblacion(poblacion_Pojo);
+		a_registrar.setUser(userAccount);
+		a_registrar.setCoordenadasLatitud(coordenadasCliente.getCoordenadasLatitud());
+		a_registrar.setCoordenadasLongitud(coordenadasCliente.getCoordenadasLongitud());
+		
+		this.punto_reparto_repository.save(a_registrar);
+	}
+
     
     
     
+
     
-    @GetMapping({"/admin/consultarClientes"})
-    public String consultarClientes(Model model) {
-    	
-        return "/v_admin/consultar_clientes";
-    }
-    
-    @GetMapping({"/admin/consultarQuejas"})
+	@GetMapping({"/admin/consultarQuejas"})
     public String consultarQuejas(Model model) {
     	
         return "/v_admin/consultar_quejas";
