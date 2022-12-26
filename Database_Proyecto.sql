@@ -4,10 +4,6 @@ use springpruebas;
 
 #SET FOREIGN_KEY_CHECKS=0; #quitamos el chequeo de los foreign key para poder crear pedidos
 
-select * from credencial;
-
-select * from punto_reparto;
-
 
 
 # ---------------------Poblacion------------------------------------
@@ -547,3 +543,6 @@ select * from queja;
 select * from `repartidores`;
 
 select * from `credencial`;
+
+
+select * from punto_reparto;

@@ -206,9 +206,19 @@ public class ControladorJ__Admin {
 
 		try {
 			Optional<Poblacion_Pojo> miPoblacion=this.poblacionRepository.findByNombreLocalizacion(poblacion_elegida);
+			UserAccount_Pojo user=null;
 			
-			UserAccount_Pojo userAccount=this.formulary_credentials_processing(username,password,Roles.ROLE_CLIENTE.name());
-			
+			if(repartidor.getId()!=null) {
+				Optional<Repartidor_Pojo> repartidorAnterior = this.repartidor_repository.findById(repartidor.getId());
+				user=repartidorAnterior.get().getUser();
+				repartidor.setId(repartidorAnterior.get().getId());
+			}
+			else {
+				user=new UserAccount_Pojo();
+			}
+						
+			UserAccount_Pojo userAccount=this.formulary_credentials_processing(username,password,Roles.ROLE_CLIENTE.name(),user);
+
 			this.formulary_repartidor_processing(miPoblacion.get(),userAccount,repartidor);
 	        
 		} 
@@ -266,6 +276,8 @@ public class ControladorJ__Admin {
         return "redirect:/admin/consultar_clientes";
     }
 
+    
+    
     @GetMapping({"/admin/crearCliente"})
     public String crearCliente(Model model) {
     	
@@ -279,8 +291,6 @@ public class ControladorJ__Admin {
 		
         return "/v_admin/formulario_cliente";
     }
-    
-    
     
     @GetMapping({"/admin/editarCliente/{id}"})
     public String editarCliente(@PathVariable String id,Model model) {
@@ -308,8 +318,18 @@ public class ControladorJ__Admin {
 
 		try {
 			Optional<Poblacion_Pojo> miPoblacion=this.poblacionRepository.findByNombreLocalizacion(poblacion_elegida);
+			UserAccount_Pojo user=null;
 			
-			UserAccount_Pojo userAccount=this.formulary_credentials_processing(username,password,Roles.ROLE_CLIENTE.name());
+			if(cliente.getId()!=null) {
+				Optional<PuntoReparto_Pojo> clienteAnterior = this.punto_reparto_repository.findById(cliente.getId());				
+				user=clienteAnterior.get().getUser();
+				cliente.setId(clienteAnterior.get().getId());
+			}
+			else {
+				user=new UserAccount_Pojo();
+			}
+			
+			UserAccount_Pojo userAccount=this.formulary_credentials_processing(username,password,Roles.ROLE_CLIENTE.name(),user);
 			
 			
 			ConvertirDireccionACoordenadas conversor=new ConvertirDireccionACoordenadas();
@@ -317,7 +337,6 @@ public class ControladorJ__Admin {
 			//Coordenadas coordenadasCliente= conversor.realizarConsultaDeCoordenada(cliente.getDireccion(),miPoblacion.get());
 		
 			Coordenadas coordenadasCliente= new Coordenadas(0,0);
-			
 			
 			
 			this.formulary_cliente_processing(miPoblacion.get(),userAccount,cliente,coordenadasCliente);
@@ -340,20 +359,22 @@ public class ControladorJ__Admin {
     
     
     
-	private UserAccount_Pojo formulary_credentials_processing(String username, String password,String role) {
-		UserAccount_Pojo userAccount = new UserAccount_Pojo();
-        userAccount.setUsername(username);
-        userAccount.setContrasena(passwordEncoder.encode(password));
-        userAccount.setEstaActivo(true);
+	private UserAccount_Pojo formulary_credentials_processing(
+		String username, String password,String role, UserAccount_Pojo userAccount_Pojo) {
+	
+		
+		userAccount_Pojo.setUsername(username);
+		userAccount_Pojo.setContrasena(passwordEncoder.encode(password));
+		userAccount_Pojo.setEstaActivo(true);
         
         ArrayList<GrantedAuthority> listaRoles= new ArrayList<>();
         listaRoles.add(new SimpleGrantedAuthority(role));
         
-        userAccount.setListaRoles(listaRoles);
+        userAccount_Pojo.setListaRoles(listaRoles);
         
-        userAccountRepository.save(userAccount);
+        userAccountRepository.save(userAccount_Pojo);
         
-        return userAccount;
+        return userAccount_Pojo;
 	}
 	
 	private void formulary_repartidor_processing(Poblacion_Pojo poblacion_Pojo, UserAccount_Pojo userAccount,
