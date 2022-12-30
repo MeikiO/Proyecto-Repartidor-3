@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/aaa_layouts/admin/layout_admin">
+
+<head> 
+    <title>Ver Quejas</title> 
+	<link rel="stylesheet" type="text/css" href="#" th:href="@{/css/clientes/entrada_styles.css}">
+</head>
+<body>
+
+    <header layout:fragment="header">
+    	<p> Por si falla el nav </p>
+    </header>
+    
+       
+   <section layout:fragment="custom-content" class="document__content">
+
+            <div class="contenido__pedidos">
+                <h2>Quejas Realizadas</h2>
+
+                <table class="tabla__pedidos">
+                    <thead class="tabla__info">
+                        <tr>
+                            <td>Tipo Queja</td>
+                            <td>Fecha queja</td>
+                            <td>Razones</td>
+                            <td class="acciones"></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                   		<tr th:each="queja : ${lista_quejas}" class="pedido">
+	                   		<td th:text="${queja.clasificacion}"></td> 
+                               <td th:text="${queja.fechaQueja}"></td> 
+                               <td th:text="${queja.razones}"></td> 
+                               <td class="">
+                        	       <a th:href="'/admin/ver/'+${queja.pedido.id}" class="btn btn-info">Ver</button>
+                               </td>
+	                      </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </section>
+    </body>
+</html>

@@ -29,6 +29,7 @@ import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.poblacion.Poblac
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.poblacion.Poblacion_Repository;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.punto_reparto.PuntoReparto_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.punto_reparto.PuntoReparto_Repository;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.quejas.Queja_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.quejas.Queja_Repository;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.repartidores.Repartidor_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.repartidores.Repartidor_Repository;
@@ -407,10 +408,33 @@ public class ControladorJ__Admin {
     
 	@GetMapping({"/admin/consultarQuejas"})
     public String consultarQuejas(Model model) {
+	 	List<Pedido_Pojo> listaPedidos=this.pedidos_repository.findAll();
+    	
+    	List<Queja_Pojo> listaQuejas=new ArrayList<>();
+    	for(Pedido_Pojo actual:listaPedidos) {
+    		if(actual.getQueja()!=null) {
+    			listaQuejas.add(actual.getQueja());
+    		}		
+    	}
+    	
+    	model.addAttribute("lista_quejas", listaQuejas);
     	
         return "/v_admin/consultar_quejas";
     }
     
+	
+	@GetMapping("/admin/ver/{id}")
+	public String verPedido(@PathVariable String id,Model model, String error, String logout) {
+	    
+	    	Optional<Pedido_Pojo> pedido=this.pedidos_repository.findById((long) Integer.parseInt(id));
+	    	Set<LineaPedido_Pojo> lista=this.linea_repository.findByPedido_id(pedido.get().getId());
+	    	pedido.get().setListaLineas(lista);
+	    	model.addAttribute("pedido", pedido.get());
+		 
+	    	return "/v_admin/consultar_quejas_pedido";
+   }
+	
+	
     @GetMapping({"/admin/asignarPedidos"})
     public String asignarPedidos(Model model) {
     	
