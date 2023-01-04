@@ -426,19 +426,98 @@ public class ControladorJ__Admin {
 	@GetMapping("/admin/ver/{id}")
 	public String verPedido(@PathVariable String id,Model model, String error, String logout) {
 	    
-	    	Optional<Pedido_Pojo> pedido=this.pedidos_repository.findById((long) Integer.parseInt(id));
-	    	Set<LineaPedido_Pojo> lista=this.linea_repository.findByPedido_id(pedido.get().getId());
-	    	pedido.get().setListaLineas(lista);
-	    	model.addAttribute("pedido", pedido.get());
-		 
-	    	return "/v_admin/consultar_quejas_pedido";
+    	Optional<Pedido_Pojo> pedido=this.pedidos_repository.findById((long) Integer.parseInt(id));
+    	Set<LineaPedido_Pojo> lista=this.linea_repository.findByPedido_id(pedido.get().getId());
+    	pedido.get().setListaLineas(lista);
+    	model.addAttribute("pedido", pedido.get());
+	 
+    	return "/v_admin/consultar_quejas_pedido";
    }
 	
 	
-    @GetMapping({"/admin/asignarPedidos"})
-    public String asignarPedidos(Model model) {
+	
+	
+	@GetMapping({"/admin/asignarPedidos"})
+	public String asignarPedidos(Model model) {
+		
+		model.addAttribute("lista_repartidores", this.repartidor_repository.findAll());
+	 	Map<String,List<Pedido_Pojo>> mapaPedidosEstados=this.extraerMapaNecesario();
+    	model.addAttribute("mapa", mapaPedidosEstados);
     	
-        return "/v_admin/asignar_pedidos";
-    }
+    	model.addAttribute("repartidor_elegido", null);
+       	//model.addAttribute("pedido_elegido", null);
+    	
+    	//falta la lista de pedidos [EN_ESPERA DE EMPEZAR REPARTO]
+    	
+
+    	
+	    return "/v_admin/asignar_pedidos";
+	}
+	
+	
+	@PostMapping({"/admin/procesarAsignacion"})
+	public String asignarPedido_a_repartidor (Model model,
+			@RequestParam("idRepartidor") String id_repartidor,
+			@RequestParam("idPedido") String id_pedido){
+		
+		//estos los lee bien
+
+		System.out.println(id_pedido);
+		System.out.println(id_repartidor);
+		
+		
+		/*  A hacer
+		  1- asignamos el repartidor como repartidor_elegido
+		  	- Para que este siempre se vea en Seleccion repartidor
+		  		-Cuando no este seleccionado daremos a elegir y se vera el 
+		  		default del <option>
+		  	- Y en la parte derecha junto con los pedidos
+		  		solo el repartidor que este elegido cuando 
+		  		le demos a EMPEZAR REPARTO se guardara como 
+		  		el repartidor encargado de la ruta de reparto
+		  	
+		  2- Introducimos los pedidos seleccionados en la ruta reparto
+		  	- Esta ruta(lista de pedidos) es la que se ve
+		  		-Si tenemos que guardarla en database sino podemos
+		  		mantener el state de la pagina.
+		  		
+		  3- Esta ruta tiene que enseñarse en el mapa. 
+		  	los puntos 
+		  
+		 */
+		
+		
+		//1
+		
+		
+		long pedidoId=0;
+		long repartidorId=0;
+	
+		
+		try {
+			pedidoId=Integer.parseInt(id_pedido);
+			repartidorId=Integer.parseInt(id_repartidor);
+
+	    	model.addAttribute("repartidor_elegido", this.repartidor_repository.findById(repartidorId).get());
+			
+	    	//model.addAttribute("pedido_elegido", this.repartidor_repository.findById(pedidoId).get());
+	    	
+	    	//poner el switch para cuando repartidor sea null
+	    	// y que se seleccione como el de inicio cuando no sea null
+	    	
+			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+    	
+		//variable obligatoria para que carge bien
+		model.addAttribute("lista_repartidores", this.repartidor_repository.findAll());
+	 	Map<String,List<Pedido_Pojo>> mapaPedidosEstados=this.extraerMapaNecesario();
+    	model.addAttribute("mapa", mapaPedidosEstados);
+    	
+	    return "/v_admin/asignar_pedidos";
+	}
     
 }

@@ -34,12 +34,12 @@
 	                  </thead>
 	                  <tbody>
 	                 		<tr th:each="pedido : ${mapa.get('ESTADO_EN_ESPERA_DE_MANDAR')}">
-	                  		<td th:text="${pedido.id}"></td> 
-	                             <td th:text="${pedido.estadoPedido}"></td> 
+	                  			 <td th:text="${pedido.getPuntoReparto().getDireccion()}"></td> 
+	                             <td th:text="${pedido.getPuntoReparto().getNombre_cliente()}+ ' ' + ${pedido.getPuntoReparto().getApellidos_cliente()}"></td> 
 	                             <td>
 	                      	       <a th:href="'/admin/verPedido/'+${pedido.id}" class="btn btn-primary">Ver</a>
 	                             </td>
-	                     </tr>
+	                     	</tr>
 	                  </tbody>
 	              </table>
 		    </div>
@@ -58,12 +58,12 @@
 	                  </thead>
 	                  <tbody>
 	                 		<tr th:each="pedido : ${mapa.get('ESTADO_EN_CAMINO')}">
-	                  		<td th:text="${pedido.id}"></td> 
-	                             <td th:text="${pedido.estadoPedido}"></td> 
+	                  		 	 <td th:text="${pedido.getPuntoReparto().getDireccion()}"></td> 
+	                             <td th:text="${pedido.getPuntoReparto().getNombre_cliente()}+ ' ' + ${pedido.getPuntoReparto().getApellidos_cliente()}"></td> 
 	                             <td>
 	                      	       <a th:href="'/admin/verPedido/'+${pedido.id}" class="btn btn-primary">Ver</a>
 	                             </td>
-	                     </tr>
+	                     	</tr>
 	                  </tbody>
 	              </table>
 		    </div>
@@ -82,12 +82,12 @@
 		                  </thead>
 		                  <tbody>
 		                 		<tr th:each="pedido : ${mapa.get('ESTADO_ENTREGADO')}">
-		                  		<td th:text="${pedido.id}"></td> 
-		                             <td th:text="${pedido.estadoPedido}"></td> 
+		                  			 <td th:text="${pedido.getPuntoReparto().getDireccion()}"></td> 
+		                             <td th:text="${pedido.getPuntoReparto().getNombre_cliente()}+ ' ' + ${pedido.getPuntoReparto().getApellidos_cliente()}"></td> 
 		                             <td>
 		                      	       <a th:href="'/admin/verPedido/'+${pedido.id}" class="btn btn-primary">Ver</a>
 		                             </td>
-		                     </tr>
+		                     	</tr>
 		                  </tbody>
 		              </table>
 			    </div>
@@ -106,12 +106,12 @@
 		                  </thead>
 		                  <tbody>
 		                 		<tr th:each="pedido : ${mapa.get('ESTADO_CANCELADO')}">
-		                  		<td th:text="${pedido.id}"></td> 
-		                             <td th:text="${pedido.estadoPedido}"></td> 
+		                  			 <td th:text="${pedido.getPuntoReparto().getDireccion()}"></td> 
+		                             <td th:text="${pedido.getPuntoReparto().getNombre_cliente()}+ ' ' + ${pedido.getPuntoReparto().getApellidos_cliente()}"></td> 
 		                             <td>
 		                      	       <a th:href="'/admin/verPedido/'+${pedido.id}" class="btn btn-primary">Ver</a>
 		                             </td>
-		                     </tr>
+		                     	</tr>
 		                  </tbody>
 		              </table>
 			    </div>
@@ -136,8 +136,8 @@
 				        <label th:text="${puntoReparto.direccion}"></label>
 				    </div>
 				    <div>
-				        <label th:text="${puntoReparto.poblacion.codigoPostal}">,</label>
-				         <label th:text="${puntoReparto.poblacion.nombreLocalizacion}"></label>
+				        <label th:text="${puntoReparto.poblacion.codigoPostal}+' , '+${puntoReparto.poblacion.nombreLocalizacion}">,</label>
+				       
 				    </div>
 		
 		 			 <table class="tabla__pedidos">
