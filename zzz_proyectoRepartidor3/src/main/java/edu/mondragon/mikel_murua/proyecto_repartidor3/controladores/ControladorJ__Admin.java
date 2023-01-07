@@ -33,6 +33,7 @@ import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.quejas.Queja_Poj
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.quejas.Queja_Repository;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.repartidores.Repartidor_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.repartidores.Repartidor_Repository;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.ruta_repartos.RutaRepartos_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_recursos_coordenadas.ConvertirDireccionACoordenadas;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_recursos_coordenadas.Coordenadas;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.Roles;
@@ -168,6 +169,7 @@ public class ControladorJ__Admin {
     	System.out.println("A crear");
     	
     	model.addAttribute("repartidor",new Repartidor_Pojo());
+    	
 		
 		List<Poblacion_Pojo> poblaciones=this.poblacionRepository.findAll();
 		
@@ -403,9 +405,6 @@ public class ControladorJ__Admin {
 
     
     
-    
-
-    
 	@GetMapping({"/admin/consultarQuejas"})
     public String consultarQuejas(Model model) {
 	 	List<Pedido_Pojo> listaPedidos=this.pedidos_repository.findAll();
@@ -498,23 +497,42 @@ public class ControladorJ__Admin {
 			pedidoId=Integer.parseInt(id_pedido);
 			repartidorId=Integer.parseInt(id_repartidor);
 
-	    	model.addAttribute("repartidor_elegido", this.repartidor_repository.findById(repartidorId).get());
 			
-	    	//model.addAttribute("pedido_elegido", this.repartidor_repository.findById(pedidoId).get());
+			Repartidor_Pojo repartidorCargado=this.repartidor_repository.findById(repartidorId).get();
+	    	model.addAttribute("repartidor_elegido", repartidorCargado );
 	    	
-	    	//poner el switch para cuando repartidor sea null
-	    	// y que se seleccione como el de inicio cuando no sea null
+	    	model.addAttribute("lista_repartidores", this.repartidor_repository.findAll());
+		 	
+	    	Pedido_Pojo pedidoSeleccionado=this.pedidos_repository.findById(pedidoId).get();
+	   
+	    	RutaRepartos_Pojo nueva_ruta=repartidorCargado.getRuta();
 	    	
-			
+	    	if(nueva_ruta==null && pedidoSeleccionado!=null) {
+	    		nueva_ruta=new RutaRepartos_Pojo();
+	    	}
+	    	
+	    	nueva_ruta.getListaPedidos().add(pedidoSeleccionado);
+	    	nueva_ruta.setRepartidor(repartidorCargado);
+	    	
+	    	repartidorCargado.setRuta(nueva_ruta);
+	    	
+	    	//cambiar el estado del pedido para que no aparezca en la lista de seleccion
+	    	
+	    	model.addAttribute("lista_pedidos_repartidor", repartidorCargado.getRuta().getListaPedidos());	    		
+	    	
+	    	
+	    	//guardamos para sobreescribirlo en la database
+	       	pedidoSeleccionado.setEstadoPedido(Estado_Pedido.ESTADO_EN_ESPERA_DE_EMPEZAR_REPARTO.toString());
+	    	this.pedidos_repository.save(pedidoSeleccionado);
+	      	
+	    	
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
 		
-    	
 		//variable obligatoria para que carge bien
-		model.addAttribute("lista_repartidores", this.repartidor_repository.findAll());
-	 	Map<String,List<Pedido_Pojo>> mapaPedidosEstados=this.extraerMapaNecesario();
+		Map<String,List<Pedido_Pojo>> mapaPedidosEstados=this.extraerMapaNecesario();
     	model.addAttribute("mapa", mapaPedidosEstados);
     	
 	    return "/v_admin/asignar_pedidos";

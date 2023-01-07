@@ -46,40 +46,25 @@ public class Repartidor_Pojo {
     @OneToOne
     @JoinColumn(name = "poblacion_id") 
     private Poblacion_Pojo poblacion;
-    
-   /* @OneToOne
-    @JoinColumn(name = "ruta_id") 
-    private RutaRepartos_Pojo ruta;
-   */ 
-     
+         
     
     @OneToOne
     @JoinColumn(name = "credenciales_id") 
     private UserAccount_Pojo user;
     
-    
-////////////////////////////////////////
 
-	/*esta lista es para el reparto en el momento, 
-	  no se guarda en database, ni tiene relacion con
-	  ningun elemento en la database.
-	  
-	  La usamos unicamente para hacer los repartos
-	  
-	  Informacion de @transient
-	  ->https://stackoverflow.com/questions/64304416/make-certain-fields-in-entity-not-be-saved-to-the-database
-	  ->https://javabydeveloper.com/using-transient-in-spring-boot-examples/
-    */
-    @javax.persistence.Transient
-    private List<Pedido_Pojo> listaPedidos;
+    @OneToOne
+    @JoinColumn(name = "ruta_id") 
+    private RutaRepartos_Pojo ruta;
     
-	public Repartidor_Pojo() {
-		this.listaPedidos=new ArrayList<>();
+ /////////////////////////////////////////
+    
+    
+    public Repartidor_Pojo() {
 	}
 
 	public Repartidor_Pojo(Long id, String nombre, String apellidos, String dni, String tlf, String tlf2, String tlf3,
-			String direccion, String gmail, Poblacion_Pojo poblacion, UserAccount_Pojo user,
-			List<Pedido_Pojo> listaPedidos) {
+			String direccion, String gmail, Poblacion_Pojo poblacion, UserAccount_Pojo user, RutaRepartos_Pojo ruta) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -92,8 +77,7 @@ public class Repartidor_Pojo {
 		this.gmail = gmail;
 		this.poblacion = poblacion;
 		this.user = user;
-		
-		this.listaPedidos=new ArrayList<>();
+		this.ruta = ruta;
 	}
 
 	public Long getId() {
@@ -184,12 +168,12 @@ public class Repartidor_Pojo {
 		this.user = user;
 	}
 
-	public List<Pedido_Pojo> getListaPedidos() {
-		return listaPedidos;
+	public RutaRepartos_Pojo getRuta() {
+		return ruta;
 	}
 
-	public void setListaPedidos(List<Pedido_Pojo> listaPedidos) {
-		this.listaPedidos = listaPedidos;
+	public void setRuta(RutaRepartos_Pojo ruta) {
+		this.ruta = ruta;
 	}
 
 	@Override
@@ -201,7 +185,6 @@ public class Repartidor_Pojo {
 		result = prime * result + ((dni == null) ? 0 : dni.hashCode());
 		result = prime * result + ((gmail == null) ? 0 : gmail.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((listaPedidos == null) ? 0 : listaPedidos.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		result = prime * result + ((poblacion == null) ? 0 : poblacion.hashCode());
 		result = prime * result + ((tlf == null) ? 0 : tlf.hashCode());
@@ -245,11 +228,6 @@ public class Repartidor_Pojo {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (listaPedidos == null) {
-			if (other.listaPedidos != null)
-				return false;
-		} else if (!listaPedidos.equals(other.listaPedidos))
-			return false;
 		if (nombre == null) {
 			if (other.nombre != null)
 				return false;
@@ -282,6 +260,9 @@ public class Repartidor_Pojo {
 			return false;
 		return true;
 	}
-
+    
+    
+    
+    
 	
 }

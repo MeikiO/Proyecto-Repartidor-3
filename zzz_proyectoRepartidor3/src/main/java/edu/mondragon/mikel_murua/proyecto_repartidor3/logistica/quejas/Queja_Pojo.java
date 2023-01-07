@@ -97,62 +97,6 @@ public class Queja_Pojo {
 	public void setRazones(String razones) {
 		this.razones = razones;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((clasificacion == null) ? 0 : clasificacion.hashCode());
-		result = prime * result + ((fechaQueja == null) ? 0 : fechaQueja.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((pedido == null) ? 0 : pedido.hashCode());
-		result = prime * result + ((punto == null) ? 0 : punto.hashCode());
-		result = prime * result + ((razones == null) ? 0 : razones.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Queja_Pojo other = (Queja_Pojo) obj;
-		if (clasificacion == null) {
-			if (other.clasificacion != null)
-				return false;
-		} else if (!clasificacion.equals(other.clasificacion))
-			return false;
-		if (fechaQueja == null) {
-			if (other.fechaQueja != null)
-				return false;
-		} else if (!fechaQueja.equals(other.fechaQueja))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (pedido == null) {
-			if (other.pedido != null)
-				return false;
-		} else if (!pedido.equals(other.pedido))
-			return false;
-		if (punto == null) {
-			if (other.punto != null)
-				return false;
-		} else if (!punto.equals(other.punto))
-			return false;
-		if (razones == null) {
-			if (other.razones != null)
-				return false;
-		} else if (!razones.equals(other.razones))
-			return false;
-		return true;
-	}
-
 	
 	
 }

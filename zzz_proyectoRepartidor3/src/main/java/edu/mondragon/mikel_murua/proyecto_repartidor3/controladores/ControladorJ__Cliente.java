@@ -36,6 +36,8 @@ import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.punto_reparto.Pu
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.quejas.ClasificacionQuejas;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.quejas.Queja_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.quejas.Queja_Repository;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.ruta_repartos.RutaRepartos_Pojo;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.ruta_repartos.RutaRepartos_Repository;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.Roles;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.UserAccount_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.UserAccount_Repository;
@@ -53,31 +55,33 @@ public class ControladorJ__Cliente {
 	private Producto_Repository productos_repository;
 	private LineaPedido_Repository lineaProductos_repository;
 	private Queja_Repository queja_repository;
+	private RutaRepartos_Repository ruta_repository;
+	
 
-	public ControladorJ__Cliente(PuntoReparto_Repository puntoRepartoRepository,
-			UserAccount_Repository userAccountRepository, Poblacion_Repository poblacionRepository,
-			PasswordEncoder passwordEncoder,Pedidos_Repository pedidosRepository,
-			Producto_Repository productosRepository,
-			LineaPedido_Repository lineaProductos_repository,
-			Queja_Repository queja_repository) {
-		super();
-		this.puntoRepartoRepository = puntoRepartoRepository;
-		this.userAccountRepository = userAccountRepository;
-		this.poblacionRepository = poblacionRepository;
-		this.passwordEncoder = passwordEncoder;
-		
-		this.pedidos_repository=pedidosRepository;
-		this.productos_repository=productosRepository;
-		this.lineaProductos_repository=lineaProductos_repository;
-		
-		this.queja_repository=queja_repository;
-	}
 
 	//La restriccion entrada de los usuarios por rol, se hace en SecurityConfiguration.
 	    //todos pueden entrar a todo, pero lo limitamos usando el rol.
 	    
 		
-    @GetMapping({"/cliente/entrada"})
+    public ControladorJ__Cliente(PuntoReparto_Repository puntoRepartoRepository,
+			UserAccount_Repository userAccountRepository, Poblacion_Repository poblacionRepository,
+			PasswordEncoder passwordEncoder, Pedidos_Repository pedidos_repository,
+			Producto_Repository productos_repository, LineaPedido_Repository lineaProductos_repository,
+			Queja_Repository queja_repository, RutaRepartos_Repository ruta_repository) {
+		super();
+		this.puntoRepartoRepository = puntoRepartoRepository;
+		this.userAccountRepository = userAccountRepository;
+		this.poblacionRepository = poblacionRepository;
+		this.passwordEncoder = passwordEncoder;
+		this.pedidos_repository = pedidos_repository;
+		this.productos_repository = productos_repository;
+		this.lineaProductos_repository = lineaProductos_repository;
+		this.queja_repository = queja_repository;
+		this.ruta_repository = ruta_repository;
+	}
+
+
+	@GetMapping({"/cliente/entrada"})
     public String redirigirAEntradaCliente(Model model, String error, String logout) {
     	
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -213,6 +217,12 @@ public class ControladorJ__Cliente {
     		pedido.setEstadoPedido(Estado_Pedido.ESTADO_HACIENDO_EL_PEDIDO.toString());
     		pedido.setPuntoReparto(punto);
     		pedido.setId((long) 0);
+    		
+    		RutaRepartos_Pojo rutaNueva=new RutaRepartos_Pojo();
+    		pedido.setRuta(rutaNueva);
+    		
+    		this.ruta_repository.save(rutaNueva);
+    		
     		this.pedidos_repository.save(pedido);
     	}
 		return pedido;
