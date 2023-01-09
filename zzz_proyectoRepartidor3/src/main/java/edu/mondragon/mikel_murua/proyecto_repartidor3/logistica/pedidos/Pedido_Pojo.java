@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.productos.Producto_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.punto_reparto.PuntoReparto_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.quejas.Queja_Pojo;
-import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.ruta_repartos.RutaRepartos_Pojo;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.repartidores.Repartidor_Pojo;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -130,12 +130,10 @@ public class Pedido_Pojo {
     @JoinColumn(name = "queja_id") 
     private Queja_Pojo queja;
     
-    @ManyToOne
-  	//desabilitamos la comprobacion del foreign key de pedidos por que sino nos dara error
-  	// link-> https://stackoverflow.com/questions/41729709/how-do-i-disable-hibernate-foreign-key-constraint-on-a-bidirectional-association
-    @JoinColumn(name="ruta_id")
-    
-    private RutaRepartos_Pojo ruta;
+
+    @OneToOne
+    @JoinColumn(name="repartidores_id")
+    private Repartidor_Pojo repartidorEncargado;
     
 //////////////////////////////////////////////////
 	
@@ -145,7 +143,7 @@ public class Pedido_Pojo {
 	}
 
 	public Pedido_Pojo(Long id, String estadoPedido, String observaciones, Date fechaPedido, PuntoReparto_Pojo puntoReparto,
-			Set<LineaPedido_Pojo> listaLineas, double precio_total, Queja_Pojo queja, RutaRepartos_Pojo ruta) {
+			Set<LineaPedido_Pojo> listaLineas, double precio_total, Queja_Pojo queja, Repartidor_Pojo repartidorEncargado) {
 		super();
 		this.id = id;
 		this.estadoPedido = estadoPedido;
@@ -155,85 +153,86 @@ public class Pedido_Pojo {
 		this.listaLineas = listaLineas;
 		this.precio_total = precio_total;
 		this.queja = queja;
-		this.ruta = ruta;
+		this.repartidorEncargado = repartidorEncargado;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getEstadoPedido() {
 		return estadoPedido;
 	}
-	
+
 	public void setEstadoPedido(String estadoPedido) {
 		this.estadoPedido = estadoPedido;
 	}
-	
+
 	public String getObservaciones() {
 		return observaciones;
 	}
-	
+
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
 	}
-	
+
 	public Date getFechaPedido() {
 		return fechaPedido;
 	}
-	
+
 	public void setFechaPedido(Date fechaPedido) {
 		this.fechaPedido = fechaPedido;
 	}
-	
+
 	public PuntoReparto_Pojo getPuntoReparto() {
 		return puntoReparto;
 	}
-	
+
 	public void setPuntoReparto(PuntoReparto_Pojo puntoReparto) {
 		this.puntoReparto = puntoReparto;
 	}
-	
+
 	public Set<LineaPedido_Pojo> getListaLineas() {
 		return listaLineas;
 	}
-	
+
 	public void setListaLineas(Set<LineaPedido_Pojo> listaLineas) {
 		this.listaLineas = listaLineas;
 	}
-	
+
 	public double getPrecio_total() {
 		return precio_total;
 	}
-	
+
 	public void setPrecio_total(double precio_total) {
 		this.precio_total = precio_total;
 	}
-	
+
 	public Queja_Pojo getQueja() {
 		return queja;
 	}
-	
+
 	public void setQueja(Queja_Pojo queja) {
 		this.queja = queja;
 	}
-	
-	public RutaRepartos_Pojo getRuta() {
-		return ruta;
+
+	public Repartidor_Pojo getRepartidorEncargado() {
+		return repartidorEncargado;
 	}
-	
-	public void setRuta(RutaRepartos_Pojo ruta) {
-		this.ruta = ruta;
+
+	public void setRepartidorEncargado(Repartidor_Pojo repartidorEncargado) {
+		this.repartidorEncargado = repartidorEncargado;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((estadoPedido == null) ? 0 : estadoPedido.hashCode());
 		result = prime * result + ((fechaPedido == null) ? 0 : fechaPedido.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((listaLineas == null) ? 0 : listaLineas.hashCode());
@@ -242,6 +241,8 @@ public class Pedido_Pojo {
 		temp = Double.doubleToLongBits(precio_total);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((puntoReparto == null) ? 0 : puntoReparto.hashCode());
+		result = prime * result + ((queja == null) ? 0 : queja.hashCode());
+		result = prime * result + ((repartidorEncargado == null) ? 0 : repartidorEncargado.hashCode());
 		return result;
 	}
 
@@ -254,6 +255,11 @@ public class Pedido_Pojo {
 		if (getClass() != obj.getClass())
 			return false;
 		Pedido_Pojo other = (Pedido_Pojo) obj;
+		if (estadoPedido == null) {
+			if (other.estadoPedido != null)
+				return false;
+		} else if (!estadoPedido.equals(other.estadoPedido))
+			return false;
 		if (fechaPedido == null) {
 			if (other.fechaPedido != null)
 				return false;
@@ -281,10 +287,20 @@ public class Pedido_Pojo {
 				return false;
 		} else if (!puntoReparto.equals(other.puntoReparto))
 			return false;
+		if (queja == null) {
+			if (other.queja != null)
+				return false;
+		} else if (!queja.equals(other.queja))
+			return false;
+		if (repartidorEncargado == null) {
+			if (other.repartidorEncargado != null)
+				return false;
+		} else if (!repartidorEncargado.equals(other.repartidorEncargado))
+			return false;
 		return true;
 	}
-	
-
 
 	
+	
+
 }

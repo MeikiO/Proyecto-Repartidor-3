@@ -26,7 +26,7 @@ public class LineaPedido_Pojo {
 	
 ////////////////////////////////////////
 	
-	@ManyToOne
+	@OneToOne
     @JoinColumn(name = "pedido_id")
     private Pedido_Pojo pedido;
 	

@@ -1,8 +1,10 @@
 package edu.mondragon.mikel_murua.proyecto_repartidor3.controladores;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -33,7 +35,6 @@ import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.quejas.Queja_Poj
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.quejas.Queja_Repository;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.repartidores.Repartidor_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.repartidores.Repartidor_Repository;
-import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.ruta_repartos.RutaRepartos_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_recursos_coordenadas.ConvertirDireccionACoordenadas;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_recursos_coordenadas.Coordenadas;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.Roles;
@@ -49,10 +50,16 @@ public class ControladorJ__Admin {
 	private Queja_Repository queja_repository;
 	private LineaPedido_Repository linea_repository;
 	private Poblacion_Repository poblacionRepository;
+
 	private UserAccount_Repository userAccountRepository;
 	private PasswordEncoder passwordEncoder;
 	
-	
+
+
+	//La restriccion entrada de los usuarios por rol, se hace en SecurityConfiguration.
+    //todos pueden entrar a todo, pero lo limitamos usando el rol.
+
+
 	public ControladorJ__Admin(Pedidos_Repository pedidos_repository, PuntoReparto_Repository punto_reparto_repository,
 			Repartidor_Repository repartidor_repository, Queja_Repository queja_repository,
 			LineaPedido_Repository linea_repository, Poblacion_Repository poblacionRepository,
@@ -67,10 +74,6 @@ public class ControladorJ__Admin {
 		this.userAccountRepository = userAccountRepository;
 		this.passwordEncoder = passwordEncoder;
 	}
-
-
-	//La restriccion entrada de los usuarios por rol, se hace en SecurityConfiguration.
-    //todos pueden entrar a todo, pero lo limitamos usando el rol.
 
 
 	@GetMapping({"/admin/entrada"})
@@ -98,7 +101,7 @@ public class ControladorJ__Admin {
     	
     	for(Estado_Pedido actual:Estado_Pedido.values()) {
     		
-    		if(actual!=Estado_Pedido.ESTADO_HACIENDO_EL_PEDIDO && actual!=Estado_Pedido.ESTADO_EN_ESPERA_DE_EMPEZAR_REPARTO) {
+    		if(actual!=Estado_Pedido.ESTADO_HACIENDO_EL_PEDIDO) {
     			List<Pedido_Pojo> listaExtraida=this.pedidos_repository.findByEstadoPedido(actual.toString());
     			mapaPedidosEstados.put(actual.toString(), listaExtraida);
     		}
@@ -220,7 +223,7 @@ public class ControladorJ__Admin {
 				user=new UserAccount_Pojo();
 			}
 						
-			UserAccount_Pojo userAccount=this.formulary_credentials_processing(username,password,Roles.ROLE_CLIENTE.name(),user);
+			UserAccount_Pojo userAccount=this.formulary_credentials_processing(username,password,Roles.ROLE_TRABAJADOR.name(),user);
 
 			this.formulary_repartidor_processing(miPoblacion.get(),userAccount,repartidor);
 	        
@@ -280,7 +283,6 @@ public class ControladorJ__Admin {
     }
 
     
-    
     @GetMapping({"/admin/crearCliente"})
     public String crearCliente(Model model) {
     	
@@ -337,21 +339,20 @@ public class ControladorJ__Admin {
 			
 			ConvertirDireccionACoordenadas conversor=new ConvertirDireccionACoordenadas();
 			
-			//Coordenadas coordenadasCliente= conversor.realizarConsultaDeCoordenada(cliente.getDireccion(),miPoblacion.get());
+			Coordenadas coordenadasCliente= conversor.realizarConsultaDeCoordenada(cliente.getDireccion(),miPoblacion.get());
 		
-			Coordenadas coordenadasCliente= new Coordenadas(0,0);
+			//Coordenadas coordenadasCliente= new Coordenadas(0,0);
 			
 			
 			this.formulary_cliente_processing(miPoblacion.get(),userAccount,cliente,coordenadasCliente);
 	        
 		} 
-		/*
 		catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		*/	
+			
 		finally {
 			System.out.println("Repartidor creado----------");
 		}
@@ -436,6 +437,8 @@ public class ControladorJ__Admin {
 	
 	
 	
+	
+	
 	@GetMapping({"/admin/asignarPedidos"})
 	public String asignarPedidos(Model model) {
 		
@@ -444,98 +447,117 @@ public class ControladorJ__Admin {
     	model.addAttribute("mapa", mapaPedidosEstados);
     	
     	model.addAttribute("repartidor_elegido", null);
-       	//model.addAttribute("pedido_elegido", null);
-    	
-    	//falta la lista de pedidos [EN_ESPERA DE EMPEZAR REPARTO]
-    	
 
+    	//falta la lista de pedidos [EN_ESPERA DE EMPEZAR REPARTO]
     	
 	    return "/v_admin/asignar_pedidos";
 	}
 	
 	
-	@PostMapping({"/admin/procesarAsignacion"})
-	public String asignarPedido_a_repartidor (Model model,
+	@PostMapping({"/admin/procesarAsignacionRepartidor"})
+	public String asignarRepartidor (
 			@RequestParam("idRepartidor") String id_repartidor,
-			@RequestParam("idPedido") String id_pedido){
-		
-		//estos los lee bien
+			Model model) {
 
-		System.out.println(id_pedido);
 		System.out.println(id_repartidor);
 		
-		
-		/*  A hacer
-		  1- asignamos el repartidor como repartidor_elegido
-		  	- Para que este siempre se vea en Seleccion repartidor
-		  		-Cuando no este seleccionado daremos a elegir y se vera el 
-		  		default del <option>
-		  	- Y en la parte derecha junto con los pedidos
-		  		solo el repartidor que este elegido cuando 
-		  		le demos a EMPEZAR REPARTO se guardara como 
-		  		el repartidor encargado de la ruta de reparto
-		  	
-		  2- Introducimos los pedidos seleccionados en la ruta reparto
-		  	- Esta ruta(lista de pedidos) es la que se ve
-		  		-Si tenemos que guardarla en database sino podemos
-		  		mantener el state de la pagina.
-		  		
-		  3- Esta ruta tiene que enseñarse en el mapa. 
-		  	los puntos 
-		  
-		 */
-		
-		
-		//1
-		
-		
-		long pedidoId=0;
 		long repartidorId=0;
 	
-		
 		try {
-			pedidoId=Integer.parseInt(id_pedido);
 			repartidorId=Integer.parseInt(id_repartidor);
-
-			
+		
 			Repartidor_Pojo repartidorCargado=this.repartidor_repository.findById(repartidorId).get();
 	    	model.addAttribute("repartidor_elegido", repartidorCargado );
-	    	
-	    	model.addAttribute("lista_repartidores", this.repartidor_repository.findAll());
-		 	
-	    	Pedido_Pojo pedidoSeleccionado=this.pedidos_repository.findById(pedidoId).get();
-	   
-	    	RutaRepartos_Pojo nueva_ruta=repartidorCargado.getRuta();
-	    	
-	    	if(nueva_ruta==null && pedidoSeleccionado!=null) {
-	    		nueva_ruta=new RutaRepartos_Pojo();
-	    	}
-	    	
-	    	nueva_ruta.getListaPedidos().add(pedidoSeleccionado);
-	    	nueva_ruta.setRepartidor(repartidorCargado);
-	    	
-	    	repartidorCargado.setRuta(nueva_ruta);
-	    	
-	    	//cambiar el estado del pedido para que no aparezca en la lista de seleccion
-	    	
-	    	model.addAttribute("lista_pedidos_repartidor", repartidorCargado.getRuta().getListaPedidos());	    		
-	    	
-	    	
-	    	//guardamos para sobreescribirlo en la database
-	       	pedidoSeleccionado.setEstadoPedido(Estado_Pedido.ESTADO_EN_ESPERA_DE_EMPEZAR_REPARTO.toString());
-	    	this.pedidos_repository.save(pedidoSeleccionado);
-	      	
-	    	
+	    
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
 		
-		//variable obligatoria para que carge bien
+	   	model.addAttribute("lista_repartidores", this.repartidor_repository.findAll());
+	 	
 		Map<String,List<Pedido_Pojo>> mapaPedidosEstados=this.extraerMapaNecesario();
     	model.addAttribute("mapa", mapaPedidosEstados);
     	
 	    return "/v_admin/asignar_pedidos";
 	}
     
+	
+	@PostMapping({"/admin/procesarAsignacion"})
+	public String asignarPedido_a_repartidor (Model model,
+		@RequestParam("idPedido") String id_pedido){
+		
+		System.out.println(id_pedido);
+	
+		long pedidoId=0;	
+		
+		try {
+			pedidoId=Integer.parseInt(id_pedido);
+			this.cambiarEstadoPedido(Estado_Pedido.ESTADO_EN_ESPERA_DE_EMPEZAR_REPARTO, pedidoId);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	    return "redirect:/admin/asignarPedidos";
+	}
+    
+	
+	@PostMapping({"/admin/procesarDesagsignacion"})
+	public String DesasignarPedido_a_repartidor (Model model,
+		@RequestParam("idPedido") String id_pedido){
+		System.out.println(id_pedido);
+		
+		long pedidoId=0;	
+		
+		try {
+			pedidoId=Integer.parseInt(id_pedido);
+			this.cambiarEstadoPedido(Estado_Pedido.ESTADO_EN_ESPERA_DE_MANDAR, pedidoId);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	    return "redirect:/admin/asignarPedidos";
+	}
+	
+	public void cambiarEstadoPedido(Estado_Pedido estado,long pedidoId) {
+    	Pedido_Pojo pedidoSeleccionado=this.pedidos_repository.findById(pedidoId).get();  	
+       	pedidoSeleccionado.setEstadoPedido(estado.toString());
+    	this.pedidos_repository.save(pedidoSeleccionado);
+	}
+	
+	
+	@PostMapping({"/admin/terminarAsignacion"})
+	public String terminarAsignacion(@RequestParam("repartidor_que_va_ha_repartir") String id_repartidor) {
+		
+		System.out.println(id_repartidor);
+		
+		
+		long id_repartidorSeleccionado=Integer.parseInt(id_repartidor);
+		
+		Repartidor_Pojo repartidorMandado=this.repartidor_repository.findById(id_repartidorSeleccionado).get();
+		
+		Map<String,List<Pedido_Pojo>> mapaPedidosEstados=this.extraerMapaNecesario();
+    	Set<Pedido_Pojo> setDePedidos=new HashSet<>();
+		
+		for(Pedido_Pojo actual: mapaPedidosEstados.get(Estado_Pedido.ESTADO_EN_ESPERA_DE_EMPEZAR_REPARTO.toString())) {
+			actual.setEstadoPedido(Estado_Pedido.ESTADO_EN_CAMINO.toString());
+			actual.setRepartidorEncargado(repartidorMandado);
+			setDePedidos.add(actual);
+			this.pedidos_repository.save(actual);
+		}
+		
+		repartidorMandado.setListaPedidos(setDePedidos);
+		this.repartidor_repository.save(repartidorMandado);
+
+		
+		//PON EL MAPA EN LA PAGINA DE ASIGNAR LOS PEDIDOS AL REPARTIDOR
+		
+		//el punto de reparto del pedido
+		//ya tiene las coordenadas cargadas
+		
+		return "redirect:/admin/entrada";
+	}
+	
 }

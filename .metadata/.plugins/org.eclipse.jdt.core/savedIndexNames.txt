@@ -74,9 +74,9 @@ INDEX VERSION 1.131+C:\Users\Lenovo\Desktop\Codigo repartidor3\.metadata\.plugin
 1106623093.index
 1786213409.index
 3100202246.index
-3497176662.index
-105140962.index
 2327761262.index
+105140962.index
+3497176662.index
 2760557627.index
 246989579.index
 1407063594.index

@@ -172,9 +172,9 @@ public class ControladorInicio {
 			
 			ConvertirDireccionACoordenadas conversor=new ConvertirDireccionACoordenadas();
 			
-			//Coordenadas coordenadasCliente= conversor.realizarConsultaDeCoordenada(cliente.getDireccion(),miPoblacion.get());
+			Coordenadas coordenadasCliente= conversor.realizarConsultaDeCoordenada(cliente.getDireccion(),miPoblacion.get());
 		
-			Coordenadas coordenadasCliente= new Coordenadas(0,0);
+			//Coordenadas coordenadasCliente= new Coordenadas(0,0);
 			
 			/*	 
 			 Guardar nueva entrada
@@ -189,13 +189,11 @@ public class ControladorInicio {
 			this.formulary_client_processing(miPoblacion.get(),userAccount,cliente,coordenadasCliente);
 	        
 		} 
-		/*
 		catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}
-		*/	
+		}	
 		finally {
 			System.out.println("Cliente creado----------");
 		}

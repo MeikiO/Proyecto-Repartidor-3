@@ -1,12 +1,14 @@
 package edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.repartidores;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,7 +22,6 @@ import org.springframework.data.annotation.Transient;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.Pedido_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.poblacion.Poblacion_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.productos.Producto_Pojo;
-import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.ruta_repartos.RutaRepartos_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.UserAccount_Pojo;
 
 @Entity
@@ -52,217 +53,138 @@ public class Repartidor_Pojo {
     @JoinColumn(name = "credenciales_id") 
     private UserAccount_Pojo user;
     
-
+/*
     @OneToOne
     @JoinColumn(name = "ruta_id") 
     private RutaRepartos_Pojo ruta;
+ 
+ --> de poner pon toda la lista de pedidos que va ha repartir.
+ */  
+    
+    @OneToMany(cascade=CascadeType.ALL,fetch = FetchType.EAGER)
+	@org.hibernate.annotations.ForeignKey(name = "none")
+    @JoinColumn(name="pedido_id")
+    private Set<Pedido_Pojo> listaPedidos;
     
  /////////////////////////////////////////
     
-    
     public Repartidor_Pojo() {
+    	this.listaPedidos=new HashSet<>();
 	}
 
-	public Repartidor_Pojo(Long id, String nombre, String apellidos, String dni, String tlf, String tlf2, String tlf3,
-			String direccion, String gmail, Poblacion_Pojo poblacion, UserAccount_Pojo user, RutaRepartos_Pojo ruta) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.apellidos = apellidos;
-		this.dni = dni;
-		this.tlf = tlf;
-		this.tlf2 = tlf2;
-		this.tlf3 = tlf3;
-		this.direccion = direccion;
-		this.gmail = gmail;
-		this.poblacion = poblacion;
-		this.user = user;
-		this.ruta = ruta;
-	}
+public Repartidor_Pojo(Long id, String nombre, String apellidos, String dni, String tlf, String tlf2, String tlf3,
+		String direccion, String gmail, Poblacion_Pojo poblacion, UserAccount_Pojo user,
+		Set<Pedido_Pojo> listaPedidos) {
+	super();
+	this.id = id;
+	this.nombre = nombre;
+	this.apellidos = apellidos;
+	this.dni = dni;
+	this.tlf = tlf;
+	this.tlf2 = tlf2;
+	this.tlf3 = tlf3;
+	this.direccion = direccion;
+	this.gmail = gmail;
+	this.poblacion = poblacion;
+	this.user = user;
+	this.listaPedidos = listaPedidos;
+}
 
-	public Long getId() {
-		return id;
-	}
+public Long getId() {
+	return id;
+}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+public void setId(Long id) {
+	this.id = id;
+}
 
-	public String getNombre() {
-		return nombre;
-	}
+public String getNombre() {
+	return nombre;
+}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+public void setNombre(String nombre) {
+	this.nombre = nombre;
+}
 
-	public String getApellidos() {
-		return apellidos;
-	}
+public String getApellidos() {
+	return apellidos;
+}
 
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
-	}
+public void setApellidos(String apellidos) {
+	this.apellidos = apellidos;
+}
 
-	public String getDni() {
-		return dni;
-	}
+public String getDni() {
+	return dni;
+}
 
-	public void setDni(String dni) {
-		this.dni = dni;
-	}
+public void setDni(String dni) {
+	this.dni = dni;
+}
 
-	public String getTlf() {
-		return tlf;
-	}
+public String getTlf() {
+	return tlf;
+}
 
-	public void setTlf(String tlf) {
-		this.tlf = tlf;
-	}
+public void setTlf(String tlf) {
+	this.tlf = tlf;
+}
 
-	public String getTlf2() {
-		return tlf2;
-	}
+public String getTlf2() {
+	return tlf2;
+}
 
-	public void setTlf2(String tlf2) {
-		this.tlf2 = tlf2;
-	}
+public void setTlf2(String tlf2) {
+	this.tlf2 = tlf2;
+}
 
-	public String getTlf3() {
-		return tlf3;
-	}
+public String getTlf3() {
+	return tlf3;
+}
 
-	public void setTlf3(String tlf3) {
-		this.tlf3 = tlf3;
-	}
+public void setTlf3(String tlf3) {
+	this.tlf3 = tlf3;
+}
 
-	public String getDireccion() {
-		return direccion;
-	}
+public String getDireccion() {
+	return direccion;
+}
 
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
+public void setDireccion(String direccion) {
+	this.direccion = direccion;
+}
 
-	public String getGmail() {
-		return gmail;
-	}
+public String getGmail() {
+	return gmail;
+}
 
-	public void setGmail(String gmail) {
-		this.gmail = gmail;
-	}
+public void setGmail(String gmail) {
+	this.gmail = gmail;
+}
 
-	public Poblacion_Pojo getPoblacion() {
-		return poblacion;
-	}
+public Poblacion_Pojo getPoblacion() {
+	return poblacion;
+}
 
-	public void setPoblacion(Poblacion_Pojo poblacion) {
-		this.poblacion = poblacion;
-	}
+public void setPoblacion(Poblacion_Pojo poblacion) {
+	this.poblacion = poblacion;
+}
 
-	public UserAccount_Pojo getUser() {
-		return user;
-	}
+public UserAccount_Pojo getUser() {
+	return user;
+}
 
-	public void setUser(UserAccount_Pojo user) {
-		this.user = user;
-	}
+public void setUser(UserAccount_Pojo user) {
+	this.user = user;
+}
 
-	public RutaRepartos_Pojo getRuta() {
-		return ruta;
-	}
+public Set<Pedido_Pojo> getListaPedidos() {
+	return listaPedidos;
+}
 
-	public void setRuta(RutaRepartos_Pojo ruta) {
-		this.ruta = ruta;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((apellidos == null) ? 0 : apellidos.hashCode());
-		result = prime * result + ((direccion == null) ? 0 : direccion.hashCode());
-		result = prime * result + ((dni == null) ? 0 : dni.hashCode());
-		result = prime * result + ((gmail == null) ? 0 : gmail.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
-		result = prime * result + ((poblacion == null) ? 0 : poblacion.hashCode());
-		result = prime * result + ((tlf == null) ? 0 : tlf.hashCode());
-		result = prime * result + ((tlf2 == null) ? 0 : tlf2.hashCode());
-		result = prime * result + ((tlf3 == null) ? 0 : tlf3.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Repartidor_Pojo other = (Repartidor_Pojo) obj;
-		if (apellidos == null) {
-			if (other.apellidos != null)
-				return false;
-		} else if (!apellidos.equals(other.apellidos))
-			return false;
-		if (direccion == null) {
-			if (other.direccion != null)
-				return false;
-		} else if (!direccion.equals(other.direccion))
-			return false;
-		if (dni == null) {
-			if (other.dni != null)
-				return false;
-		} else if (!dni.equals(other.dni))
-			return false;
-		if (gmail == null) {
-			if (other.gmail != null)
-				return false;
-		} else if (!gmail.equals(other.gmail))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (nombre == null) {
-			if (other.nombre != null)
-				return false;
-		} else if (!nombre.equals(other.nombre))
-			return false;
-		if (poblacion == null) {
-			if (other.poblacion != null)
-				return false;
-		} else if (!poblacion.equals(other.poblacion))
-			return false;
-		if (tlf == null) {
-			if (other.tlf != null)
-				return false;
-		} else if (!tlf.equals(other.tlf))
-			return false;
-		if (tlf2 == null) {
-			if (other.tlf2 != null)
-				return false;
-		} else if (!tlf2.equals(other.tlf2))
-			return false;
-		if (tlf3 == null) {
-			if (other.tlf3 != null)
-				return false;
-		} else if (!tlf3.equals(other.tlf3))
-			return false;
-		if (user == null) {
-			if (other.user != null)
-				return false;
-		} else if (!user.equals(other.user))
-			return false;
-		return true;
-	}
-    
-    
-    
-    
+public void setListaPedidos(Set<Pedido_Pojo> listaPedidos) {
+	this.listaPedidos = listaPedidos;
+}
 	
+
 }

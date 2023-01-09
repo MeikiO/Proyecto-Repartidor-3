@@ -15,19 +15,15 @@
        
    <section layout:fragment="custom-content" class="document__content">
   			<!-- aqui escribimos todo lo que va en el contenido -->
-
-		<form method="post" action="#" th:action="@{/admin/procesarAsignacion}" autocomplete="off">
+  
+  		<form method="post" action="#" th:action="@{/admin/procesarAsignacionRepartidor}" autocomplete="off">
 		    
-
-
-		  
-		  
-		  
+		   	<label for="poblacion">Seleccionar Repartidor</label>
+					      
+		    
 		  	<div th:switch="${repartidor_elegido==null}">
 			    <div th:case="true" class="col-sm order-last">
 			    	<div class="form-group">
-					  	 <label for="poblacion">Seleccionar Repartidor</label>
-					      
 					     <select name="idRepartidor">
 				      		<option value="default"> </option>
 				    		<option th:each="repartidores: ${lista_repartidores}" 
@@ -35,27 +31,28 @@
 				    		th:text="${repartidores.getNombre()}+' '+${repartidores.getApellidos()}"/>
 				        </select>
 				  	</div>
-
-			    </div>
+				</div>
 			    <div th:case="false" class="col-sm order-last">
-					
 					<div class="form-group">
-					  	 <label for="poblacion">Seleccionar Repartidor</label>
-					      
 					     <select name="idRepartidor">
 				      		<option th:text="${repartidor_elegido.getNombre()}+' '+${repartidor_elegido.getApellidos()}" th:value="${repartidor_elegido.getId().toString()}"> </option>
 				    		<option th:each="repartidores: ${lista_repartidores}" 
 				    		th:value="${repartidores.getId().toString()}"
-				    		th:text="${repartidores.getNombre()}+' '+${repartidores.getApellidos()}"/>
+				    		th:text="${repartidores.getNombre()}+' '+${repartidores.getApellidos()}"/>		
 				        </select>
-				  	</div>
-					
-			    </div>
+				  	</div>	
+				</div>
 			</div>	
-		  
-		  
-		  
+			
+			<div>
+  				<button type="submit" class="btn btn-primary btn-block btn-lg">Asignar Repartidor</button>	
+  			</div>		
 
+		</form>
+		  
+		  
+		<form method="post" action="#" th:action="@{/admin/procesarAsignacion}" autocomplete="off">
+		    
 	 		<div th:switch="${mapa.get('ESTADO_EN_ESPERA_DE_MANDAR').isEmpty()}">
 			    <div th:case="true" class="col-sm order-last">
 			    	<p>No ha pedidos para asignar</p>
@@ -89,18 +86,38 @@
 			    </div>
 			</div>	
 
+		</form>
 
-	 		<div th:switch="${repartidor_elegido==null}">
+
+		<h1>Pedidos Asignados al repartidor</h1>
+
+		<form method="post" action="#" th:action="@{/admin/terminarAsignacion}" autocomplete="off">
+		 	
+		 	<div th:switch="${repartidor_elegido==null}">
 			    <div th:case="true" class="col-sm order-last">
-			    	<p>No hay nada seleccionado</p>
+			    	<p>No hay Repartidor seleccionado</p>
+			    </div>
+			    <div th:case="false" class="col-sm order-last">	
+					<h2 th:text="${repartidor_elegido.getNombre()}+' '+${repartidor_elegido.getApellidos()}"></h2>
+					<button type="submit" class="btn btn-primary btn-block btn-lg" 
+							id="repartidor_que_va_ha_repartir" 
+							name="repartidor_que_va_ha_repartir"
+							th:value="${repartidor_elegido.getId()}">Empezar Reparto</button>	
+				</div>
+			</div>	
+		</form>	
+
+
+		<form method="post" action="#" th:action="@{/admin/procesarDesagsignacion}" autocomplete="off">
+		   			
+			
+			<!-- Tabla con la ruta reparto completa aqui -->
+			
+			<div th:switch="${mapa.get('ESTADO_EN_ESPERA_DE_EMPEZAR_REPARTO').isEmpty()}">
+			    <div th:case="true" class="col-sm order-last">
+			    	<p>No hay pedidos asignados</p>
 			    </div>
 			    <div th:case="false" class="col-sm order-last">
-					
-					<h2 th:text="${repartidor_elegido.getNombre()}+' '+${repartidor_elegido.getApellidos()}"></h2>
-					
-					<!-- Tabla con la ruta reparto completa aqui -->
-					<div th:case="false" class="col-sm order-last">
-			    	<h1>Pedidos</h1>
 			    	<br>
 			       <table class="tabla__pedidos">
 		                  <thead class="tabla__info">
@@ -111,7 +128,7 @@
 		                      </tr>
 		                  </thead>
 		                  <tbody>
-		                 		<tr th:each="pedido : ${lista_pedidos_repartidor}">
+		                 		<tr th:each="pedido : ${mapa.get('ESTADO_EN_ESPERA_DE_EMPEZAR_REPARTO')}">
 		                  			 <td th:text="${pedido.getPuntoReparto().getDireccion()}"></td> 
 		                             <td th:text="${pedido.getPuntoReparto().getNombre_cliente()}+ ' ' + ${pedido.getPuntoReparto().getApellidos_cliente()}"></td> 
 		                             <td>
@@ -119,21 +136,23 @@
 											id="idPedido" 
 											name="idPedido"
 											th:value="${pedido.getId().toString()}"
-											>Asignar</button>			                      	       
-
+											> Desasignar</button>	
 		                             </td>
 		                     	</tr>
 		                  </tbody>
 		              </table>
 			    </div>
-					
-					<!-- Mapa enseñando todos los elementos de la ruta de reparto
-						aqui -->
-					
-			    </div>
 			</div>	
+		</form>	
+		
+
+
+		<!-- Mapa enseñando todos los elementos de la ruta de reparto aqui -->
+					
+					
+		
 		    
-		</form>
+		
 
 	</section>
 

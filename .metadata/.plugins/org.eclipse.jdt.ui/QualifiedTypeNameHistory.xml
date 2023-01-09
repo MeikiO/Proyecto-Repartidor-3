@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="org.hibernate.annotations.OnDeleteAction"/>
-    <fullyQualifiedTypeName name="org.hibernate.annotations.OnDelete"/>
     <fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonIgnore"/>
     <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaRepository"/>
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_recursos_codigo.DaoServices"/>
@@ -48,16 +46,18 @@
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.LineaPedido_Repository"/>
     <fullyQualifiedTypeName name="java.util.HashMap"/>
     <fullyQualifiedTypeName name="java.util.Map"/>
-    <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.Estado_Pedido"/>
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.poblacion.Poblacion_Repository"/>
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_utils.Procesador_Formularios"/>
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.punto_reparto.PuntoReparto_Pojo"/>
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.UserAccount_Pojo"/>
     <fullyQualifiedTypeName name="java.util.Set"/>
-    <fullyQualifiedTypeName name="java.util.HashSet"/>
+    <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.ruta_repartos.RutaRepartos_Pojo"/>
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.Pedido_Pojo"/>
+    <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.Estado_Pedido"/>
+    <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.ruta_repartos.RutaRepartos_Repository"/>
+    <fullyQualifiedTypeName name="javax.persistence.OneToMany"/>
+    <fullyQualifiedTypeName name="java.util.HashSet"/>
     <fullyQualifiedTypeName name="javax.persistence.ManyToOne"/>
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.repartidores.Repartidor_Pojo"/>
-    <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.ruta_repartos.RutaRepartos_Pojo"/>
-    <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.ruta_repartos.RutaRepartos_Repository"/>
+    <fullyQualifiedTypeName name="java.io.IOException"/>
 </qualifiedTypeNameHistroy>
