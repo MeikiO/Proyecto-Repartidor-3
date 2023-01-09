@@ -1,10 +1,40 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head> 
-    <title>Getting Started: Serving Web Content</title> 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!DOCTYPE html>
+<html lang="es-ES"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<title>Pruebas Google Maps</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/zzz_mapas/pruebasGoogleMaps.css}"></link>
+
 </head>
+
 <body>
-    <p th:text="'esto es la ventana de UN REPARTIDOR'" />
+<h1>Pruebas para aprender a trabajar con la plataforma Google Maps</h1>
+
+<p>Ruta mostrada: <strong th:utext="${nombreDeLaRuta}" /></p>
+<p><i th:utext="${descripcionDeLaRuta}" /></p>
+
+<div id="contenedor-del-mapa"></div>
+<br><br>
+<div id="informacion-adiccional">
+</div>
+
+
+<script type="text/javascript" th:src="@{https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCcWW7VDmc4iLEyBB8-K7pzauZXRG3W1Mc}"></script>
+<script type="text/javascript" th:src="@{/js/pruebasGoogleMaps.js}"></script>
+<script th:inline="javascript">
+    const puntoInicial = {lat: [[${latitud}]], lng: [[${longitud}]]};
+    const mapa = new Mapa(puntoInicial);
+    [# th:each="punto : ${puntosDeLaRuta}"]
+        var coordenadasDelPunto = {lat: [[${punto.getCoordenadasLatitud()}]],
+    		lng: [[${punto.getCoordenadasLongitud()}]]};
+        mapa.ponerMarcador(coordenadasDelPunto, [[${punto.getNombre_cliente()}]]);
+        mapa.añadirUnPuntoALaRuta(coordenadasDelPunto, [[${punto.getNombre_cliente()}]], [[${punto.getDni()}]]);
+    [/]
+
+</script>
+
 </body>
+
 </html>
