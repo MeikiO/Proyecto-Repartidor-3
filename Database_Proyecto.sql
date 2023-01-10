@@ -40,7 +40,7 @@ values("Arama","Guipuzcoa","20248");
 insert into poblacion(`nombre_localizacion`,`region`,`codigo_postal`)
 values("Aretxabaleta","Guipuzcoa","20550");
 insert into poblacion(`nombre_localizacion`,`region`,`codigo_postal`)
-values("ArrasateoMondragon","Guipuzcoa","20500");
+values("Arrasate","Guipuzcoa","20500");
 insert into poblacion(`nombre_localizacion`,`region`,`codigo_postal`)
 values("Asteasu","Guipuzcoa","20159");
 insert into poblacion(`nombre_localizacion`,`region`,`codigo_postal`)
@@ -62,7 +62,7 @@ values("Belauntza","Guipuzcoa","20491");
 insert into poblacion(`nombre_localizacion`,`region`,`codigo_postal`)
 values("Berastegi","Guipuzcoa","20492");
 insert into poblacion(`nombre_localizacion`,`region`,`codigo_postal`)
-values("Bergara","Guipuzcoa","20570");
+values("Vergara","Guipuzcoa","20570");
 insert into poblacion(`nombre_localizacion`,`region`,`codigo_postal`)
 values("Berrobi","Guipuzcoa","20493");
 insert into poblacion(`nombre_localizacion`,`region`,`codigo_postal`)
@@ -546,3 +546,8 @@ select * from `credencial`;
 
 
 select * from punto_reparto;
+
+
+
+
+delete from `credencial` where  credenciales_id=1;

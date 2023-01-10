@@ -132,7 +132,7 @@ public class Pedido_Pojo {
     
 
     @OneToOne
-    @JoinColumn(name="repartidores_id")
+    @JoinColumn(name="repartidor_id")
     private Repartidor_Pojo repartidorEncargado;
     
 //////////////////////////////////////////////////

@@ -214,6 +214,7 @@ public class ControladorJ__Cliente {
     		pedido.setEstadoPedido(Estado_Pedido.ESTADO_HACIENDO_EL_PEDIDO.toString());
     		pedido.setPuntoReparto(punto);
     		pedido.setId((long) 0);
+    		pedido.setRepartidorEncargado(null);
 
     		this.pedidos_repository.save(pedido);
     	}

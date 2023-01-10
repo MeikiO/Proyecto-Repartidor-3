@@ -16,7 +16,7 @@ import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_recursos_coordenadas.c
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_recursos_coordenadas.clase_de_parseo.TransCripcionJson;
 
 public class ConvertirDireccionACoordenadas {
-	private static final String API_KEY = "AIzaSyCcWW7VDmc4iLEyBB8-K7pzauZXRG3W1Mc";
+	private static final String API_KEY = "AIzaSyApwAN0oIELXbhbqji-3m0jJ7ktyiiMLDM";
     private static final String LLAMADA_WEB_API = "https://maps.googleapis.com/maps/api/geocode/json?";
 
     

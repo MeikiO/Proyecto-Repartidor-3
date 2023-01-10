@@ -448,7 +448,64 @@ public class ControladorJ__Admin {
     	
     	model.addAttribute("repartidor_elegido", null);
 
-    	//falta la lista de pedidos [EN_ESPERA DE EMPEZAR REPARTO]
+    	/* 
+    	 Da error porque no consigue identificar el token del mapa
+    	
+    	if(!mapaPedidosEstados.get(Estado_Pedido.ESTADO_EN_ESPERA_DE_EMPEZAR_REPARTO.toString()).isEmpty()) {
+
+	    	//falta la lista de pedidos [EN_ESPERA DE EMPEZAR REPARTO]
+	    	
+			//PON EL MAPA EN LA PAGINA DE ASIGNAR LOS PEDIDOS AL REPARTIDOR
+			
+			//el punto de reparto del pedido
+			//ya tiene las coordenadas cargadas
+	    	
+	    	double latitud= mapaPedidosEstados.get(Estado_Pedido.ESTADO_EN_ESPERA_DE_EMPEZAR_REPARTO.toString()).get(0).getPuntoReparto().getCoordenadasLatitud();
+	    	double longitud=mapaPedidosEstados.get(Estado_Pedido.ESTADO_EN_ESPERA_DE_EMPEZAR_REPARTO.toString()).get(0).getPuntoReparto().getCoordenadasLongitud();
+	    	
+	    	List<PuntoReparto_Pojo> listaPuntos=new ArrayList<>();
+	    	
+	    	for(Pedido_Pojo actual:mapaPedidosEstados.get(Estado_Pedido.ESTADO_EN_ESPERA_DE_EMPEZAR_REPARTO.toString())) {
+	    		listaPuntos.add(actual.getPuntoReparto());
+	    	}
+	    	
+	        model.addAttribute("latitud", latitud);
+	        model.addAttribute("longitud",longitud);
+	        model.addAttribute("puntosDeLaRuta", listaPuntos);
+    	}
+    	
+    	//////////////////////////PARTE DEL MAPA HTML//////////////////
+    	
+    	
+    	<!-- Mapa enseñando todos los elementos de la ruta de reparto aqui 
+					
+		
+		<div id="contenedor-del-mapa"></div>
+		<br><br>
+		<div id="informacion-adiccional">
+		</div>
+		
+		
+		<script type="text/javascript" th:src="@{https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCcWW7VDmc4iLEyBB8-K7pzauZXRG3W1Mc}"></script>
+		<script type="text/javascript" th:src="@{/js/pruebasGoogleMaps.js}"></script>
+		<script th:inline="javascript">
+		    const puntoInicial = {lat: [[${latitud}]], lng: [[${longitud}]]};
+		    const mapa = new Mapa(puntoInicial);
+		    [# th:each="punto : ${puntosDeLaRuta}"]
+		        var coordenadasDelPunto = {lat: [[${punto.getCoordenadasLatitud()}]],
+		    		lng: [[${punto.getCoordenadasLongitud()}]]};
+		        mapa.ponerMarcador(coordenadasDelPunto, [[${punto.getNombre_cliente()}]]);
+		        mapa.añadirUnPuntoALaRuta(coordenadasDelPunto, [[${punto.getNombre_cliente()}]], [[${punto.getDni()}]]);
+		    [/]
+		
+		</script>
+	
+		-->
+    	
+    /////////////////////////////////////////////////////////////	
+    	
+    	*/
+    	
     	
 	    return "/v_admin/asignar_pedidos";
 	}
@@ -479,6 +536,7 @@ public class ControladorJ__Admin {
 		Map<String,List<Pedido_Pojo>> mapaPedidosEstados=this.extraerMapaNecesario();
     	model.addAttribute("mapa", mapaPedidosEstados);
     	
+    	  	
 	    return "/v_admin/asignar_pedidos";
 	}
     
@@ -551,11 +609,6 @@ public class ControladorJ__Admin {
 		repartidorMandado.setListaPedidos(setDePedidos);
 		this.repartidor_repository.save(repartidorMandado);
 
-		
-		//PON EL MAPA EN LA PAGINA DE ASIGNAR LOS PEDIDOS AL REPARTIDOR
-		
-		//el punto de reparto del pedido
-		//ya tiene las coordenadas cargadas
 		
 		return "redirect:/admin/entrada";
 	}

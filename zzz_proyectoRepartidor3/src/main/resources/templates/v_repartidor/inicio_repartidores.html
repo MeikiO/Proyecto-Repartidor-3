@@ -10,15 +10,72 @@
 </head>
 
 <body>
-<h1>Pruebas para aprender a trabajar con la plataforma Google Maps</h1>
 
-<p>Ruta mostrada: <strong th:utext="${nombreDeLaRuta}" /></p>
-<p><i th:utext="${descripcionDeLaRuta}" /></p>
+	<h1>Pruebas para aprender a trabajar con la plataforma Google Maps</h1>
+	
+	<p>Ruta mostrada: <strong th:utext="${nombreDeLaRuta}" /></p>
+	<p><i th:utext="${descripcionDeLaRuta}" /></p>
+	
 
-<div id="contenedor-del-mapa"></div>
-<br><br>
-<div id="informacion-adiccional">
-</div>
+	<div th:switch="${puntosDeLaRuta.isEmpty()}">
+		    <div th:case="true" class="col-sm order-last">
+		    	<p>NO HAY NINGUN PEDIDO PARA REPARTIR</p>
+		    </div>
+		    <div th:case="false" class="col-sm order-last">
+		  			<!-- Parte del mapa que enseña los puntos -->
+		  			<div id="contenedor-del-mapa"></div>
+					<br><br>
+					<!-- Esta es la informacion de cada punto -->
+					<div id="informacion-adiccional">
+					</div>  
+					
+					
+					
+					<!-- crear una parte para que se vean los productos cuando
+						la propiedad lista_de_productos_necesaria no es null
+						
+						ya que el script no admite que le pase listas
+						lo hago de esta manera. Pasando la lista por el controlador
+						y enseñandola aqui
+					-->
+
+					<div th:switch="${pedido_seleccionado != null}">
+					    <div th:case="false" class="col-sm order-last">
+					    	<p>No hay datos seleccionados</p>
+					    </div>
+					    <div th:case="true" class="col-sm order-last">
+					        <div>
+						        <label>Productos del pedido</label>
+						    </div>
+				
+				 			 <table class="tabla__pedidos">
+							   <thead>
+				                    <tr>
+				                        <td>Nombre Producto</td>
+				                        <td>Cantidad</td>
+				                        <td>Precio base</td>
+				                        <td>Descuento</td>
+				                    </tr>
+				                </thead>
+				                <tbody>
+				               		<tr th:each="linea : ${pedido_seleccionado.listaLineas}" class="pedido">
+				                     <td th:text="${linea.producto.nombre}"></td> 
+				                     <td th:text="${linea.candidad}"></td> 
+				                     <td th:text="${linea.producto.precio_producto}"></td> 
+				                     <td th:text="${linea.producto.descuento}"></td> 
+				                	</tr>
+				                </tbody>
+				            </table>
+					    </div>
+					  </div>
+					
+					
+					
+		    </div>
+	</div>
+
+
+
 
 
 <script type="text/javascript" th:src="@{https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCcWW7VDmc4iLEyBB8-K7pzauZXRG3W1Mc}"></script>
@@ -27,10 +84,24 @@
     const puntoInicial = {lat: [[${latitud}]], lng: [[${longitud}]]};
     const mapa = new Mapa(puntoInicial);
     [# th:each="punto : ${puntosDeLaRuta}"]
-        var coordenadasDelPunto = {lat: [[${punto.getCoordenadasLatitud()}]],
-    		lng: [[${punto.getCoordenadasLongitud()}]]};
-        mapa.ponerMarcador(coordenadasDelPunto, [[${punto.getNombre_cliente()}]]);
-        mapa.añadirUnPuntoALaRuta(coordenadasDelPunto, [[${punto.getNombre_cliente()}]], [[${punto.getDni()}]]);
+        var coordenadasDelPunto = {lat: [[${punto.getPuntoReparto().getCoordenadasLatitud()}]],
+    		lng: [[${punto.getPuntoReparto().getCoordenadasLongitud()}]]};
+        mapa.ponerMarcador(
+        		coordenadasDelPunto, 
+        		[[${punto.getPuntoReparto().getNombre_cliente()}]],
+        		[[${punto.getId()}]],
+        		[[${punto.getFechaPedido().toString()}]],
+        		[[${punto.getPuntoReparto().getDireccion()}]],
+        		[[${punto.getPuntoReparto().getPoblacion().getCodigoPostal()}]],
+        		[[${punto.getPuntoReparto().getPoblacion().getNombreLocalizacion()}]],
+        		[[${punto.getPrecio_total()}]],
+        		[[${punto.getObservaciones()}]]
+        );
+        
+        mapa.añadirUnPuntoALaRuta(
+        		coordenadasDelPunto,
+        		[[${punto.getPuntoReparto().getNombre_cliente()}]],
+        		[[${punto.getPuntoReparto().getApellidos_cliente()}]]);
     [/]
 
 </script>

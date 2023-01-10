@@ -34,7 +34,7 @@ public class PuntoReparto_Pojo {
 	@Column(name = "puntoReparto_id")
     private Long id;
 	
-	
+
 	private String nombre_cliente;
 	private String apellidos_cliente;
 	private String tlf1_cliente;

@@ -1,5 +1,5 @@
 class Mapa {
-    #MiClave = "AIzaSyCdEePgg8aVDdW1R8z1zBUHQAbFKAz5Afk";
+    #MiClave = "AIzaSyCcWW7VDmc4iLEyBB8-K7pzauZXRG3W1Mc";
     #mapa;
     #descripcionesDeLaRuta = new Map();
     #rutaEnBruto = [];
@@ -19,7 +19,9 @@ class Mapa {
         this.#descripcionesDeLaRuta.set(nombre, descripcion);
     }
     
-    ponerMarcador(coordenadas, nombre) {
+    ponerMarcador(coordenadas, nombre,
+    id,fecha_hora,direccion,codigoPostal,nombreLocalizacion,
+    precioTotal,observaciones) {
         const marcador = new google.maps.Marker({
             position: coordenadas,
             label: nombre,
@@ -28,70 +30,29 @@ class Mapa {
             draggable: false
         })
         marcador.addListener("click", () => {
-            this.procesarClicEnElMarcador(nombre);
+            this.procesarClicEnElMarcador(nombre,
+    id,fecha_hora,direccion,codigoPostal,nombreLocalizacion,
+    precioTotal,observaciones);
         })
     }
     
-    procesarClicEnElMarcador(nombre) {
-        document.getElementById("informacion-adiccional").innerHTML = "Se ha clicado en " + nombre + "<br>" + this.#descripcionesDeLaRuta.get(nombre);
-    }
-    
-    
-    pintarLaPolineaDeLaRutaEnBruto() {
-        var polilinea = new google.maps.Polyline({
-            path: this.#rutaEnBruto,
-            strokeColor: '#00FF00',
-            strokeWeight: 10,
-            strokeOpacity: 0.5,
-        });
-        polilinea.setMap(this.#mapa);
-    }
-    
-     
-    pintarLaRutaASeguir() {
-        var puntosDelCamino = [];
-        for (const element of this.#rutaEnBruto) {
-            puntosDelCamino.push(element.toUrlValue());
-        }
-        fetch("https://roads.googleapis.com/v1/snapToRoads", {
-            method: "GET",
-            headers: {
-                path: puntosDelCamino.join("|"),
-                interpolate: true,
-                key: this.#MiClave,
-            }
-        })
-        .then((response) => {
-            response.json();
-        })
-        .then((data) => {
-            this.procesarLaRespuestaDeSnapToRoads(data);
-        })
-        .catch((error) => {
-            console.error("Se ha producido un error:", error);
-        });
-        this.pintarLaPolineaDelCaminoAdaptado();
-    }
-    
-    procesarLaRespuestaDeSnapToRoads(data) {
-        this.#rutaAdaptadaACallesYCarreteras = [];
-        for (const element of data.snappedPoints) {
-            var coordenadas = new google.maps.LatLng(
-                element.location.latitude,
-                element.location.longitude
-            );
-            this.#rutaAdaptadaACallesYCarreteras.push(coordenadas);
-        }
+    procesarClicEnElMarcador(nombre,
+    id,fecha_hora,direccion,codigoPostal,nombreLocalizacion,
+    precioTotal,observaciones) {
+        document.getElementById("informacion-adiccional").innerHTML = 
+        "<div class='contenido_punto'> " +
+	        "Se ha clicado en " + nombre + 
+	        "<br>" + this.#descripcionesDeLaRuta.get(nombre)+
+	        "<br> <a href='/repartidor/terminarPedido/"+id+"'>Completar Pedido</a>"+
+			"<br> <label> Pedido"+id+"</label>"+
+		    "<br> Fecha y Hora: "+ fecha_hora+
+		    "<br> Direccion:"+ direccion+","+codigoPostal+","+nombreLocalizacion+
+		    "<br> Productos:"+
+		    "<br> <a href='/repartidor/verProductos/"+id+"'>Ver Productos del Pedido</a>"+
+		    "<br> <br>"+
+		    "<br>Precio Total: "+precioTotal+" €"+
+		    "<br><br> Observaciones: "+observaciones+
+	    "</div>";
     }
         
-    pintarLaPolineaDeLaRutaAdaptada() {
-        var polilinea = new google.maps.Polyline({
-            path: this.#rutaAdaptadaACallesYCarreteras,
-            strokeColor: '#FC0ED4',
-            strokeWeight: 5,
-            strokeOpacity: 0.8,
-        });
-        polilinea.setMap(this.#mapa);
-    }
-    
 }
