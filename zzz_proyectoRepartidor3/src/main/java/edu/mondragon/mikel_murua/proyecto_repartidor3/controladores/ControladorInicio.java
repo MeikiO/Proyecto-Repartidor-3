@@ -174,7 +174,9 @@ public class ControladorInicio {
 			
 			Coordenadas coordenadasCliente= conversor.realizarConsultaDeCoordenada(cliente.getDireccion(),miPoblacion.get());
 		
-			//Coordenadas coordenadasCliente= new Coordenadas(0,0);
+			if(coordenadasCliente==null) {
+				coordenadasCliente= new Coordenadas(0,0);				
+			}
 			
 			/*	 
 			 Guardar nueva entrada
