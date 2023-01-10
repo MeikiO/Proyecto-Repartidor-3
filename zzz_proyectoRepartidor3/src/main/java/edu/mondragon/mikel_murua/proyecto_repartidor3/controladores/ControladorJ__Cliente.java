@@ -169,7 +169,7 @@ public class ControladorJ__Cliente {
     	 */
     	
     	
-    	Set<LineaPedido_Pojo> lista=this.lineaProductos_repository.findByPedido_id(pedido.getId());
+    	Set<LineaPedido_Pojo> lista=this.lineaProductos_repository.findByReferenciaAPedido(pedido);
     	pedido.setListaLineas(lista);
  
     	pedido.setPrecio_total(this.calcularPrecioTotal(lista));
@@ -234,20 +234,25 @@ public class ControladorJ__Cliente {
     	System.out.println(productoElegido);
     	System.out.println(cantidad);
  
-    	
-
     	Pedido_Pojo pedido=this.cargarPedidoEncursoDeUserLogeado();
     
-    	
     	LineaPedido_Pojo una_linea=new LineaPedido_Pojo();
     	Producto_Pojo producto=this.productos_repository.findByNombre(productoElegido);
     	una_linea.setProducto(producto);
-    	una_linea.setPedido(pedido);
-    	
+    	una_linea.setReferenciaAPedido(pedido);
     	String[] contenido_cantidad=cantidad.split("[,]");
     	una_linea.setCandidad(Integer.parseInt(contenido_cantidad[1]));
     	
-
+    	Set<LineaPedido_Pojo> listaLineas = this.lineaProductos_repository.findByReferenciaAPedido(pedido);
+    	
+    	listaLineas.add(una_linea);
+    	pedido.setListaLineas(listaLineas);	
+    	this.pedidos_repository.save(pedido);
+    	//this.lineaProductos_repository.save(una_linea); 
+    	
+    	
+        return "redirect:/cliente/hacer_pedido";
+        
         /* Al guardar los pedidos con todos los linea de pedido da el 
         error:object references an unsaved transient instance - save the transient instance before flushing: edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.LineaPedido_Pojo
         
@@ -274,12 +279,6 @@ public class ControladorJ__Cliente {
     	 	cuando sea necesario, para enseñarlo.
     	 */
     	
-    	if(!pedido.getListaLineas().contains(una_linea)) {
-    		pedido.getListaLineas().add(una_linea);			
-    		this.lineaProductos_repository.save(una_linea); 
-    	}
-    	
-        return "redirect:/cliente/hacer_pedido";
     }
 	 
 	
@@ -332,7 +331,7 @@ public class ControladorJ__Cliente {
     	pedido.setEstadoPedido(Estado_Pedido.ESTADO_EN_ESPERA_DE_MANDAR.toString());
     	pedido.setObservaciones(observaciones);
     	
-     	Set<LineaPedido_Pojo> lista=this.lineaProductos_repository.findByPedido_id(pedido.getId());
+     	Set<LineaPedido_Pojo> lista=this.lineaProductos_repository.findByReferenciaAPedido(pedido);
      	//En este caso utilizamos las linea producto
      	//solo para calcular precio total
      	//no los asignamos a pedido
@@ -355,7 +354,7 @@ public class ControladorJ__Cliente {
 	public String verPedido(@PathVariable String id,Model model, String error, String logout) {
 	    
 	    	Optional<Pedido_Pojo> pedido=this.pedidos_repository.findById((long) Integer.parseInt(id));
-	    	Set<LineaPedido_Pojo> lista=this.lineaProductos_repository.findByPedido_id(pedido.get().getId());
+	    	Set<LineaPedido_Pojo> lista=this.lineaProductos_repository.findByReferenciaAPedido(pedido.get());
 	    	pedido.get().setListaLineas(lista);
 	    	model.addAttribute("pedido", pedido.get());
 		 

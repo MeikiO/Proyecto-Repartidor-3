@@ -26,9 +26,9 @@ public class LineaPedido_Pojo {
 	
 ////////////////////////////////////////
 	
-	@OneToOne
-    @JoinColumn(name = "pedido_id")
-    private Pedido_Pojo pedido;
+	@ManyToOne
+    @JoinColumn(name = "listaLineas")
+    private Pedido_Pojo referenciaAPedido;
 	
 	
     @OneToOne
@@ -40,47 +40,46 @@ public class LineaPedido_Pojo {
     public LineaPedido_Pojo() {
 	}
 
-	public LineaPedido_Pojo(Long id, int candidad, Pedido_Pojo pedido, Producto_Pojo producto) {
+public LineaPedido_Pojo(Long id, int candidad, Pedido_Pojo referenciaAPedido, Producto_Pojo producto) {
 	super();
-	//this.id = id;
+	this.id = id;
 	this.candidad = candidad;
-	this.pedido = pedido;
+	this.referenciaAPedido = referenciaAPedido;
 	this.producto = producto;
-	}
+}
 
-	public Long getId() {
-		return id;
-	}
+public Long getId() {
+	return id;
+}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+public void setId(Long id) {
+	this.id = id;
+}
 
-	public int getCandidad() {
-		return candidad;
-	}
+public int getCandidad() {
+	return candidad;
+}
 
-	public void setCandidad(int candidad) {
-		this.candidad = candidad;
-	}
+public void setCandidad(int candidad) {
+	this.candidad = candidad;
+}
 
-	public Pedido_Pojo getPedido() {
-		return pedido;
-	}
+public Pedido_Pojo getReferenciaAPedido() {
+	return referenciaAPedido;
+}
 
-	public void setPedido(Pedido_Pojo pedido) {
-		this.pedido = pedido;
-	}
+public void setReferenciaAPedido(Pedido_Pojo referenciaAPedido) {
+	this.referenciaAPedido = referenciaAPedido;
+}
 
-	public Producto_Pojo getProducto() {
-		return producto;
-	}
+public Producto_Pojo getProducto() {
+	return producto;
+}
 
-	public void setProducto(Producto_Pojo producto) {
-		this.producto = producto;
-	}
+public void setProducto(Producto_Pojo producto) {
+	this.producto = producto;
+}
 
-	
 
 	
 }

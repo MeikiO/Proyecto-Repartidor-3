@@ -6,5 +6,5 @@ import java.util.Set;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LineaPedido_Repository extends JpaRepository<LineaPedido_Pojo, Long> {
-	Set<LineaPedido_Pojo> findByPedido_id(Long pedido_id);
+	Set<LineaPedido_Pojo> findByReferenciaAPedido(Pedido_Pojo referenciaAPedido);
 }

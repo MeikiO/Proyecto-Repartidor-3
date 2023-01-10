@@ -61,130 +61,131 @@ public class Repartidor_Pojo {
  --> de poner pon toda la lista de pedidos que va ha repartir.
  */  
     
-    @OneToMany(cascade=CascadeType.ALL,fetch = FetchType.EAGER)
-	@org.hibernate.annotations.ForeignKey(name = "none")
-    @JoinColumn(name="pedido_id")
-    private Set<Pedido_Pojo> listaPedidos;
+    @OneToMany(cascade=CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "repartidorEncargado")
+	//@org.hibernate.annotations.ForeignKey(name = "none")
+    //@JoinColumn(name="pedido_id")
+    private Set<Pedido_Pojo> listaPedidosRepartidor;
     
  /////////////////////////////////////////
     
     public Repartidor_Pojo() {
-    	this.listaPedidos=new HashSet<>();
+    	this.listaPedidosRepartidor=new HashSet<>();
 	}
 
-public Repartidor_Pojo(Long id, String nombre, String apellidos, String dni, String tlf, String tlf2, String tlf3,
-		String direccion, String gmail, Poblacion_Pojo poblacion, UserAccount_Pojo user,
-		Set<Pedido_Pojo> listaPedidos) {
-	super();
-	this.id = id;
-	this.nombre = nombre;
-	this.apellidos = apellidos;
-	this.dni = dni;
-	this.tlf = tlf;
-	this.tlf2 = tlf2;
-	this.tlf3 = tlf3;
-	this.direccion = direccion;
-	this.gmail = gmail;
-	this.poblacion = poblacion;
-	this.user = user;
-	this.listaPedidos = listaPedidos;
-}
+	public Repartidor_Pojo(Long id, String nombre, String apellidos, String dni, String tlf, String tlf2, String tlf3,
+			String direccion, String gmail, Poblacion_Pojo poblacion, UserAccount_Pojo user,
+			Set<Pedido_Pojo> listaPedidosRepartidor) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.dni = dni;
+		this.tlf = tlf;
+		this.tlf2 = tlf2;
+		this.tlf3 = tlf3;
+		this.direccion = direccion;
+		this.gmail = gmail;
+		this.poblacion = poblacion;
+		this.user = user;
+		this.listaPedidosRepartidor = listaPedidosRepartidor;
+	}
 
-public Long getId() {
-	return id;
-}
+	public Long getId() {
+		return id;
+	}
 
-public void setId(Long id) {
-	this.id = id;
-}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-public String getNombre() {
-	return nombre;
-}
+	public String getNombre() {
+		return nombre;
+	}
 
-public void setNombre(String nombre) {
-	this.nombre = nombre;
-}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-public String getApellidos() {
-	return apellidos;
-}
+	public String getApellidos() {
+		return apellidos;
+	}
 
-public void setApellidos(String apellidos) {
-	this.apellidos = apellidos;
-}
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
 
-public String getDni() {
-	return dni;
-}
+	public String getDni() {
+		return dni;
+	}
 
-public void setDni(String dni) {
-	this.dni = dni;
-}
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
 
-public String getTlf() {
-	return tlf;
-}
+	public String getTlf() {
+		return tlf;
+	}
 
-public void setTlf(String tlf) {
-	this.tlf = tlf;
-}
+	public void setTlf(String tlf) {
+		this.tlf = tlf;
+	}
 
-public String getTlf2() {
-	return tlf2;
-}
+	public String getTlf2() {
+		return tlf2;
+	}
 
-public void setTlf2(String tlf2) {
-	this.tlf2 = tlf2;
-}
+	public void setTlf2(String tlf2) {
+		this.tlf2 = tlf2;
+	}
 
-public String getTlf3() {
-	return tlf3;
-}
+	public String getTlf3() {
+		return tlf3;
+	}
 
-public void setTlf3(String tlf3) {
-	this.tlf3 = tlf3;
-}
+	public void setTlf3(String tlf3) {
+		this.tlf3 = tlf3;
+	}
 
-public String getDireccion() {
-	return direccion;
-}
+	public String getDireccion() {
+		return direccion;
+	}
 
-public void setDireccion(String direccion) {
-	this.direccion = direccion;
-}
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
 
-public String getGmail() {
-	return gmail;
-}
+	public String getGmail() {
+		return gmail;
+	}
 
-public void setGmail(String gmail) {
-	this.gmail = gmail;
-}
+	public void setGmail(String gmail) {
+		this.gmail = gmail;
+	}
 
-public Poblacion_Pojo getPoblacion() {
-	return poblacion;
-}
+	public Poblacion_Pojo getPoblacion() {
+		return poblacion;
+	}
 
-public void setPoblacion(Poblacion_Pojo poblacion) {
-	this.poblacion = poblacion;
-}
+	public void setPoblacion(Poblacion_Pojo poblacion) {
+		this.poblacion = poblacion;
+	}
 
-public UserAccount_Pojo getUser() {
-	return user;
-}
+	public UserAccount_Pojo getUser() {
+		return user;
+	}
 
-public void setUser(UserAccount_Pojo user) {
-	this.user = user;
-}
+	public void setUser(UserAccount_Pojo user) {
+		this.user = user;
+	}
 
-public Set<Pedido_Pojo> getListaPedidos() {
-	return listaPedidos;
-}
+	public Set<Pedido_Pojo> getListaPedidosRepartidor() {
+		return listaPedidosRepartidor;
+	}
 
-public void setListaPedidos(Set<Pedido_Pojo> listaPedidos) {
-	this.listaPedidos = listaPedidos;
-}
-	
+	public void setListaPedidosRepartidor(Set<Pedido_Pojo> listaPedidosRepartidor) {
+		this.listaPedidosRepartidor = listaPedidosRepartidor;
+	}
+    
+
 
 }

@@ -142,7 +142,7 @@ public class ControladorJ__Admin {
     	Optional<Pedido_Pojo> pedidoSeleccionado = this.pedidos_repository.findById(id_pedido);
     	Pedido_Pojo pedido=pedidoSeleccionado.get();
     	
-    	Set<LineaPedido_Pojo> listaLinea = this.linea_repository.findByPedido_id(id_pedido);
+    	Set<LineaPedido_Pojo> listaLinea = this.linea_repository.findByReferenciaAPedido(pedido);
     	pedido.setListaLineas(listaLinea);
      	model.addAttribute("pedido",pedido);
     	
@@ -427,7 +427,7 @@ public class ControladorJ__Admin {
 	public String verPedido(@PathVariable String id,Model model, String error, String logout) {
 	    
     	Optional<Pedido_Pojo> pedido=this.pedidos_repository.findById((long) Integer.parseInt(id));
-    	Set<LineaPedido_Pojo> lista=this.linea_repository.findByPedido_id(pedido.get().getId());
+    	Set<LineaPedido_Pojo> lista=this.linea_repository.findByReferenciaAPedido(pedido.get());
     	pedido.get().setListaLineas(lista);
     	model.addAttribute("pedido", pedido.get());
 	 
@@ -591,7 +591,6 @@ public class ControladorJ__Admin {
 		
 		System.out.println(id_repartidor);
 		
-		
 		long id_repartidorSeleccionado=Integer.parseInt(id_repartidor);
 		
 		Repartidor_Pojo repartidorMandado=this.repartidor_repository.findById(id_repartidorSeleccionado).get();
@@ -600,13 +599,17 @@ public class ControladorJ__Admin {
     	Set<Pedido_Pojo> setDePedidos=new HashSet<>();
 		
 		for(Pedido_Pojo actual: mapaPedidosEstados.get(Estado_Pedido.ESTADO_EN_ESPERA_DE_EMPEZAR_REPARTO.toString())) {
+			
+			Set<LineaPedido_Pojo> lineaPedidoQueTiene = this.linea_repository.findByReferenciaAPedido(actual);
+			actual.setListaLineas(lineaPedidoQueTiene);
 			actual.setEstadoPedido(Estado_Pedido.ESTADO_EN_CAMINO.toString());
 			actual.setRepartidorEncargado(repartidorMandado);
-			setDePedidos.add(actual);
 			this.pedidos_repository.save(actual);
+			
+			setDePedidos.add(actual);
 		}
 		
-		repartidorMandado.setListaPedidos(setDePedidos);
+		repartidorMandado.setListaPedidosRepartidor(setDePedidos);
 		this.repartidor_repository.save(repartidorMandado);
 
 		

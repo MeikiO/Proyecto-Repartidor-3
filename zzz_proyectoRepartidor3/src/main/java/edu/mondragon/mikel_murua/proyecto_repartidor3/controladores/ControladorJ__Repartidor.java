@@ -3,6 +3,7 @@ package edu.mondragon.mikel_murua.proyecto_repartidor3.controladores;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.Estado_Pedido;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.LineaPedido_Repository;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.Pedido_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.Pedidos_Repository;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.punto_reparto.PuntoReparto_Pojo;
@@ -27,18 +29,19 @@ public class ControladorJ__Repartidor {
 	private Repartidor_Repository repartidorRepository;
 	private UserAccount_Repository userRepository;
 	private Pedidos_Repository pedidoRepository;
+	private LineaPedido_Repository lineaRepository;
 	
 	//La restriccion entrada de los usuarios por rol, se hace en SecurityConfiguration.
     //todos pueden entrar a todo, pero lo limitamos usando el rol.
     
 	public ControladorJ__Repartidor(Repartidor_Repository repartidorRepository, UserAccount_Repository userRepository,
-			Pedidos_Repository pedidoRepository) {
+			Pedidos_Repository pedidoRepository, LineaPedido_Repository lineaRepository) {
 		super();
 		this.repartidorRepository = repartidorRepository;
 		this.userRepository = userRepository;
 		this.pedidoRepository = pedidoRepository;
+		this.lineaRepository = lineaRepository;
 	}
-
 
 
 	@GetMapping({"/repartidor/entrada"})
@@ -56,9 +59,10 @@ public class ControladorJ__Repartidor {
         UserAccount_Pojo account=this.userRepository.findByUsername(SecurityContextHolder. getContext(). getAuthentication().getName());   	
         Repartidor_Pojo repartidorLogeado=this.repartidorRepository.findByUser(account);
         
+ 
         List<Pedido_Pojo> listaConPedidos=new ArrayList<>();
         
-        for(Pedido_Pojo actual: repartidorLogeado.getListaPedidos()) {
+        for(Pedido_Pojo actual: repartidorLogeado.getListaPedidosRepartidor()) {
         	if(actual.getEstadoPedido().equals(Estado_Pedido.ESTADO_EN_CAMINO.toString())) {
         		listaConPedidos.add(actual);        		
         	}
@@ -67,12 +71,14 @@ public class ControladorJ__Repartidor {
       
         model.addAttribute("nombreDeLaRuta", "Ruta de comprobacion");
         model.addAttribute("descripcionDeLaRuta", "La primera prueba para algo mas grande");
-        model.addAttribute("latitud", repartidorLogeado.getListaPedidos().stream().findFirst().get().getPuntoReparto().getCoordenadasLatitud());
-        model.addAttribute("longitud", repartidorLogeado.getListaPedidos().stream().findFirst().get().getPuntoReparto().getCoordenadasLongitud());
+        model.addAttribute("latitud", repartidorLogeado.getListaPedidosRepartidor().stream().findFirst().get().getPuntoReparto().getCoordenadasLatitud());
+        model.addAttribute("longitud", repartidorLogeado.getListaPedidosRepartidor().stream().findFirst().get().getPuntoReparto().getCoordenadasLongitud());
         model.addAttribute("puntosDeLaRuta", listaConPedidos);
     	
         return "/v_repartidor/inicio_repartidores";
     }
+
+
 
 
 
@@ -96,7 +102,7 @@ public class ControladorJ__Repartidor {
         
         List<Pedido_Pojo> listaConPedidos=new ArrayList<>();
         
-        for(Pedido_Pojo actual: repartidorLogeado.getListaPedidos()) {
+        for(Pedido_Pojo actual: repartidorLogeado.getListaPedidosRepartidor()) {
         	if(actual.getEstadoPedido().equals(Estado_Pedido.ESTADO_EN_CAMINO.toString())) {
         		listaConPedidos.add(actual);        		
         	}
@@ -104,8 +110,8 @@ public class ControladorJ__Repartidor {
       
         model.addAttribute("nombreDeLaRuta", "Ruta de comprobacion");
         model.addAttribute("descripcionDeLaRuta", "La primera prueba para algo mas grande");
-        model.addAttribute("latitud", repartidorLogeado.getListaPedidos().stream().findFirst().get().getPuntoReparto().getCoordenadasLatitud());
-        model.addAttribute("longitud", repartidorLogeado.getListaPedidos().stream().findFirst().get().getPuntoReparto().getCoordenadasLongitud());
+        model.addAttribute("latitud", repartidorLogeado.getListaPedidosRepartidor().stream().findFirst().get().getPuntoReparto().getCoordenadasLatitud());
+        model.addAttribute("longitud", repartidorLogeado.getListaPedidosRepartidor().stream().findFirst().get().getPuntoReparto().getCoordenadasLongitud());
         model.addAttribute("puntosDeLaRuta", listaConPedidos);
     	
         return "/v_repartidor/inicio_repartidores";

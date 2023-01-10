@@ -115,12 +115,11 @@ public class Pedido_Pojo {
      */
     
    
-    @OneToMany(cascade=CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name="lineapedido_id")
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "referenciaAPedido")
+    //@JoinColumn(name="lineapedido_id")
     //@org.hibernate.annotations.ForeignKey(name = "none")
   	//desabilitamos la comprobacion del foreign key de pedidos por que sino nos dara error
   	// link-> https://stackoverflow.com/questions/41729709/how-do-i-disable-hibernate-foreign-key-constraint-on-a-bidirectional-association
-  	
     private Set<LineaPedido_Pojo> listaLineas;
 	
    
@@ -131,8 +130,8 @@ public class Pedido_Pojo {
     private Queja_Pojo queja;
     
 
-    @OneToOne
-    @JoinColumn(name="repartidor_id")
+    @ManyToOne
+    @JoinColumn(name="listaPedidosRepartidor")
     private Repartidor_Pojo repartidorEncargado;
     
 //////////////////////////////////////////////////
