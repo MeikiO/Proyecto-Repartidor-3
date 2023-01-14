@@ -5,9 +5,6 @@
 
 <head> 
     <title>Ver pedido</title> 
-
-	<link rel="stylesheet" type="text/css" href="#" th:href="@{/css/clientes/entrada_styles.css}">
-	<link rel="stylesheet" type="text/css" href="#" th:href="@{/css/clientes/formulario.css}">
 </head>
 	
 <body class="container mt-5">
@@ -42,7 +39,6 @@
                 </tbody>
             </table>
 
-
 		    <div>
                 <label for="precio">Precio Total: </label>
                 <input id="precio" type="text" th:value="${pedido.precio_total}" readonly="readonly">
@@ -57,8 +53,7 @@
 				          th:text=${pedido.observaciones} readonly="readonly">
 				</textarea>
 			</div>	  
-		
-	
+
 	</section>
 	
 </body>

@@ -75,9 +75,6 @@ header{
     grid-area: document__content;
 }
 
-.red{
-    background-color: var(--logout_color);
-}
 
 /*
     ----SIDEBAR THINGS----------------------------

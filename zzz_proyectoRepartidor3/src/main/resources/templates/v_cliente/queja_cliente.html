@@ -4,9 +4,6 @@
 
 <head> 
     <title>Nueva queja</title> 
-
-	<link rel="stylesheet" type="text/css" href="#" th:href="@{/css/clientes/entrada_styles.css}">
-	<link rel="stylesheet" type="text/css" href="#" th:href="@{/css/clientes/formulario.css}">
 </head>
 	
 <body class="container mt-5">
@@ -48,14 +45,11 @@
 				          th:value=${queja.razones} >
 				</textarea>
 			</div>	  
-		
-		
+				
 			<button type="submit" class="btn btn-primary btn-block btn-lg" name="action"  value="realizar_queja">Realizar Queja</button>
 		
 		</form>
 
-		
-	
 	</section>
 	
 </body>

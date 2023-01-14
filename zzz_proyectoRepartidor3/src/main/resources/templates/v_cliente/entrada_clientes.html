@@ -4,7 +4,6 @@
 
 <head> 
     <title>Entrada</title> 
-	<link rel="stylesheet" type="text/css" href="#" th:href="@{/css/clientes/entrada_styles.css}">
 </head>
 <body>
     <p th:text="'EL CLIENTE se queja desde esta ventana'" />
@@ -51,7 +50,7 @@
                                 <td class="acciones">
                                 	<div th:switch="${pedido.queja==null}">
     									<div th:case="true" class="col-sm order-last">
-                                			<button type="submit" name="action" th:value="'queja/'+${pedido.id}" class="btn btn-info red">Queja</button>
+                                			<button type="submit" name="action" th:value="'queja/'+${pedido.id}" class="btn btn-danger">Queja</button>
                               		     </div>
                          			</div>
                               	</td>

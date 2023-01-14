@@ -1,10 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="/aaa_layouts/admin/layout_admin">
-
 <head> 
-    <title>Entrada</title> 
-	<link rel="stylesheet" type="text/css" href="#" th:href="@{/css/clientes/entrada_styles.css}">
+    <title>Consultar clientes</title> 
 </head>
 <body>
 
@@ -19,7 +17,7 @@
 			<h2>Consultar Clientes</h2>
 
 			<div>
-			    <a href="/admin/crearCliente" class="btn btn-primary green">+ CREAR CLIENTES</a>                 
+			    <a href="/admin/crearCliente" class="btn btn-success">+ CREAR CLIENTES</a>                 
 			</div>
 
 	 		<div th:switch="${listaClientes.isEmpty() || listaClientes==null}">
@@ -50,7 +48,7 @@
 	                      	       <a th:href="'/admin/editarCliente/'+${cliente.id}" class="btn btn-primary">Editar</a>
 	                            </td>
 	                            <td>
-	                      	       <a th:href="'/admin/borrarCliente/'+${cliente.id}" class="btn btn-primary red">Borrar</a>
+	                      	       <a th:href="'/admin/borrarCliente/'+${cliente.id}" class="btn btn-danger">Borrar</a>
 	                            </td>
 		                     </tr>
 		                  </tbody>

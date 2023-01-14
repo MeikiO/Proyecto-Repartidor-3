@@ -11,16 +11,13 @@
    <!-- Esta linea es para que el contenido se escale correctamente en cada dispositivo -->
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
  
- 
- 	<link rel="stylesheet" type="text/css" href="#" th:href="@{/css/clientes/layout_styles.css}">
+ 	<link rel="stylesheet" type="text/css" href="#" th:href="@{/css/layout_styles.css}">
+	<link rel="stylesheet" type="text/css" href="#" th:href="@{/css/content_styles.css}">
 
- 
- 	<!-- importamos bootstrap 5 Css y javascript-->
+ 	<!-- importamos bootstrap 5 Css y javascript (se ha quitado normalize.css porque ya esta incluido en bootstrap)-->
  	<link rel="stylesheet" type="text/css" href="#" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css}">
     <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js}" crossorigin="anonymous"></script>
- 
-    <!-- Archivo para que se vea igual en todos los browsers -->
-   	<link rel="stylesheet" type="text/css" href="#" th:href="@{/css/zzz_commons/normalize.css}">
+
 
 </head>
 <body>
