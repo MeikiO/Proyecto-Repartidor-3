@@ -98,7 +98,7 @@ public class ControladorInicio {
 		model.addAttribute("cliente",new PuntoReparto_Pojo());
 		
 		System.out.println("Prueba para ver si pasa");
-		return "formularios/registroGeneral";
+		return "v_aaEntrada_login_register/registroGeneral";
 	}
 
 	
@@ -112,7 +112,7 @@ public class ControladorInicio {
 		model.addAttribute("listaPoblaciones", poblaciones);
 		
 		System.out.println("Prueba para ver si pasa");
-		return "formularios/registroClientes";
+		return "v_aaEntrada_login_register/registroClientes";
 	}
 	
     
@@ -284,7 +284,7 @@ public class ControladorInicio {
 		
 		
 		
-		return "login/login";
+		return "v_aaEntrada_login_register/login";
 	}
 
 	

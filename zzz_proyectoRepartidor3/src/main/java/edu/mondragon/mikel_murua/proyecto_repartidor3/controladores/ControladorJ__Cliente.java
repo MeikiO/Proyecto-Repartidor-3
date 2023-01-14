@@ -182,7 +182,7 @@ public class ControladorJ__Cliente {
     	model.addAttribute("pedido", pedido);
         model.addAttribute("linea_pedido", new LineaPedido_Pojo());
     	
-        return "/formularios/Formulario_Pedido";
+        return "/v_cliente/Formulario_Pedido";
     }
     
     
