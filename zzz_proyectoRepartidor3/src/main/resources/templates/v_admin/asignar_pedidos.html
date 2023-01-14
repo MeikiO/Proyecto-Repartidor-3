@@ -5,7 +5,6 @@
 <head> 
     <title>Entrada</title> 
 	<link rel="stylesheet" type="text/css" href="#" th:href="@{/css/clientes/entrada_styles.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/css/zzz_mapas/pruebasGoogleMaps.css}">
 </head>
 <body>
 
@@ -46,7 +45,7 @@
 			</div>	
 			
 			<div>
-  				<button type="submit" class="btn btn-primary btn-block btn-lg">Asignar Repartidor</button>	
+  				<button type="submit" class="btn btn-primary btn-block btn-lg ">Asignar Repartidor</button>	
   			</div>		
 
 		</form>
@@ -99,7 +98,7 @@
 			    </div>
 			    <div th:case="false" class="col-sm order-last">	
 					<h2 th:text="${repartidor_elegido.getNombre()}+' '+${repartidor_elegido.getApellidos()}"></h2>
-					<button type="submit" class="btn btn-primary btn-block btn-lg" 
+					<button type="submit" class="btn btn-primary btn-block btn-lg green" 
 							id="repartidor_que_va_ha_repartir" 
 							name="repartidor_que_va_ha_repartir"
 							th:value="${repartidor_elegido.getId()}">Empezar Reparto</button>	
@@ -132,7 +131,7 @@
 		                  			 <td th:text="${pedido.getPuntoReparto().getDireccion()}"></td> 
 		                             <td th:text="${pedido.getPuntoReparto().getNombre_cliente()}+ ' ' + ${pedido.getPuntoReparto().getApellidos_cliente()}"></td> 
 		                             <td>
-											<button type="submit" class="btn btn-primary btn-block btn-lg" 
+											<button type="submit" class="btn btn-primary btn-block btn-lg red" 
 											name="idPedido"
 											th:value="${pedido.getId().toString()}"
 											> Desasignar</button>	

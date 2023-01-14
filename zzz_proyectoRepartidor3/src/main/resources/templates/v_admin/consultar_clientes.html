@@ -19,7 +19,7 @@
 			<h2>Consultar Clientes</h2>
 
 			<div>
-			    <a href="/admin/crearCliente" class="btn btn-primary">+ CREAR CLIENTES</a>                 
+			    <a href="/admin/crearCliente" class="btn btn-primary green">+ CREAR CLIENTES</a>                 
 			</div>
 
 	 		<div th:switch="${listaClientes.isEmpty() || listaClientes==null}">
@@ -50,7 +50,7 @@
 	                      	       <a th:href="'/admin/editarCliente/'+${cliente.id}" class="btn btn-primary">Editar</a>
 	                            </td>
 	                            <td>
-	                      	       <a th:href="'/admin/borrarCliente/'+${cliente.id}" class="btn btn-primary">Borrar</a>
+	                      	       <a th:href="'/admin/borrarCliente/'+${cliente.id}" class="btn btn-primary red">Borrar</a>
 	                            </td>
 		                     </tr>
 		                  </tbody>

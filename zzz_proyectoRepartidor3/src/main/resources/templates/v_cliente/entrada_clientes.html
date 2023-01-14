@@ -51,7 +51,7 @@
                                 <td class="acciones">
                                 	<div th:switch="${pedido.queja==null}">
     									<div th:case="true" class="col-sm order-last">
-                                			<button type="submit" name="action" th:value="'queja/'+${pedido.id}" class="btn btn-info">Queja</button>
+                                			<button type="submit" name="action" th:value="'queja/'+${pedido.id}" class="btn btn-info red">Queja</button>
                               		     </div>
                          			</div>
                               	</td>

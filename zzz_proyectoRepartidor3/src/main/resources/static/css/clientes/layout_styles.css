@@ -10,16 +10,26 @@
 
     --sidebar_size:250px;
 
-    --sidebar_color:#0078ff;
-    --sidebar_light:#00adff;
 
-    --text_color_dark:black;
-    --text_color_light:white;
+    --LIGHT:#FBFBFB;
+    --DARK:#332D2D;
+    --PRIMARY:#3B71CA;
+    --SECONDARY:#9FA6B2;
+    --INFO:#54B4D3;
+    --SUCCESS:#14A44D;
+    --WARNING:#E4A11B;
+    --DANGER:#DC4C64;
 
-    --header_background:#00d2c9;
-    --body_background:#ffee9f;
+    --sidebar_color:var(--PRIMARY);
+    --sidebar_light:var(--INFO);
 
-    --logout_color:#92eb97;
+    --text_color_dark:var(--DARK);
+    --text_color_light:var(--LIGHT);
+
+    --header_background:var(--PRIMARY);
+    --body_background:var(--#FBFBFB);
+
+    --logout_color:var(--DANGER);
 
 }
 
@@ -33,7 +43,7 @@ img{
 
     /*para ponerlos grandes y que no den problemas pon los siguientes comandos*/
 
-    max-width: 100%; /*hasi nunca ocupara mas que su tamaño*/
+    max-width: 100%; /*hasi nunca ocupara mas que su tamaï¿½o*/
 
     display: block; /* quita el espacio de abajo de la imagen.*/
 

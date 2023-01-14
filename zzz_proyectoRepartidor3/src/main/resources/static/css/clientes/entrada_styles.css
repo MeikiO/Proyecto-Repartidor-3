@@ -3,17 +3,22 @@
     --padding_size:1rem;
 
 
-    --color_1:#00adff;
-    --color_2:#0078ff;
-    --color_3:#00d2c9;
-    --color_4:#92eb97;
+    --LIGHT:#FBFBFB;
+    --DARK:#332D2D;
+    --PRIMARY:#3B71CA;
+    --SECONDARY:#9FA6B2;
+    --INFO:#54B4D3;
+    --SUCCESS:#14A44D;
+    --WARNING:#E4A11B;
+    --DANGER:#DC4C64;
+
     
 }
 
 .document__content{
     grid-area:document__content ;
 
-    background-color: var(--body_background);
+    background-color: var(--LIGHT);
 
     padding: var(--big_padding);
 }
@@ -37,7 +42,7 @@
 
 .btn{
     padding: var(--padding_size) 0;
-    background-color: var(--color_4);
+    background-color: var(--PRIMARY);
 }
 
 .tabla__pedidos{
@@ -51,7 +56,7 @@
 
 
 .tabla__info tr{
-    background-color:var(--color_1);
+    background-color:var(--INFO);
     border-radius: 1rem;
     padding: var(--padding_size) 0;
 }
@@ -60,9 +65,14 @@
     padding: var(--padding_size);
 }
 
-.acciones{
-   
+.red{
+   background-color:var(--DANGER);
 }
+
+.green{
+	background-color:var(--SUCCESS);
+}
+
 
 @media (min-width:760px){
     #realizar_pedido{

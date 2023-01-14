@@ -19,7 +19,7 @@
 			<h2>Consultar Repartidores</h2>
 
 			<div>
-			    <a href="/admin/crearRepartidor" class="btn btn-primary">+ CREAR REPARTIDOR</a>                 
+			    <a href="/admin/crearRepartidor" class="btn btn-primary green">+ CREAR REPARTIDOR</a>                 
 			</div>
 
 	 		<div th:switch="${listaRepartidores.isEmpty() || listaRepartidores==null}">
@@ -50,7 +50,7 @@
 	                      	       <a th:href="'/admin/editarRepartidor/'+${repartidor.id}" class="btn btn-primary">Editar</a>
 	                            </td>
 	                            <td>
-	                      	       <a th:href="'/admin/borrarRepartidor/'+${repartidor.id}" class="btn btn-primary">Borrar</a>
+	                      	       <a th:href="'/admin/borrarRepartidor/'+${repartidor.id}" class="btn btn-primary red">Borrar</a>
 	                            </td>
 		                     </tr>
 		                  </tbody>
