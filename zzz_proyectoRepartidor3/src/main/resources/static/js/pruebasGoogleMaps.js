@@ -14,7 +14,7 @@ class Mapa {
         this.#mapa = new google.maps.Map(document.getElementById("contenedor-del-mapa"), opcionesDelMapa);
     }
         
-    añadirUnPuntoALaRuta(coordenadas, nombre, descripcion) {
+    anadirUnPuntoALaRuta(coordenadas, nombre, descripcion) {
         this.#rutaEnBruto.push(new google.maps.LatLng(coordenadas));
         this.#descripcionesDeLaRuta.set(nombre, descripcion);
     }

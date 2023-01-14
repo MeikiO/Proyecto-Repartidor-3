@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="es-ES"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="/aaa_layouts/repartidor/layout_repartidor">
+      
 
 <head>
-<meta charset="utf-8">
-<title>Pruebas Google Maps</title>
-  <link rel="stylesheet" type="text/css" th:href="@{/css/zzz_mapas/pruebasGoogleMaps.css}">
+<title>Entrada y mapa con Reparto</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/pruebasGoogleMaps.css}">
 </head>
 
 <body>
-
+ 
+ <section layout:fragment="custom-content" class="document__content">
+  			
 	<h1>Pruebas para aprender a trabajar con la plataforma Google Maps</h1>
 	
 	<p>Ruta mostrada: <strong th:utext="${nombreDeLaRuta}" /></p>
@@ -21,7 +24,7 @@
 		    	<p>NO HAY NINGUN PEDIDO PARA REPARTIR</p>
 		    </div>
 		    <div th:case="false" class="col-sm order-last">
-		  			<!-- Parte del mapa que ense√±a los puntos -->
+		  			<!-- Parte del mapa que enseÒa los puntos -->
 		  			<div id="contenedor-del-mapa"></div>
 					<br><br>
 					<!-- Esta es la informacion de cada punto -->
@@ -35,7 +38,7 @@
 						
 						ya que el script no admite que le pase listas
 						lo hago de esta manera. Pasando la lista por el controlador
-						y ense√±andola aqui
+						y enseÒandola aqui
 					-->
 
 					<div th:switch="${pedido_seleccionado != null}">
@@ -68,42 +71,40 @@
 					    </div>
 					  </div>
 					
+										
+					<script th:src="@{https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyApwAN0oIELXbhbqji-3m0jJ7ktyiiMLDM}"></script>
+					<script th:src="@{/js/pruebasGoogleMaps.js}"></script>
+					<script th:inline="javascript">
+					    const puntoInicial = {lat: [[${latitud}]], lng: [[${longitud}]]};
+					    const mapa = new Mapa(puntoInicial);
+					    [# th:each="punto : ${puntosDeLaRuta}"]
+					        var coordenadasDelPunto = {lat: [[${punto.getPuntoReparto().getCoordenadasLatitud()}]],
+					    		lng: [[${punto.getPuntoReparto().getCoordenadasLongitud()}]]};
+					        mapa.ponerMarcador(
+					        		coordenadasDelPunto, 
+					        		[[${punto.getPuntoReparto().getNombre_cliente()}]],
+					        		[[${punto.getId()}]],
+					        		[[${punto.getFechaPedido().toString()}]],
+					        		[[${punto.getPuntoReparto().getDireccion()}]],
+					        		[[${punto.getPuntoReparto().getPoblacion().getCodigoPostal()}]],
+					        		[[${punto.getPuntoReparto().getPoblacion().getNombreLocalizacion()}]],
+					        		[[${punto.getPrecio_total()}]],
+					        		[[${punto.getObservaciones()}]]
+					        );
+					        
+					        mapa.anadirUnPuntoALaRuta(
+					        		coordenadasDelPunto,
+					        		[[${punto.getPuntoReparto().getNombre_cliente()}]],
+					        		[[${punto.getPuntoReparto().getApellidos_cliente()}]]);
+					    [/]
 					
+					</script>
+										
 					
 		    </div>
 	</div>
 
-
-
-
-
-<script th:src="@{https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCcWW7VDmc4iLEyBB8-K7pzauZXRG3W1Mc}"></script>
-<script th:src="@{/js/pruebasGoogleMaps.js}"></script>
-<script th:inline="javascript">
-    const puntoInicial = {lat: [[${latitud}]], lng: [[${longitud}]]};
-    const mapa = new Mapa(puntoInicial);
-    [# th:each="punto : ${puntosDeLaRuta}"]
-        var coordenadasDelPunto = {lat: [[${punto.getPuntoReparto().getCoordenadasLatitud()}]],
-    		lng: [[${punto.getPuntoReparto().getCoordenadasLongitud()}]]};
-        mapa.ponerMarcador(
-        		coordenadasDelPunto, 
-        		[[${punto.getPuntoReparto().getNombre_cliente()}]],
-        		[[${punto.getId()}]],
-        		[[${punto.getFechaPedido().toString()}]],
-        		[[${punto.getPuntoReparto().getDireccion()}]],
-        		[[${punto.getPuntoReparto().getPoblacion().getCodigoPostal()}]],
-        		[[${punto.getPuntoReparto().getPoblacion().getNombreLocalizacion()}]],
-        		[[${punto.getPrecio_total()}]],
-        		[[${punto.getObservaciones()}]]
-        );
-        
-        mapa.a√±adirUnPuntoALaRuta(
-        		coordenadasDelPunto,
-        		[[${punto.getPuntoReparto().getNombre_cliente()}]],
-        		[[${punto.getPuntoReparto().getApellidos_cliente()}]]);
-    [/]
-
-</script>
+</section>
 
 </body>
 
