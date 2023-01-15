@@ -19,7 +19,7 @@
 
                 <div>
                 	<form action="#" th:action="@{/cliente/procesarAcciones}" method="post">
-	        			<button id="realizar_pedido" type="submit" name="action" value="hacer_pedido" class="btn btn-info">Realizar Pedido</button>
+	        			<button id="realizar_pedido" type="submit" name="action" value="hacer_pedido" class="btn btn-success">Realizar Pedido</button>
 	        		</form>
                 </div>
 
@@ -29,8 +29,8 @@
                 <h2>Pedidos Realizados</h2>
 
  				<form action="#" th:action="@{/cliente/procesarAcciones}" th:object="${pedido}" method="post">
-	                <table class="tabla__pedidos">
-	                    <thead class="tabla__info">
+	                <table class="table table-hover">
+	                    <thead>
 	                        <tr>
 	                            <td>Fecha de Pedido</td>
 	                            <td>Observaciones_para_Repartidor</td>

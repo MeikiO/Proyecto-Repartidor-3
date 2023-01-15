@@ -23,8 +23,8 @@
 		    <div th:case="false" class="col-sm order-last">
 		    	<h1>EN ESPERA</h1>
 		    	<br>
-		       <table class="tabla__pedidos">
-	                  <thead class="tabla__info">
+		       <table class="table table-hover">
+	                  <thead>
 	                      <tr>
 	                          <td></td>
 	                          <td></td>
@@ -47,8 +47,8 @@
 		    <div th:case="false" class="col-sm order-last">
 		    	<h1>EN CAMINO</h1>
 		    	<br>
-		       <table class="tabla__pedidos">
-	                  <thead class="tabla__info">
+		       <table class="table table-hover">
+	                  <thead>
 	                      <tr>
 	                          <td></td>
 	                          <td></td>
@@ -71,8 +71,8 @@
 			    <div th:case="false" class="col-sm order-last">
 			    	<h1>ENTREGADO</h1>
 			    	<br>
-			       <table class="tabla__pedidos">
-		                  <thead class="tabla__info">
+			       <table class="table table-hover">
+		                  <thead>
 		                      <tr>
 		                          <td></td>
 		                          <td></td>
@@ -95,8 +95,8 @@
 			    <div th:case="false" class="col-sm order-last">
 			    	<h1>CANCELADO</h1>
 			    	<br>
-			       <table class="tabla__pedidos">
-		                  <thead class="tabla__info">
+			       <table class="table table-hover">
+		                  <thead>
 		                      <tr>
 		                          <td></td>
 		                          <td></td>
@@ -124,59 +124,60 @@
 			    	<p>No hay datos seleccionados</p>
 			    </div>
 			    <div th:case="true" class="col-sm order-last">
-			        <div>
-				        <label for="">Pedido</label>
-				        <label th:text="${pedido.id}"></label>
-				    </div>
-				       <div>
-				        <label th:text="${pedido.fechaPedido}"></label>
-				    </div>
-				    <div>
-				        <label th:text="${puntoReparto.direccion}"></label>
-				    </div>
-				    <div>
-				        <label th:text="${puntoReparto.poblacion.codigoPostal}+' , '+${puntoReparto.poblacion.nombreLocalizacion}">,</label>
-				       
-				    </div>
-		
-		 			 <table class="tabla__pedidos">
-					   <thead>
-		                    <tr>
-		                        <td>Nombre Producto</td>
-		                        <td>Cantidad</td>
-		                        <td>Precio base</td>
-		                        <td>Descuento</td>
-		                    </tr>
-		                </thead>
-		                <tbody>
-		                
-		               		<tr th:each="linea : ${pedido.listaLineas}" class="pedido">
-		                     <td th:text="${linea.producto.nombre}"></td> 
-		                     <td th:text="${linea.candidad}"></td> 
-		                     <td th:text="${linea.producto.precio_producto}"></td> 
-		                     <td th:text="${linea.producto.descuento}"></td> 
-		                	</tr>
-		                </tbody>
-		            </table>
-		
-		
-				    <div>
-		                <label for="precio">Precio Total: </label>
-		                <input id="precio" type="text" th:value="${pedido.precio_total}" readonly="readonly">
-		            </div>
-				
-				
-					<div class="form-group">
-					 	<label for="observaciones">Observaciones: </label>
-		
-						<textarea id="observaciones"
-						          rows="5" cols="33" name="observaciones" 
-						          th:text=${pedido.observaciones} readonly="readonly">
-						</textarea>
-					</div>	  
+				    
+				    <div class="mt-4 p-5 bg-primary text-white rounded">
+				        <div>
+				        	<h2 th:text="'Pedido '+ ${pedido.id}" ></h2>
+					    </div>
+					       <div>
+					        <label th:text="${pedido.fechaPedido}"></label>
+					    </div>
+					    <div>
+					        <label th:text="${puntoReparto.direccion}"></label>
+					    </div>
+					    <div>
+					        <label th:text="${puntoReparto.poblacion.codigoPostal}+' , '+${puntoReparto.poblacion.nombreLocalizacion}">,</label>
+					       
+					    </div>
+			
+			 			 <table class="tabla__pedidos">
+						   <thead>
+			                    <tr>
+			                        <td>Nombre Producto</td>
+			                        <td>Cantidad</td>
+			                        <td>Precio base</td>
+			                        <td>Descuento</td>
+			                    </tr>
+			                </thead>
+			                <tbody>
+			                
+			               		<tr th:each="linea : ${pedido.listaLineas}" class="pedido">
+			                     <td th:text="${linea.producto.nombre}"></td> 
+			                     <td th:text="${linea.candidad}"></td> 
+			                     <td th:text="${linea.producto.precio_producto}"></td> 
+			                     <td th:text="${linea.producto.descuento}"></td> 
+			                	</tr>
+			                </tbody>
+			            </table>
+			
+			
+					    <div>
+			                <label for="precio">Precio Total: </label>
+			                <input class="form-control z-depth-1" id="precio" type="text" th:value="${pedido.precio_total}+ '  Euros' " readonly="readonly">
+			            </div>
+					
+					
+						<div class="form-group shadow-textarea">
+						 	<label for="observaciones">Observaciones: </label>
+			
+							<textarea id="observaciones"
+							          rows="3" class="form-control z-depth-1" readonly name="observaciones" 
+							     	  th:text="${pedido.observaciones}">
+							</textarea>
+						</div>	
+						
+					</div>  
 			    </div>
-			    
-
 			  </div>
 		</div>
 		

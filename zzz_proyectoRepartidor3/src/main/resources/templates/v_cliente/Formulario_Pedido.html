@@ -50,13 +50,13 @@
 			</div>
 		
 		
-			<button type="submit" class="btn btn-primary btn-block btn-lg" name="action"  value="anadir_producto">Poner producto en pedido</button>
+			<button type="submit" class="btn btn-primary" name="action"  value="anadir_producto">Poner producto en pedido</button>
 		
 		</form>
 		
 <!-- __________________________________________ -->
 
-			 <table class="tabla__pedidos">
+			 <table class="table table-hover">
 				   <thead>
                         <tr>
                             <td>Nombre Producto</td>
@@ -88,17 +88,17 @@
 
 		    <div>
                 <label>Precio Total: </label>
-                <input id="precio" type="text" th:value="${pedido.precio_total}" readonly="readonly">
+                <input class="form-control z-depth-1" id="precio" type="text" th:value="${pedido.precio_total}" readonly="readonly">
             </div>
 		
 		
 					
 			<form method="post" action="#" th:action="@{/cliente/terminarPedido}"  autocomplete="off">
 				<!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea -->
-				<div class="form-group">
+				<div class="form-group shadow-textarea">
 				 	<label for="observaciones">Observaciones: </label>
 	
-					<textarea id="observaciones"
+					<textarea id="observaciones" class="form-control z-depth-1"
 					          rows="5" cols="33" name="observaciones">
 					</textarea>
 				</div>	  

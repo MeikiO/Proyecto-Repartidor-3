@@ -20,7 +20,7 @@
    <section layout:fragment="custom-content" class="document__content">
 
 			<h1>Ver pedido</h1>
-			 <table class="tabla__pedidos">
+			 <table class="table table-hover">
 			   <thead>
                     <tr>
                         <td>Nombre Producto</td>
@@ -39,18 +39,18 @@
                 </tbody>
             </table>
 
-		    <div>
+	  		<div>
                 <label for="precio">Precio Total: </label>
-                <input id="precio" type="text" th:value="${pedido.precio_total}" readonly="readonly">
+                <input class="form-control z-depth-1" id="precio" type="text" th:value="${pedido.precio_total}+ '  Euros' " readonly="readonly">
             </div>
 		
 		
-			<div class="form-group">
+			<div class="form-group shadow-textarea">
 			 	<label for="observaciones">Observaciones: </label>
 
-				<textarea id="observaciones"
-				          rows="5" cols="33" name="observaciones" 
-				          th:text=${pedido.observaciones} readonly="readonly">
+				<textarea rows="3" class="form-control z-depth-1" readonly id="observaciones"
+				          name="observaciones" 
+				          th:text=${pedido.observaciones}>
 				</textarea>
 			</div>	  
 

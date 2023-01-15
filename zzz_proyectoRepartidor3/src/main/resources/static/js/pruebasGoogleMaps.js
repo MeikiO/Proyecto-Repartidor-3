@@ -21,7 +21,7 @@ class Mapa {
     
     ponerMarcador(coordenadas, nombre,
     id,fecha_hora,direccion,codigoPostal,nombreLocalizacion,
-    precioTotal,observaciones) {
+    precioTotal,observaciones,lista) {
         const marcador = new google.maps.Marker({
             position: coordenadas,
             label: nombre,
@@ -29,10 +29,11 @@ class Mapa {
             clickable: true,
             draggable: false
         })
+        
         marcador.addListener("click", () => {
             this.procesarClicEnElMarcador(nombre,
     id,fecha_hora,direccion,codigoPostal,nombreLocalizacion,
-    precioTotal,observaciones);
+    precioTotal,observaciones,lista);
         })
     }
     
@@ -40,18 +41,17 @@ class Mapa {
     id,fecha_hora,direccion,codigoPostal,nombreLocalizacion,
     precioTotal,observaciones) {
         document.getElementById("informacion-adiccional").innerHTML = 
-        "<div class='contenido_punto'> " +
-	        "Se ha clicado en " + nombre + 
-	        "<br>" + this.#descripcionesDeLaRuta.get(nombre)+
-	        "<br> <a href='/repartidor/terminarPedido/"+id+"'>Completar Pedido</a>"+
-			"<br> <label> Pedido"+id+"</label>"+
-		    "<br> Fecha y Hora: "+ fecha_hora+
-		    "<br> Direccion:"+ direccion+","+codigoPostal+","+nombreLocalizacion+
-		    "<br> Productos:"+
-		    "<br> <a href='/repartidor/verProductos/"+id+"'>Ver Productos del Pedido</a>"+
-		    "<br> <br>"+
-		    "<br>Precio Total: "+precioTotal+" €"+
-		    "<br><br> Observaciones: "+observaciones+
+        "<div class='mt-4 p-5 bg-primary text-white rounded'> " +
+	        "Se ha clicado en " + nombre +" "+this.#descripcionesDeLaRuta.get(nombre)+
+	        "<br> <a class='btn btn-success' href='/repartidor/terminarPedido/"+id+"'>Completar Pedido</a>"+
+			"<br><h1> Pedido "+id+"</h1>"+
+		    "<p> Fecha y Hora: "+ fecha_hora+"</p>"+
+		    "<p>Direccion:"+ direccion+","+codigoPostal+","+nombreLocalizacion+"</p>"+
+		    "<p>Productos:</p>"+
+		    "<a class='btn btn-info' href='/repartidor/verProductos/"+id+"'>Ver Productos del Pedido</a>"+
+		    "<br><p>Precio Total: "+precioTotal+" €</p>"+
+		    "<label for='observ'>Observaciones</label>"+
+		    "<br><textarea id='observ' rows='3' class='form-control' readonly>"+observaciones+"</textarea>"+
 	    "</div>";
     }
         
