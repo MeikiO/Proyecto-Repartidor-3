@@ -39,10 +39,16 @@
             	<form action="#" th:action="@{/cliente/procesarAcciones}" method="post">
    				<ul class="navbar-nav ms-1">
                 <li class="nav-item">
-                	<button type="submit" name="action" value="hacer_pedido" class="nav-link active">Hacer Pedido</button>
+                	<a class="nav-link text-nowrap" href="/cliente/hacer_pedido">Hacer Pedido</a>
+                	<!--
+                		<button type="submit" name="action" value="hacer_pedido" class="nav-link active">Hacer Pedido</button>
+                	-->
                 </li>
                 <li class="nav-item">
-                	<button type="submit" name="action" value="ver_todas_las_quejas" class="nav-link active">Ver Quejas</button>
+                	<a class="nav-link text-nowrap" href="/cliente/ver_todas_las_quejas">Ver Quejas</a>
+                	<!--  
+                		<button type="submit" name="action" value="ver_todas_las_quejas" class="nav-link active">Ver Quejas</button>
+                	-->
                 </li>
                 
         <!-- 
@@ -76,20 +82,39 @@
             </div>
 
 			<form action="#" th:action="@{/cliente/procesarAcciones}" method="post">
-	            <ul class="list-unstyled components">
-	                <li>
-	                    <a href="/cliente/entrada">Inicio</a>
-	                </li>
-	                <li>
-	                  <button type="submit" name="action" value="hacer_pedido" class="nav-link active">Hacer Pedido</button>
-	                </li>
-	                <li>
-	                   	<button type="submit" name="action" value="ver_todas_las_quejas" class="nav-link active">Ver Quejas</button>
-	                </li>
-	                <li class="red">
-	                    <a href="/logout">Logout</a>
-	                </li>
-	            </ul>
+	          		<ul class="navbar-nav ms-1">
+                <li class="nav-item">
+                	<a class="nav-link text-nowrap" href="/cliente/hacer_pedido">Hacer Pedido</a>
+                	<!--
+                		<button type="submit" name="action" value="hacer_pedido" class="nav-link active">Hacer Pedido</button>
+                	-->
+                </li>
+                <li class="nav-item">
+                	<a class="nav-link text-nowrap" href="/cliente/ver_todas_las_quejas">Ver Quejas</a>
+                	<!--  
+                		<button type="submit" name="action" value="ver_todas_las_quejas" class="nav-link active">Ver Quejas</button>
+                	-->
+                </li>
+                
+        <!-- 
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                      Opciones de soporte
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Manuales</a></li>
+                      <li><a class="dropdown-item" href="#">Base de conocimientos</a></li>
+                      <li><a class="dropdown-item" href="#">Contacta con nosotros</a></li>
+                    </ul>
+                </li>
+        -->        
+              </ul>
+        
+              <ul class="navbar-nav ms-3">
+                <li class="nav-item">
+                    <a class="nav-link text-nowrap" href="/logout">Cerrar Sesion</a>
+                </li>
+              </ul>
 	        </form>
         </nav>
 
