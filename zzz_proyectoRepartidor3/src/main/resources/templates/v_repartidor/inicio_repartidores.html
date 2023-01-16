@@ -7,6 +7,7 @@
 <head>
 <title>Entrada y mapa con Reparto</title>
   <link rel="stylesheet" type="text/css" th:href="@{/css/pruebasGoogleMaps.css}">
+  <link rel="stylesheet" type="text/css" href="#" th:href="@{/css/retoques.css}">
 </head>
 
 <body>
@@ -20,18 +21,16 @@
 	
 
 	<div th:switch="${puntosDeLaRuta.isEmpty()}">
-		    <div th:case="true" class="col-sm order-last">
+		    <div th:case="true" class="retoque-tabla">
 		    	<p>NO HAY NINGUN PEDIDO PARA REPARTIR</p>
 		    </div>
-		    <div th:case="false" class="col-sm order-last">
+		    <div th:case="false" class="retoque-tabla">
 		  			<!-- Parte del mapa que enseña los puntos -->
 		  			<div id="contenedor-del-mapa"></div>
 					<br><br>
 					<!-- Esta es la informacion de cada punto -->
 					<div id="informacion-adiccional">
 					</div>  
-					
-					
 					
 					<!-- crear una parte para que se vean los productos cuando
 						la propiedad lista_de_productos_necesaria no es null
@@ -42,29 +41,30 @@
 					-->
 
 					<div th:switch="${pedido_seleccionado != null}">
-					    <div th:case="false" class="col-sm order-last">
+					    <div th:case="false" class="retoque-tabla">
 					    	<p>No hay datos seleccionados</p>
 					    </div>
-					    <div th:case="true" class="col-sm order-last">
-				
-				 			 <table class="table table-hover">
-							   <thead>
-				                    <tr>
-				                        <td>Nombre Producto</td>
-				                        <td>Cantidad</td>
-				                        <td>Precio base</td>
-				                        <td>Descuento</td>
-				                    </tr>
-				                </thead>
-				                <tbody>
-				               		<tr th:each="linea : ${pedido_seleccionado.listaLineas}" class="pedido">
-				                     <td th:text="${linea.producto.nombre}"></td> 
-				                     <td th:text="${linea.candidad}"></td> 
-				                     <td th:text="${linea.producto.precio_producto}"></td> 
-				                     <td th:text="${linea.producto.descuento}"></td> 
-				                	</tr>
-				                </tbody>
-				            </table>
+					    <div th:case="true">
+							<div class="retoque-tabla">
+					 			 <table class="table table-hover">
+								   <thead>
+					                    <tr>
+					                        <td>Nombre Producto</td>
+					                        <td>Cantidad</td>
+					                        <td>Precio base</td>
+					                        <td>Descuento</td>
+					                    </tr>
+					                </thead>
+					                <tbody>
+					               		<tr th:each="linea : ${pedido_seleccionado.listaLineas}" class="pedido">
+					                     <td th:text="${linea.producto.nombre}"></td> 
+					                     <td th:text="${linea.candidad}"></td> 
+					                     <td th:text="${linea.producto.precio_producto}"></td> 
+					                     <td th:text="${linea.producto.descuento}"></td> 
+					                	</tr>
+					                </tbody>
+					            </table>
+					        </div>
 					    </div>
 					  </div>
 					

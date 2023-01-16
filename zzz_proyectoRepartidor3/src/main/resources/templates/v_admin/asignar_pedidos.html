@@ -4,6 +4,7 @@
 
 <head> 
     <title>Asignar Pedidos</title> 
+    <link rel="stylesheet" type="text/css" href="#" th:href="@{/css/retoques.css}">
 </head>
 <body>
 
@@ -21,7 +22,7 @@
 					      
 		    
 		  	<div th:switch="${repartidor_elegido==null}">
-			    <div th:case="true" class="col-sm order-last">
+			    <div th:case="true" class="retoque-tabla" 
 			    	<div class="form-group">
 					     <select name="idRepartidor">
 				      		<option value="default"> </option>
@@ -31,7 +32,7 @@
 				        </select>
 				  	</div>
 				</div>
-			    <div th:case="false" class="col-sm order-last">
+			    <div th:case="false" class="retoque-tabla">
 					<div class="form-group">
 					     <select name="idRepartidor">
 				      		<option th:text="${repartidor_elegido.getNombre()}+' '+${repartidor_elegido.getApellidos()}" th:value="${repartidor_elegido.getId().toString()}"> </option>
@@ -53,34 +54,37 @@
 		<form method="post" action="#" th:action="@{/admin/procesarAsignacion}" autocomplete="off">
 		    
 	 		<div th:switch="${mapa.get('ESTADO_EN_ESPERA_DE_MANDAR').isEmpty()}">
-			    <div th:case="true" class="col-sm order-last">
+			    
+			    <h1>Pedidos</h1>
+			    
+			    <div th:case="true" class="retoque-tabla">
 			    	<p>No ha pedidos para asignar</p>
 			    </div>
-			    <div th:case="false" class="col-sm order-last">
-			    	<h1>Pedidos</h1>
-			    	<br>
-			       <table class="class="table table-hover"">
-		                  <thead class="tabla__info">
-		                      <tr>
-		                          <td></td>
-		                          <td></td>
-		                 		  <td></td>
-		                      </tr>
-		                  </thead>
-		                  <tbody>
-		                 		<tr th:each="pedido : ${mapa.get('ESTADO_EN_ESPERA_DE_MANDAR')}">
-		                  			 <td th:text="${pedido.getPuntoReparto().getDireccion()}"></td> 
-		                             <td th:text="${pedido.getPuntoReparto().getNombre_cliente()}+ ' ' + ${pedido.getPuntoReparto().getApellidos_cliente()}"></td> 
-		                             <td>
-											<button type="submit" class="btn btn-primary "  
-											name="idPedido"
-											th:value="${pedido.getId().toString()}"
-											>Asignar</button>			                      	       
-
-		                             </td>
-		                     	</tr>
-		                  </tbody>
-		              </table>
+			    <div th:case="false">
+			       <div class="retoque-tabla">
+				       <table class="class="table table-hover"">
+			                  <thead class="tabla__info">
+			                      <tr>
+			                          <td></td>
+			                          <td></td>
+			                 		  <td></td>
+			                      </tr>
+			                  </thead>
+			                  <tbody>
+			                 		<tr th:each="pedido : ${mapa.get('ESTADO_EN_ESPERA_DE_MANDAR')}">
+			                  			 <td th:text="${pedido.getPuntoReparto().getDireccion()}"></td> 
+			                             <td th:text="${pedido.getPuntoReparto().getNombre_cliente()}+ ' ' + ${pedido.getPuntoReparto().getApellidos_cliente()}"></td> 
+			                             <td>
+												<button type="submit" class="btn btn-primary "  
+												name="idPedido"
+												th:value="${pedido.getId().toString()}"
+												>Asignar</button>			                      	       
+	
+			                             </td>
+			                     	</tr>
+			                  </tbody>
+			              </table>
+			         </div>
 			    </div>
 			</div>	
 
@@ -92,10 +96,10 @@
 		<form method="post" action="#" th:action="@{/admin/terminarAsignacion}" autocomplete="off">
 		 	
 		 	<div th:switch="${repartidor_elegido==null}">
-			    <div th:case="true" class="col-sm order-last">
+			    <div th:case="true" class="retoque-tabla">
 			    	<p>No hay Repartidor seleccionado</p>
 			    </div>
-			    <div th:case="false" class="col-sm order-last">	
+			    <div th:case="false" class="retoque-tabla">	
 					<h2 th:text="${repartidor_elegido.getNombre()}+' '+${repartidor_elegido.getApellidos()}"></h2>
 					<button type="submit" class="btn btn-success" 
 							id="repartidor_que_va_ha_repartir" 
@@ -112,10 +116,10 @@
 			<!-- Tabla con la ruta reparto completa aqui -->
 			
 			<div th:switch="${mapa.get('ESTADO_EN_ESPERA_DE_EMPEZAR_REPARTO').isEmpty()}">
-			    <div th:case="true" class="col-sm order-last">
+			    <div th:case="true" class="retoque-tabla">
 			    	<p>No hay pedidos asignados</p>
 			    </div>
-			    <div th:case="false" class="col-sm order-last">
+			    <div th:case="false" class="retoque-tabla">
 			    	<br>
 			       <table class="table table-hover">
 		                  <thead>

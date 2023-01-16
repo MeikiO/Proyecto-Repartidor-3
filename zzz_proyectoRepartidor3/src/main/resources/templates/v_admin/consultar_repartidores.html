@@ -4,6 +4,7 @@
 
 <head> 
     <title>Consultar repartidores</title> 
+    <link rel="stylesheet" type="text/css" href="#" th:href="@{/css/retoques.css}">
 </head>
 <body>
 
@@ -23,37 +24,39 @@
 
 	 		<div th:switch="${listaRepartidores.isEmpty() || listaRepartidores==null}">
 	 			
-	 			<div th:case="true" class="col-sm order-last">
+	 			<div th:case="true" class="retoque-tabla">
 	 				<p>No hay repartidores Actualmente</p>
 	 			</div>
 	 			
-			    <div th:case="false" class="col-sm order-last">
-			       <table class="table table-hover" >
-		                  <thead>
-		                      <tr>
-		                          <td>Id Usuario</td>
-		                          <td>Nombre</td>
-		                 		  <td>Apellidos</td>
-		                 		  <td>Correo Electronico</td>
-		                          <td></td>
-		                 		  <td></td>
-		                      </tr>
-		                  </thead>
-		                  <tbody>
-		                 		<tr th:each="repartidor : ${listaRepartidores}">
-		                  		<td th:text="${repartidor.id}"></td> 
-		                  		<td th:text="${repartidor.nombre}"></td>
-		                  		<td th:text="${repartidor.apellidos}"></td>
-		                  		<td th:text="${repartidor.gmail}"></td>    
-	                            <td>
-	                      	       <a th:href="'/admin/editarRepartidor/'+${repartidor.id}" class="btn btn-primary">Editar</a>
-	                            </td>
-	                            <td>
-	                      	       <a th:href="'/admin/borrarRepartidor/'+${repartidor.id}" class="btn btn-danger">Borrar</a>
-	                            </td>
-		                     </tr>
-		                  </tbody>
-		              </table>
+			    <div th:case="false">
+			    	<div class="retoque-tabla">    
+				       <table class="table table-hover" >
+			                  <thead>
+			                      <tr>
+			                          <td>Id Usuario</td>
+			                          <td>Nombre</td>
+			                 		  <td>Apellidos</td>
+			                 		  <td>Correo Electronico</td>
+			                          <td></td>
+			                 		  <td></td>
+			                      </tr>
+			                  </thead>
+			                  <tbody>
+			                 		<tr th:each="repartidor : ${listaRepartidores}">
+			                  		<td th:text="${repartidor.id}"></td> 
+			                  		<td th:text="${repartidor.nombre}"></td>
+			                  		<td th:text="${repartidor.apellidos}"></td>
+			                  		<td th:text="${repartidor.gmail}"></td>    
+		                            <td>
+		                      	       <a th:href="'/admin/editarRepartidor/'+${repartidor.id}" class="btn btn-primary">Editar</a>
+		                            </td>
+		                            <td>
+		                      	       <a th:href="'/admin/borrarRepartidor/'+${repartidor.id}" class="btn btn-danger">Borrar</a>
+		                            </td>
+			                     </tr>
+			                  </tbody>
+			              </table>
+			          </div>
 			    </div>
 			</div>	
 		

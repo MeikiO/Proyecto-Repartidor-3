@@ -5,6 +5,7 @@
 
 <head> 
     <title>Ver quejas del pedido</title> 
+    <link rel="stylesheet" type="text/css" href="#" th:href="@{/css/retoques.css}">
 </head>
 	
 <body>
@@ -20,25 +21,26 @@
    <section layout:fragment="custom-content" class="document__content">
 
 			<h1>Ver pedido</h1>
-			 <table class="table table-hover">
-			   <thead>
-                    <tr>
-                        <td>Nombre Producto</td>
-                        <td>Cantidad</td>
-                        <td>Precio base</td>
-                        <td>Descuento</td>
-                    </tr>
-                </thead>
-                <tbody>
-               		<tr th:each="linea : ${pedido.listaLineas}" class="pedido">
-                     <td th:text="${linea.producto.nombre}"></td> 
-                     <td th:text="${linea.candidad}"></td> 
-                     <td th:text="${linea.producto.precio_producto}"></td> 
-                     <td th:text="${linea.producto.descuento}"></td> 
-                	</tr>
-                </tbody>
-            </table>
-
+			<div class="retoque-tabla">
+				 <table class="table table-hover">
+				   <thead>
+	                    <tr>
+	                        <td>Nombre Producto</td>
+	                        <td>Cantidad</td>
+	                        <td>Precio base</td>
+	                        <td>Descuento</td>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	               		<tr th:each="linea : ${pedido.listaLineas}" class="pedido">
+	                     <td th:text="${linea.producto.nombre}"></td> 
+	                     <td th:text="${linea.candidad}"></td> 
+	                     <td th:text="${linea.producto.precio_producto}"></td> 
+	                     <td th:text="${linea.producto.descuento}"></td> 
+	                	</tr>
+	                </tbody>
+	            </table>
+			</div>
 
 		    <div>
                 <label for="precio">Precio Total: </label>
