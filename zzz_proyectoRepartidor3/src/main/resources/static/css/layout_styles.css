@@ -126,7 +126,6 @@ a[data-toggle="collapse"] {
     color: var(--text_color_dark);
 }
 #sidebar ul li a:hover {
-    background: var(--sidebar_light);
 }
 
 /* le da estilo a la lista interior */

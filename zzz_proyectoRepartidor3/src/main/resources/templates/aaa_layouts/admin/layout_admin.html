@@ -38,19 +38,19 @@
             	<form action="#" th:action="@{/admin/procesarAcciones}" method="post">
    				<ul class="navbar-nav ms-1">
    				
-   				<li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                      Pedido
+ 				<li class="dropdown">
+                    <a href="#" class="nav-link dropdown-toggle px-sm-0 px-1" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    	<i class="fs-5 bi-bootstrap"></i><span class="ms-1 d-none d-sm-inline">Pedido</span>
                     </a>
-                    <ul class="dropdown-menu">
-                      <li>
-                           <a class="nav-link text-nowrap" href="/admin/asignarPedidos">Asignar Pedidos</a>
-                      </li>
-                      <li>
-                      	   <a class="nav-link text-nowrap" href="/admin/consultarPedidos">Consultar Pedidos</a>
-                      </li>
+                   	<ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdown">
+	                    <li>
+	                    	<a class="dropdown-item" href="/admin/asignarPedidos">Asignar Pedidos</a>
+	                    </li>
+	                    <li>
+	                    	<a class="dropdown-item" href="/admin/consultarPedidos">Consultar Pedidos</a>
+	                    </li>
                     </ul>
-                </li>
+	            </li>
    				
                 <li class="nav-item">
                      <a class="nav-link text-nowrap" href="/admin/consultarQuejas">Quejas</a>
@@ -81,35 +81,35 @@
                 <h3>Repartidor3</h3>
             </div>
 
-			<ul class="navbar-nav ms-1">	
-   				<li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                      Pedido
-                    </a>
-                    <ul class="dropdown-menu">
+			<ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
+   				<li class="dropdown">
+                   <a href="#" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    	<i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Pedidos</span>
+                   </a>
+                   <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
                       <li>
-                           <a class="nav-link text-nowrap" href="/admin/asignarPedidos">Asignar Pedidos</a>
+                           <a class="dropdown-item" href="/admin/asignarPedidos">Asignar Pedidos</a>
                       </li>
                       <li>
-                      	   <a class="nav-link text-nowrap" href="/admin/consultarPedidos">Consultar Pedidos</a>
+                      	   <a class="dropdown-item" href="/admin/consultarPedidos">Consultar Pedidos</a>
                       </li>
                     </ul>
                 </li>
    				
-                <li class="nav-item">
-                     <a class="nav-link text-nowrap" href="/admin/consultarQuejas">Quejas</a>
+                <li>
+                     <a class="nav-link text-truncate" href="/admin/consultarQuejas">Quejas</a>
                 </li>
-                <li class="nav-item">
-                	 <a class="nav-link text-nowrap" href="/admin/consultarClientes">Clientes</a>
+                <li>
+                	 <a class="nav-link text-truncate" href="/admin/consultarClientes">Clientes</a>
                 </li>
-                <li class="nav-item">
-                	 <a class="nav-link text-nowrap" href="/admin/consultarRepartidores">Repartidores</a>
+                <li>
+                	 <a class="nav-link text-truncate" href="/admin/consultarRepartidores">Repartidores</a>
                 </li>
               </ul>
         	 
               <ul class="navbar-nav ms-3">
-                <li class="nav-item red">
-                    <a class="nav-link text-nowrap" href="/logout">Cerrar Sesion</a>
+                <li class="red">
+                    <a class="nav-link text-truncate" href="/logout">Cerrar Sesion</a>
                 </li>
               </ul>
         </nav>
