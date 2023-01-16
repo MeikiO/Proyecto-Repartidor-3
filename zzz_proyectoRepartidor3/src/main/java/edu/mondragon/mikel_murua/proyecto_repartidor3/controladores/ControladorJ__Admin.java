@@ -274,12 +274,13 @@ public class ControladorJ__Admin {
     	if(!elegido.isEmpty()) {
     		long idUserRepository=elegido.get().getUser().getIdInterno();
     		//borramos primero el child (repartidor) y despues el padre (credencial)
+    		
     		this.punto_reparto_repository.deleteById(id_mandado);
-    		this.userAccountRepository.deleteById(idUserRepository);    		
+    		this.userAccountRepository.delete(elegido.get().getUser());   		
     		System.out.println("----------Cliente Borrado");
     	}
     	
-        return "redirect:/admin/consultar_clientes";
+        return "redirect:/admin/consultarClientes";
     }
 
     

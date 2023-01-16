@@ -86,159 +86,205 @@ public class PuntoReparto_Pojo {
 	// link-> https://stackoverflow.com/questions/41729709/how-do-i-disable-hibernate-foreign-key-constraint-on-a-bidirectional-association
 	private Set<Pedido_Pojo> lista_pedidos;
     
-	@OneToMany
-	@JoinColumn(name = "queja_id") 
-	private Set<Queja_Pojo> listaQuejas;
+
 	
 //////////////////////////////////////////////////    
     
 
     public PuntoReparto_Pojo() {
     	this.lista_pedidos=new HashSet<>();
-    	this.listaQuejas=new HashSet<>();
 	}
 
-	public PuntoReparto_Pojo(Long id, String nombre_cliente, String apellidos_cliente, String tlf1_cliente,
-			String tlf2_cliente, String tlf3_cliente, String direccion, String dni, String color_puntero,
-			double coordenadasLatitud, double coordenadasLongitud, Poblacion_Pojo poblacion, UserAccount_Pojo user,
-			Set<Pedido_Pojo> lista_pedidos, Set<Queja_Pojo> listaQuejas) {
-		super();
-		this.id = id;
-		this.nombre_cliente = nombre_cliente;
-		this.apellidos_cliente = apellidos_cliente;
-		this.tlf1_cliente = tlf1_cliente;
-		this.tlf2_cliente = tlf2_cliente;
-		this.tlf3_cliente = tlf3_cliente;
-		this.direccion = direccion;
-		this.dni = dni;
-		this.color_puntero = color_puntero;
-		this.coordenadasLatitud = coordenadasLatitud;
-		this.coordenadasLongitud = coordenadasLongitud;
-		this.poblacion = poblacion;
-		this.user = user;
-		this.lista_pedidos = lista_pedidos;
-		this.listaQuejas = listaQuejas;
-	}
 
-	public Long getId() {
-		return id;
-	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+public PuntoReparto_Pojo(Long id, String nombre_cliente, String apellidos_cliente, String tlf1_cliente,
+		String tlf2_cliente, String tlf3_cliente, String direccion, String dni, String color_puntero,
+		double coordenadasLatitud, double coordenadasLongitud, Poblacion_Pojo poblacion, UserAccount_Pojo user,
+		Set<Pedido_Pojo> lista_pedidos) {
+	super();
+	this.id = id;
+	this.nombre_cliente = nombre_cliente;
+	this.apellidos_cliente = apellidos_cliente;
+	this.tlf1_cliente = tlf1_cliente;
+	this.tlf2_cliente = tlf2_cliente;
+	this.tlf3_cliente = tlf3_cliente;
+	this.direccion = direccion;
+	this.dni = dni;
+	this.color_puntero = color_puntero;
+	this.coordenadasLatitud = coordenadasLatitud;
+	this.coordenadasLongitud = coordenadasLongitud;
+	this.poblacion = poblacion;
+	this.user = user;
+	this.lista_pedidos = lista_pedidos;
+}
 
-	public String getNombre_cliente() {
-		return nombre_cliente;
-	}
 
-	public void setNombre_cliente(String nombre_cliente) {
-		this.nombre_cliente = nombre_cliente;
-	}
 
-	public String getApellidos_cliente() {
-		return apellidos_cliente;
-	}
+public Long getId() {
+	return id;
+}
 
-	public void setApellidos_cliente(String apellidos_cliente) {
-		this.apellidos_cliente = apellidos_cliente;
-	}
 
-	public String getTlf1_cliente() {
-		return tlf1_cliente;
-	}
 
-	public void setTlf1_cliente(String tlf1_cliente) {
-		this.tlf1_cliente = tlf1_cliente;
-	}
+public void setId(Long id) {
+	this.id = id;
+}
 
-	public String getTlf2_cliente() {
-		return tlf2_cliente;
-	}
 
-	public void setTlf2_cliente(String tlf2_cliente) {
-		this.tlf2_cliente = tlf2_cliente;
-	}
 
-	public String getTlf3_cliente() {
-		return tlf3_cliente;
-	}
+public String getNombre_cliente() {
+	return nombre_cliente;
+}
 
-	public void setTlf3_cliente(String tlf3_cliente) {
-		this.tlf3_cliente = tlf3_cliente;
-	}
 
-	public String getDireccion() {
-		return direccion;
-	}
 
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
+public void setNombre_cliente(String nombre_cliente) {
+	this.nombre_cliente = nombre_cliente;
+}
 
-	public String getDni() {
-		return dni;
-	}
 
-	public void setDni(String dni) {
-		this.dni = dni;
-	}
 
-	public String getColor_puntero() {
-		return color_puntero;
-	}
+public String getApellidos_cliente() {
+	return apellidos_cliente;
+}
 
-	public void setColor_puntero(String color_puntero) {
-		this.color_puntero = color_puntero;
-	}
 
-	public double getCoordenadasLatitud() {
-		return coordenadasLatitud;
-	}
 
-	public void setCoordenadasLatitud(double coordenadasLatitud) {
-		this.coordenadasLatitud = coordenadasLatitud;
-	}
+public void setApellidos_cliente(String apellidos_cliente) {
+	this.apellidos_cliente = apellidos_cliente;
+}
 
-	public double getCoordenadasLongitud() {
-		return coordenadasLongitud;
-	}
 
-	public void setCoordenadasLongitud(double coordenadasLongitud) {
-		this.coordenadasLongitud = coordenadasLongitud;
-	}
 
-	public Poblacion_Pojo getPoblacion() {
-		return poblacion;
-	}
+public String getTlf1_cliente() {
+	return tlf1_cliente;
+}
 
-	public void setPoblacion(Poblacion_Pojo poblacion) {
-		this.poblacion = poblacion;
-	}
 
-	public UserAccount_Pojo getUser() {
-		return user;
-	}
 
-	public void setUser(UserAccount_Pojo user) {
-		this.user = user;
-	}
+public void setTlf1_cliente(String tlf1_cliente) {
+	this.tlf1_cliente = tlf1_cliente;
+}
 
-	public Set<Pedido_Pojo> getLista_pedidos() {
-		return lista_pedidos;
-	}
 
-	public void setLista_pedidos(Set<Pedido_Pojo> lista_pedidos) {
-		this.lista_pedidos = lista_pedidos;
-	}
 
-	public Set<Queja_Pojo> getListaQuejas() {
-		return listaQuejas;
-	}
+public String getTlf2_cliente() {
+	return tlf2_cliente;
+}
 
-	public void setListaQuejas(Set<Queja_Pojo> listaQuejas) {
-		this.listaQuejas = listaQuejas;
-	}
+
+
+public void setTlf2_cliente(String tlf2_cliente) {
+	this.tlf2_cliente = tlf2_cliente;
+}
+
+
+
+public String getTlf3_cliente() {
+	return tlf3_cliente;
+}
+
+
+
+public void setTlf3_cliente(String tlf3_cliente) {
+	this.tlf3_cliente = tlf3_cliente;
+}
+
+
+
+public String getDireccion() {
+	return direccion;
+}
+
+
+
+public void setDireccion(String direccion) {
+	this.direccion = direccion;
+}
+
+
+
+public String getDni() {
+	return dni;
+}
+
+
+
+public void setDni(String dni) {
+	this.dni = dni;
+}
+
+
+
+public String getColor_puntero() {
+	return color_puntero;
+}
+
+
+
+public void setColor_puntero(String color_puntero) {
+	this.color_puntero = color_puntero;
+}
+
+
+
+public double getCoordenadasLatitud() {
+	return coordenadasLatitud;
+}
+
+
+
+public void setCoordenadasLatitud(double coordenadasLatitud) {
+	this.coordenadasLatitud = coordenadasLatitud;
+}
+
+
+
+public double getCoordenadasLongitud() {
+	return coordenadasLongitud;
+}
+
+
+
+public void setCoordenadasLongitud(double coordenadasLongitud) {
+	this.coordenadasLongitud = coordenadasLongitud;
+}
+
+
+
+public Poblacion_Pojo getPoblacion() {
+	return poblacion;
+}
+
+
+
+public void setPoblacion(Poblacion_Pojo poblacion) {
+	this.poblacion = poblacion;
+}
+
+
+
+public UserAccount_Pojo getUser() {
+	return user;
+}
+
+
+
+public void setUser(UserAccount_Pojo user) {
+	this.user = user;
+}
+
+
+
+public Set<Pedido_Pojo> getLista_pedidos() {
+	return lista_pedidos;
+}
+
+
+
+public void setLista_pedidos(Set<Pedido_Pojo> lista_pedidos) {
+	this.lista_pedidos = lista_pedidos;
+}
 
 
 	

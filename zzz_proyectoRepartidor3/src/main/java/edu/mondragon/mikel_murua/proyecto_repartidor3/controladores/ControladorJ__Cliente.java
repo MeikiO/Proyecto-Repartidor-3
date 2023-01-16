@@ -405,7 +405,6 @@ public class ControladorJ__Cliente {
 	    	
 	    	Queja_Pojo queja=new Queja_Pojo();
 	    	queja.setPedido(pedido.get());
-	    	queja.setPunto(punto);
 	    	queja.setClasificacion(clasificacion);
 	    	queja.setRazones(razones);
 	    	

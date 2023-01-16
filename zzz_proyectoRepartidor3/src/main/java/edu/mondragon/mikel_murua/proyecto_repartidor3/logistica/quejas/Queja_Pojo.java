@@ -1,12 +1,14 @@
 package edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.quejas;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.Date;
@@ -25,9 +27,6 @@ public class Queja_Pojo {
 	
 	private Date fechaQueja;
 	
-    @OneToOne
-    @JoinColumn(name="puntoReparto_id")
-	private PuntoReparto_Pojo punto;
 	
     @OneToOne
     @JoinColumn(name = "pedido_id") 
@@ -39,12 +38,10 @@ public class Queja_Pojo {
 	public Queja_Pojo() {
 	}
 
-	public Queja_Pojo(Long id, Date fechaQueja, PuntoReparto_Pojo punto, Pedido_Pojo pedido, String clasificacion,
-			String razones) {
+	public Queja_Pojo(Long id, Date fechaQueja, Pedido_Pojo pedido, String clasificacion, String razones) {
 		super();
 		this.id = id;
 		this.fechaQueja = fechaQueja;
-		this.punto = punto;
 		this.pedido = pedido;
 		this.clasificacion = clasificacion;
 		this.razones = razones;
@@ -62,16 +59,8 @@ public class Queja_Pojo {
 		return fechaQueja;
 	}
 
-	public void setFechaQueja(Date date) {
-		this.fechaQueja = date;
-	}
-
-	public PuntoReparto_Pojo getPunto() {
-		return punto;
-	}
-
-	public void setPunto(PuntoReparto_Pojo punto) {
-		this.punto = punto;
+	public void setFechaQueja(Date fechaQueja) {
+		this.fechaQueja = fechaQueja;
 	}
 
 	public Pedido_Pojo getPedido() {
@@ -97,6 +86,8 @@ public class Queja_Pojo {
 	public void setRazones(String razones) {
 		this.razones = razones;
 	}
+
 	
 	
+
 }

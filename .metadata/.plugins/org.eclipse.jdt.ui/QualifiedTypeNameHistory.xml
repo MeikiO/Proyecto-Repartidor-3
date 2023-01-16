@@ -46,7 +46,6 @@
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.ruta_repartos.RutaRepartos_Repository"/>
     <fullyQualifiedTypeName name="javax.persistence.OneToMany"/>
     <fullyQualifiedTypeName name="java.util.HashSet"/>
-    <fullyQualifiedTypeName name="javax.persistence.ManyToOne"/>
     <fullyQualifiedTypeName name="java.io.IOException"/>
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.Estado_Pedido"/>
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.repartidores.Repartidor_Repository"/>
@@ -60,4 +59,5 @@
     <fullyQualifiedTypeName name="javax.persistence.FetchType"/>
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.LineaPedido_Repository"/>
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.repartidores.Repartidor_Pojo"/>
+    <fullyQualifiedTypeName name="javax.persistence.ManyToOne"/>
 </qualifiedTypeNameHistroy>
