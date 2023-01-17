@@ -58,12 +58,12 @@ public class ControladorJ__Repartidor {
     	System.out.println(roles);
  	
         UserAccount_Pojo account=this.userRepository.findByUsername(SecurityContextHolder. getContext(). getAuthentication().getName());   	
-        Optional<Repartidor_Pojo> repartidorLogeado=this.repartidorRepository.findById(account.getIdInterno());
+        Repartidor_Pojo repartidorLogeado=this.repartidorRepository.findByUser(account);
         
  
         List<Pedido_Pojo> listaConPedidos=new ArrayList<>();
         
-	    for(Pedido_Pojo actual: repartidorLogeado.get().getListaPedidosRepartidor()) {
+	    for(Pedido_Pojo actual: repartidorLogeado.getListaPedidosRepartidor()) {
 	    	if(actual.getEstadoPedido().equals(Estado_Pedido.ESTADO_EN_CAMINO.toString())) {
 	    		listaConPedidos.add(actual);        		
 	    	}
@@ -71,8 +71,8 @@ public class ControladorJ__Repartidor {
 	  
 	    model.addAttribute("nombreDeLaRuta", "Ruta de comprobacion");
 	    model.addAttribute("descripcionDeLaRuta", "La primera prueba para algo mas grande");
-	    model.addAttribute("latitud", repartidorLogeado.get().getListaPedidosRepartidor().stream().findFirst().get().getPuntoReparto().getCoordenadasLatitud());
-	    model.addAttribute("longitud", repartidorLogeado.get().getListaPedidosRepartidor().stream().findFirst().get().getPuntoReparto().getCoordenadasLongitud());
+	    model.addAttribute("latitud", repartidorLogeado.getListaPedidosRepartidor().stream().findFirst().get().getPuntoReparto().getCoordenadasLatitud());
+	    model.addAttribute("longitud", repartidorLogeado.getListaPedidosRepartidor().stream().findFirst().get().getPuntoReparto().getCoordenadasLongitud());
 	    model.addAttribute("puntosDeLaRuta", listaConPedidos);
         
         return "/v_repartidor/inicio_repartidores";
