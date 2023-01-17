@@ -24,7 +24,7 @@
 
 	 		<div th:switch="${listaRepartidores.isEmpty() || listaRepartidores==null}">
 	 			
-	 			<div th:case="true" class="retoque-tabla">
+	 			<div th:case="true">
 	 				<p>No hay repartidores Actualmente</p>
 	 			</div>
 	 			
@@ -51,7 +51,14 @@
 		                      	       <a th:href="'/admin/editarRepartidor/'+${repartidor.id}" class="btn btn-primary">Editar</a>
 		                            </td>
 		                            <td>
-		                      	       <a th:href="'/admin/borrarRepartidor/'+${repartidor.id}" class="btn btn-danger">Borrar</a>
+	                            		<div th:switch="${repartidor.getUser().isEstaActivo()}">
+								 			<div th:case="true">
+								 				<a th:href="'/admin/desactivar_Repartidor/'+${repartidor.id}" class="btn btn-danger">Desactivar</a>
+								 			</div>
+										    <div th:case="false">
+										    <a th:href="'/admin/activar_Repartidor/'+${repartidor.id}" class="btn btn-success">Activar</a>
+										    </div>
+									    </div>
 		                            </td>
 			                     </tr>
 			                  </tbody>

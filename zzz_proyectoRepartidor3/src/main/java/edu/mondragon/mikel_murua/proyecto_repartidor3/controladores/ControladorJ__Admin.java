@@ -236,18 +236,39 @@ public class ControladorJ__Admin {
         return "redirect:/admin/consultarRepartidores";
     }
         
-    @GetMapping({"/admin/borrarRepartidor/{id}"})
-    public String borrarRepartidor(@PathVariable String id,Model model) {
+    @GetMapping({"/admin/desactivar_Repartidor/{id}"})
+    public String desactivarRepartidor(@PathVariable String id,Model model) {
     	
     	long id_mandado=Integer.parseInt(id);
     	
     	Optional<Repartidor_Pojo> elegido=this.repartidor_repository.findById(id_mandado);
     	
-    	if(!elegido.isEmpty()) {
-    		long idUserRepository=elegido.get().getUser().getIdInterno();
-    		//borramos primero el child (repartidor) y despues el padre (credencial)
-    		this.repartidor_repository.deleteById(id_mandado);
-    		this.userAccountRepository.deleteById(idUserRepository);    		
+    	if(!elegido.isEmpty()) {	
+
+    		UserAccount_Pojo credencial = this.userAccountRepository.findByUsername(elegido.get().getUser().getUsername());
+    		
+    		credencial.setEstaActivo(false);
+    		
+    		this.userAccountRepository.save(credencial);
+    	}
+    	
+        return "redirect:/admin/consultarRepartidores";
+    }
+    
+    @GetMapping({"/admin/activar_Repartidor/{id}"})
+    public String activarRepartidor(@PathVariable String id,Model model) {
+    	
+    	long id_mandado=Integer.parseInt(id);
+    	
+    	Optional<Repartidor_Pojo> elegido=this.repartidor_repository.findById(id_mandado);
+    	
+    	if(!elegido.isEmpty()) {	
+
+    		UserAccount_Pojo credencial = this.userAccountRepository.findByUsername(elegido.get().getUser().getUsername());
+    		
+    		credencial.setEstaActivo(true);
+    		
+    		this.userAccountRepository.save(credencial);
     	}
     	
         return "redirect:/admin/consultarRepartidores";
@@ -264,39 +285,46 @@ public class ControladorJ__Admin {
     	return "/v_admin/consultar_clientes";
     }
     
-    @GetMapping({"/admin/borrarCliente/{id}"})
-    public String borrarCliente(@PathVariable String id,Model model) {
+    
+    
+    @GetMapping({"/admin/desactivar_Cliente/{id}"})
+    public String desactivarCliente(@PathVariable String id,Model model) {
     	
     	long id_mandado=Integer.parseInt(id);
     	
     	Optional<PuntoReparto_Pojo> elegido=this.punto_reparto_repository.findById(id_mandado);
-  
-    	if(!elegido.isEmpty()) {
-    		long idUserRepository=elegido.get().getUser().getIdInterno();
-    		//borramos primero el child (repartidor) y despues el padre (credencial)
+    	  
+    	if(!elegido.isEmpty()) {	
+
+    		UserAccount_Pojo credencial = this.userAccountRepository.findByUsername(elegido.get().getUser().getUsername());
     		
-    		this.punto_reparto_repository.deleteById(id_mandado);
-    		this.userAccountRepository.delete(elegido.get().getUser());   		
-    		System.out.println("----------Cliente Borrado");
+    		credencial.setEstaActivo(false);
+    		
+    		this.userAccountRepository.save(credencial);
     	}
     	
-        return "redirect:/admin/consultarClientes";
+    	return "redirect:/admin/consultarClientes";
     }
-
     
-    @GetMapping({"/admin/crearCliente"})
-    public String crearCliente(Model model) {
+    @GetMapping({"/admin/activar_Cliente/{id}"})
+    public String activarCliente(@PathVariable String id,Model model) {
     	
-    	System.out.println("A crear cliente");
+    	long id_mandado=Integer.parseInt(id);
     	
-    	model.addAttribute("cliente",new PuntoReparto_Pojo());
-		
-		List<Poblacion_Pojo> poblaciones=this.poblacionRepository.findAll();
-		
-		model.addAttribute("listaPoblaciones", poblaciones);
-		
-        return "/v_admin/formulario_cliente";
+    	Optional<PuntoReparto_Pojo> elegido=this.punto_reparto_repository.findById(id_mandado);
+    	  
+    	if(!elegido.isEmpty()) {	
+
+    		UserAccount_Pojo credencial = this.userAccountRepository.findByUsername(elegido.get().getUser().getUsername());
+    		
+    		credencial.setEstaActivo(true);
+    		
+    		this.userAccountRepository.save(credencial);
+    	}
+    	
+    	return "redirect:/admin/consultarClientes";
     }
+    
     
     @GetMapping({"/admin/editarCliente/{id}"})
     public String editarCliente(@PathVariable String id,Model model) {
@@ -443,70 +471,22 @@ public class ControladorJ__Admin {
 	@GetMapping({"/admin/asignarPedidos"})
 	public String asignarPedidos(Model model) {
 		
-		model.addAttribute("lista_repartidores", this.repartidor_repository.findAll());
-	 	Map<String,List<Pedido_Pojo>> mapaPedidosEstados=this.extraerMapaNecesario();
+		List<Repartidor_Pojo> listaRepartidoresActivos = new ArrayList<>();
+		
+		for(Repartidor_Pojo actual:this.repartidor_repository.findAll()) {
+			if(actual.getUser().isEstaActivo()) {
+				listaRepartidoresActivos.add(actual);
+			}
+		}
+
+	   	model.addAttribute("lista_repartidores", listaRepartidoresActivos);
+	 		   	
+		
+		Map<String,List<Pedido_Pojo>> mapaPedidosEstados=this.extraerMapaNecesario();
     	model.addAttribute("mapa", mapaPedidosEstados);
     	
     	model.addAttribute("repartidor_elegido", null);
 
-    	/* 
-    	 Da error porque no consigue identificar el token del mapa
-    	
-    	if(!mapaPedidosEstados.get(Estado_Pedido.ESTADO_EN_ESPERA_DE_EMPEZAR_REPARTO.toString()).isEmpty()) {
-
-	    	//falta la lista de pedidos [EN_ESPERA DE EMPEZAR REPARTO]
-	    	
-			//PON EL MAPA EN LA PAGINA DE ASIGNAR LOS PEDIDOS AL REPARTIDOR
-			
-			//el punto de reparto del pedido
-			//ya tiene las coordenadas cargadas
-	    	
-	    	double latitud= mapaPedidosEstados.get(Estado_Pedido.ESTADO_EN_ESPERA_DE_EMPEZAR_REPARTO.toString()).get(0).getPuntoReparto().getCoordenadasLatitud();
-	    	double longitud=mapaPedidosEstados.get(Estado_Pedido.ESTADO_EN_ESPERA_DE_EMPEZAR_REPARTO.toString()).get(0).getPuntoReparto().getCoordenadasLongitud();
-	    	
-	    	List<PuntoReparto_Pojo> listaPuntos=new ArrayList<>();
-	    	
-	    	for(Pedido_Pojo actual:mapaPedidosEstados.get(Estado_Pedido.ESTADO_EN_ESPERA_DE_EMPEZAR_REPARTO.toString())) {
-	    		listaPuntos.add(actual.getPuntoReparto());
-	    	}
-	    	
-	        model.addAttribute("latitud", latitud);
-	        model.addAttribute("longitud",longitud);
-	        model.addAttribute("puntosDeLaRuta", listaPuntos);
-    	}
-    	
-    	//////////////////////////PARTE DEL MAPA HTML//////////////////
-    	
-    	
-    	<!-- Mapa enseñando todos los elementos de la ruta de reparto aqui 
-					
-		
-		<div id="contenedor-del-mapa"></div>
-		<br><br>
-		<div id="informacion-adiccional">
-		</div>
-		
-		
-		<script type="text/javascript" th:src="@{https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCcWW7VDmc4iLEyBB8-K7pzauZXRG3W1Mc}"></script>
-		<script type="text/javascript" th:src="@{/js/pruebasGoogleMaps.js}"></script>
-		<script th:inline="javascript">
-		    const puntoInicial = {lat: [[${latitud}]], lng: [[${longitud}]]};
-		    const mapa = new Mapa(puntoInicial);
-		    [# th:each="punto : ${puntosDeLaRuta}"]
-		        var coordenadasDelPunto = {lat: [[${punto.getCoordenadasLatitud()}]],
-		    		lng: [[${punto.getCoordenadasLongitud()}]]};
-		        mapa.ponerMarcador(coordenadasDelPunto, [[${punto.getNombre_cliente()}]]);
-		        mapa.añadirUnPuntoALaRuta(coordenadasDelPunto, [[${punto.getNombre_cliente()}]], [[${punto.getDni()}]]);
-		    [/]
-		
-		</script>
-	
-		-->
-    	
-    /////////////////////////////////////////////////////////////	
-    	
-    	*/
-    	
     	
 	    return "/v_admin/asignar_pedidos";
 	}
@@ -532,8 +512,17 @@ public class ControladorJ__Admin {
 			e.printStackTrace();
 		}
 		
-	   	model.addAttribute("lista_repartidores", this.repartidor_repository.findAll());
-	 	
+		
+		List<Repartidor_Pojo> listaRepartidoresActivos = new ArrayList<>();
+		
+		for(Repartidor_Pojo actual:this.repartidor_repository.findAll()) {
+			if(actual.getUser().isEstaActivo()) {
+				listaRepartidoresActivos.add(actual);
+			}
+		}
+
+	   	model.addAttribute("lista_repartidores", listaRepartidoresActivos);
+	 		   	
 		Map<String,List<Pedido_Pojo>> mapaPedidosEstados=this.extraerMapaNecesario();
     	model.addAttribute("mapa", mapaPedidosEstados);
     	

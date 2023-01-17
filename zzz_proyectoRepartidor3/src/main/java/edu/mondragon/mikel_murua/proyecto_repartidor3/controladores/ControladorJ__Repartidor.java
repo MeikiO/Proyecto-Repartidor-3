@@ -3,6 +3,7 @@ package edu.mondragon.mikel_murua.proyecto_repartidor3.controladores;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -57,24 +58,23 @@ public class ControladorJ__Repartidor {
     	System.out.println(roles);
  	
         UserAccount_Pojo account=this.userRepository.findByUsername(SecurityContextHolder. getContext(). getAuthentication().getName());   	
-        Repartidor_Pojo repartidorLogeado=this.repartidorRepository.findByUser(account);
+        Optional<Repartidor_Pojo> repartidorLogeado=this.repartidorRepository.findById(account.getIdInterno());
         
  
         List<Pedido_Pojo> listaConPedidos=new ArrayList<>();
         
-        for(Pedido_Pojo actual: repartidorLogeado.getListaPedidosRepartidor()) {
-        	if(actual.getEstadoPedido().equals(Estado_Pedido.ESTADO_EN_CAMINO.toString())) {
-        		listaConPedidos.add(actual);        		
-        	}
-        }
-      
-      
-        model.addAttribute("nombreDeLaRuta", "Ruta de comprobacion");
-        model.addAttribute("descripcionDeLaRuta", "La primera prueba para algo mas grande");
-        model.addAttribute("latitud", repartidorLogeado.getListaPedidosRepartidor().stream().findFirst().get().getPuntoReparto().getCoordenadasLatitud());
-        model.addAttribute("longitud", repartidorLogeado.getListaPedidosRepartidor().stream().findFirst().get().getPuntoReparto().getCoordenadasLongitud());
-        model.addAttribute("puntosDeLaRuta", listaConPedidos);
-    	
+	    for(Pedido_Pojo actual: repartidorLogeado.get().getListaPedidosRepartidor()) {
+	    	if(actual.getEstadoPedido().equals(Estado_Pedido.ESTADO_EN_CAMINO.toString())) {
+	    		listaConPedidos.add(actual);        		
+	    	}
+	    }
+	  
+	    model.addAttribute("nombreDeLaRuta", "Ruta de comprobacion");
+	    model.addAttribute("descripcionDeLaRuta", "La primera prueba para algo mas grande");
+	    model.addAttribute("latitud", repartidorLogeado.get().getListaPedidosRepartidor().stream().findFirst().get().getPuntoReparto().getCoordenadasLatitud());
+	    model.addAttribute("longitud", repartidorLogeado.get().getListaPedidosRepartidor().stream().findFirst().get().getPuntoReparto().getCoordenadasLongitud());
+	    model.addAttribute("puntosDeLaRuta", listaConPedidos);
+        
         return "/v_repartidor/inicio_repartidores";
     }
 

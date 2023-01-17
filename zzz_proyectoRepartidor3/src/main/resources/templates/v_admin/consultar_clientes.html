@@ -50,7 +50,14 @@
 		                      	       <a th:href="'/admin/editarCliente/'+${cliente.id}" class="btn btn-primary">Editar</a>
 		                            </td>
 		                            <td>
-		                      	       <a th:href="'/admin/borrarCliente/'+${cliente.id}" class="btn btn-danger">Borrar</a>
+	                            		<div th:switch="${cliente.getUser().isEstaActivo()}">
+								 			<div th:case="true">
+								 				<a th:href="'/admin/desactivar_Cliente/'+${cliente.id}" class="btn btn-danger">Desactivar</a>
+								 			</div>
+										    <div th:case="false">
+										    	<a th:href="'/admin/activar_Cliente/'+${cliente.id}" class="btn btn-success">Activar</a>
+										    </div>
+									    </div>
 		                            </td>
 			                     </tr>
 			                  </tbody>

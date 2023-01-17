@@ -39,7 +39,7 @@ public class MyUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         
     	UserAccount_Pojo userAccount = userAccountRepository.findByUsername(username);
-        if (userAccount == null) {
+        if (userAccount == null || !userAccount.isEstaActivo()) {
             throw new UsernameNotFoundException("User with username [" + username + "] not found in the system");
         }
         
