@@ -287,6 +287,7 @@ public class ControladorJ__Admin {
     
     
     
+    
     @GetMapping({"/admin/desactivar_Cliente/{id}"})
     public String desactivarCliente(@PathVariable String id,Model model) {
     	
@@ -325,6 +326,18 @@ public class ControladorJ__Admin {
     	return "redirect:/admin/consultarClientes";
     }
     
+    
+    @GetMapping({"/admin/crearCliente"})
+    public String crearCliente(Model model) {
+    	
+    	model.addAttribute("cliente",new PuntoReparto_Pojo());
+	
+		List<Poblacion_Pojo> poblaciones=this.poblacionRepository.findAll();
+		
+		model.addAttribute("listaPoblaciones", poblaciones);
+		
+        return "/v_admin/formulario_cliente";
+    }
     
     @GetMapping({"/admin/editarCliente/{id}"})
     public String editarCliente(@PathVariable String id,Model model) {

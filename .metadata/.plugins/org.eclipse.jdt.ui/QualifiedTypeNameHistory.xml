@@ -53,11 +53,11 @@
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.UserAccount_Pojo"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="java.util.List"/>
-    <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.punto_reparto.PuntoReparto_Pojo"/>
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.Pedido_Pojo"/>
     <fullyQualifiedTypeName name="javax.persistence.FetchType"/>
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.LineaPedido_Repository"/>
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.repartidores.Repartidor_Pojo"/>
     <fullyQualifiedTypeName name="javax.persistence.ManyToOne"/>
     <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_utils.Estados_Cuenta"/>
+    <fullyQualifiedTypeName name="edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.punto_reparto.PuntoReparto_Pojo"/>
 </qualifiedTypeNameHistroy>

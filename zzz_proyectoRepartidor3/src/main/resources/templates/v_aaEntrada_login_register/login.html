@@ -7,49 +7,48 @@
 </head>
 <body>
  	
- 	<section layout:fragment="custom-content" class="document__content">
+ 	<section layout:fragment="custom-content" class="document__content vh-100">
   		
-		<h1 class="text-center">Esto es la pagina del LOGIN</h1>
 		
-		<div class="form-group">
-			<h1 class="titlee">Login</h1>
-		</div>
-			
-		 <form action="#" th:action="@{/login}" th:object="${datos_introducidos}" method="post">
-		    <div class="form-group">
-		        <label for="username">Username</label>
-		        <input type="text" class="form-control" id="username" name="username" autocomplete="new-password" required
-		               placeholder="Enter username">
-		    </div>
-		    <div class="form-group">
-		        <label for="password">Password</label>
-		        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required
-		               autocomplete="new-password">
-		    </div>
-			
-			<input type="submit" class="btn btn-primary " value="Log In"/>
-			
-		</form>
-	
-	 	<form action="#" th:action="@{/register2}">
-			<input type="submit" class="btn btn-primary " value="Register"/>
-		</form>
-	
+		<h1>_</h1>
+		
+		  <div class="container py-5 h-100">
+		    <div class="row d-flex align-items-center justify-content-center h-100">
+		      <div class="col-md-8 col-lg-7 col-xl-6">
+		        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+		          class="img-fluid" alt="Phone image">
+		      </div>
+		      <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+		        <form action="#" th:action="@{/login}" th:object="${datos_introducidos}" method="post">
+		          <!-- Email input -->
+		          <div class="form-outline mb-4">
+		            <input type="text" id="username" name="username" required class="form-control form-control-lg" />
+		            <label class="form-label" for="username">Username</label>
+		          </div>
+		
+		          <!-- Password input -->
+		          <div class="form-outline mb-4">
+		            <input type="password" class="form-control form-control-lg" id="password" name="password" required
+				               autocomplete="new-password">
+		            <label class="form-label" for="password">Password</label>
+		          </div>
+		
+		
+		          <!-- Submit button -->
+		          <button type="submit" class="btn btn-primary " value="Log In">Sign in</button>
+					
+					<div class="form-outline mb-4">
+					   	<p class="mb-5 pb-lg-2">Don't have an account? 
+					   		<a href="/register2" style="color: #393f81;">Register here</a>
+					   	</p>
+			  		</div>  
+		                          
+		        </form>
+		      </div>      
+		    </div>		    
+		  </div>
+
 	</section>
-	
-	
-	<footer>
-		<div class="pruebas">
-			<br>
-
-			<p>Valor del atributo pasado del modelo del controlador: 
-				<span th:text="${nombreEnControlador}"></span></p>
-
-			<p> Valor desde database (ModeloRepartidor): 
-				<span th:text="${Numero_de_objetos_database}"></span>
-			</p>
-
-		</div>
-	</footer>
+  		
 </body>
 </html>
