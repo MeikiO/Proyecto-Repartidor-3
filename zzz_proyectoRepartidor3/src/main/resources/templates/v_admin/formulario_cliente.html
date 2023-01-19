@@ -54,17 +54,24 @@
             </div>
 
 
-      		<!-- Poblacion input -->
+         	<!-- Poblacion input -->
             <div class="form-outline mb-4">
               <select name="poblacion_formulario" class="selectpicker">
-	      		<option value="default">Selecciona poblacion</option>
-	    		<option th:each="pobla: ${listaPoblaciones}" 
-	    		th:value="${pobla.nombreLocalizacion}"
-	    		th:text="${pobla.nombreLocalizacion}"/>
+	      			<div th:switch="*{poblacion==null}">
+						<div th:case="true" class="col-sm order-last">
+							<option value="default">Elige poblacion</option>
+						</div>
+						<div th:case="false" class="col-sm order-last">
+							<option value="default" th:text="*{poblacion.nombreLocalizacion}" 
+							th:value="*{poblacion.nombreLocalizacion}"></option>
+						</div>
+					</div>	
+					<option th:each="pobla:${listaPoblaciones}"  
+					th:value="${pobla.nombreLocalizacion}" 
+					th:text="${pobla.nombreLocalizacion}"/>
 	          </select>
               <label class="form-label" for="poblacion">Poblacion</label>
             </div>
-
 
            <!-- Direccion input -->
             <div class="form-outline mb-4">
