@@ -66,7 +66,7 @@ public class ControladorJ__Repartidor {
         
         List<Pedido_Pojo> listaConPedidos=new ArrayList<>();
         
-        if(!listaConPedidos.isEmpty()) {
+        if(!repartidorLogeado.getListaPedidosRepartidor().isEmpty()) {
 		    for(Pedido_Pojo actual: repartidorLogeado.getListaPedidosRepartidor()) {
 		    	if(actual.getEstadoPedido().equals(Estado_Pedido.ESTADO_EN_CAMINO.toString())) {
 		    		listaConPedidos.add(actual);        		

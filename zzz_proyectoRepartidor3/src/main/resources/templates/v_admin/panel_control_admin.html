@@ -15,93 +15,85 @@
    <section layout:fragment="custom-content" class="document__content">
   			<!-- aqui escribimos todo lo que va en el contenido -->
 
-		<br>
 		
 		
     <h1>Admin Dashboard</h1>
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-left">
     	<a href="/admin/asignarPedidos" class="btn btn-primary">Asignar Pedidos</a>
 	</div>
-    <div class="d-flex justify-content-around">
-        <div class="card" style="width: 18rem;">
-            <p class="card-text" th:text="${num_pedidos}" />
-            <p class="card-text">Total Pedidos</p>
-            <div class="card-header">
-                <a href="/admin/consultarPedidos">
-                    More info <img src="https://picsum.photos/20/20" alt="image icono">
-                </a>
-            </div>
+    <div class="container">
+    	<div class="row g-3">
+    		<div class="col-12 col-md-6 col-lg-4">
+		        <div class="card" style="width: 18rem;">
+		            <p class="card-text" th:text="${num_pedidos}" />
+		            <p class="card-text">Total Pedidos</p>
+		            <div class="card-header">
+		                <a href="/admin/consultarPedidos">
+		                    More info <img src="https://picsum.photos/20/20" alt="image icono">
+		                </a>
+		            </div>
+		        </div>
+		     </div>
+			<div class="col-12 col-md-6 col-lg-4">
+		      <div class="card" style="width: 18rem;">
+		            <p class="card-text" th:text="${num_clientes}" />
+		            <p class="card-text">Total Clientes</p>
+		            <div class="card-header">
+		                <a href="/admin/consultarClientes">
+		                    More info <img src="https://picsum.photos/20/20" alt="image icono">
+		                </a>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="col-12 col-md-6 col-lg-4">
+		        <div class="card" style="width: 18rem;">
+		            <p class="card-text" th:text="${num_repartidores}" />
+		            <p class="card-text">Total Repartidores</p>
+		            <div class="card-header">
+		                <a href="/admin/consultarRepartidores">
+		                    More info <img src="https://picsum.photos/20/20" alt="image icono">
+		                </a>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="col-12 col-md-6 col-lg-4">
+		        <div class="card" style="width: 18rem;">
+		            <p class="card-text" th:text="${num_quejas}" />
+		            <p class="card-text">Total Quejas</p>
+		            <div class="card-header">
+		                <a href="/admin/consultarQuejas">
+		                    More info <img src="https://picsum.photos/20/20" alt="image icono">
+		                </a>
+		            </div>
+		        </div>
+        	</div>
         </div>
+    	<div class="row g-3">
 
-      <div class="card" style="width: 18rem;">
-            <p class="card-text" th:text="${num_clientes}" />
-            <p class="card-text">Total Clientes</p>
-            <div class="card-header">
-                <a href="/admin/consultarClientes">
-                    More info <img src="https://picsum.photos/20/20" alt="image icono">
-                </a>
-            </div>
-        </div>
-        
-        <div class="card" style="width: 18rem;">
-            <p class="card-text" th:text="${num_repartidores}" />
-            <p class="card-text">Total Repartidores</p>
-            <div class="card-header">
-                <a href="/admin/consultarRepartidores">
-                    More info <img src="https://picsum.photos/20/20" alt="image icono">
-                </a>
-            </div>
-        </div>
-        
-        <div class="card" style="width: 18rem;">
-            <p class="card-text" th:text="${num_quejas}" />
-            <p class="card-text">Total Quejas</p>
-            <div class="card-header">
-                <a href="/admin/consultarQuejas">
-                    More info <img src="https://picsum.photos/20/20" alt="image icono">
-                </a>
-            </div>
-        </div>
-        
-    </div>
+	    	<div class="col-12 col-md-6 col-lg-4">
+		        <div class="card" style="width: 18rem;">
+		            <img class="card-img-top" src="https://picsum.photos/200/100" alt="IMg clientes">
+		            <div class="card-body">
+			            <p class="card-text">Gestionar Clientes</p>
+			            <p class="card-text">Crear,Editar,Borrar</p>
+			            <a href="/admin/consultarClientes" class="btn btn-primary">Ir a clientes</a>
+		            </div>
+		        </div>
+		    </div>
+			<div class="col-12 col-md-6 col-lg-4">
+		        <div class="card" style="width: 18rem;">
+		            <img class="card-img-top" src="https://picsum.photos/200/100" alt="IMg clientes">
+		            <div class="card-body">
+			            <p class="card-text">Gestionar Repartidores</p>
+			            <p class="card-text">Crear,Editar,Borrar</p>
+			            <a href="/admin/consultarRepartidores" class="btn btn-primary">Ir a Repartidores</a>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+	</div>
 
-    <div class="d-flex justify-content-around">
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="https://picsum.photos/200/100" alt="IMg clientes">
-            <div class="card-body">
-	            <p class="card-text">Gestionar Clientes</p>
-	            <p class="card-text">Crear,Editar,Borrar</p>
-	            <a href="/admin/consultarClientes" class="btn btn-primary">Ir a clientes</a>
-            </div>
-        </div>
 
-        <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="https://picsum.photos/200/100" alt="IMg clientes">
-            <div class="card-body">
-	            <p class="card-text">Gestionar Repartidores</p>
-	            <p class="card-text">Crear,Editar,Borrar</p>
-	            <a href="/admin/consultarRepartidores" class="btn btn-primary">Ir a Repartidores</a>
-            </div>
-        </div>
-
-    </div>
-
-		
-		
-		
-		
-		
-		
-		
-		<!-- 
-		<div id="googleMap" style="width:100%;height:400px;"></div>
-		
-		<script src="/js/map_script.js"></script>
-		
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoZTmBlVZqN89ln9oEiAdl8R2oSgTXnIM&callback=myMap"></script>	
-		-->
-	
-		 
 	</section>
 
 

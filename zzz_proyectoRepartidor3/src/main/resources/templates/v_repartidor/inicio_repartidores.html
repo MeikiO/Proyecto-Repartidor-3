@@ -13,12 +13,7 @@
 <body>
  
  <section layout:fragment="custom-content" class="document__content">
-  			
-	<h1>Pruebas para aprender a trabajar con la plataforma Google Maps</h1>
-	
-	<p>Ruta mostrada: <strong th:utext="${nombreDeLaRuta}" /></p>
-	<p><i th:utext="${descripcionDeLaRuta}" /></p>
-	
+  				
 
 	<div th:switch="${puntosDeLaRuta==null}">
 		    <div th:case="true" class="retoque-tabla">
