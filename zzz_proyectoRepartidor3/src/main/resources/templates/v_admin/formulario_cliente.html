@@ -11,119 +11,106 @@
     	<p> Por si falla el nav </p>
     </header>
     
-       
-   	<section layout:fragment="custom-content" class="document__content">
-  		<!-- aqui escribimos todo lo que va en el contenido -->
+<section layout:fragment="custom-content" class="text-center">
+  		
+  <!-- Background image -->
+    <div class="card-body py-5 px-md-5">
 
-		
-		<h1 class="text-center">Registro de Cliente</h1>
-	
-		<form method="post" action="#" th:action="@{/admin/procesarCliente}" th:object="${cliente}" autocomplete="off">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-8">
+          <h2 class="fw-bold mb-5">Registro Clientes</h2>
+          
+      <form method="post" action="#" th:action="@{/admin/procesarCliente}" th:object="${cliente}" autocomplete="off">
 		    <div class="form-group">
 	       		<input hidden type="text" th:field="*{id}" />
+		       	<input hidden type="text" th:field="*{color_puntero}" />
+		       	<input hidden type="text" th:field="*{coordenadasLatitud}" />
+		       	<input hidden type="text" th:field="*{coordenadasLongitud}" />
 		    	<input hidden type="text" th:field="*{poblacion}" />  
 		    </div>
-	      
-		  	<div class="form-group">
-	            <label>Nombre:</label>
-	            <input type="text" th:field="*{nombre_cliente}" class="form-control" required/>
-	
-	            <label>Apellidos:</label>
-	            <input type="text" th:field="*{apellidos_cliente}" class="form-control" />
-	        </div>
-		
-		  	<div class="form-group">
-	            <label>Tlf1:</label>
-	            <input type="tel" th:field="*{tlf1_cliente}" class="form-control" pattern="[0-9]{9}" required 
-	            title="introduzca telefono valido (9 numeros)"/>
-	       
-	            <label>Tlf2:</label>
-	            <input type="tel" th:field="*{tlf2_cliente}" class="form-control" pattern="[0-9]{9}" 
-	            title="introduzca telefono valido (9 numeros)"/>
-	       
-	            <label>Tlf3:</label>
-	            <input type="tel" th:field="*{tlf3_cliente}" class="form-control" pattern="[0-9]{9}" 
-	            title="introduzca telefono valido (9 numeros)"/>
-	       
-	        </div>
-		  
-		  <div class="form-group">
-		  	 <label for="poblacion">Poblacion</label>
-		      
-		     <select name="poblacion_formulario">
-				<div th:switch="*{poblacion==null}">
-		 			<div th:case="true" class="col-sm order-last">
-		 				<option value="default">Elige poblacion</option>
-		 			</div>
-		 			<div th:case="false" class="col-sm order-last">
-		 				<option value="default"
-	      				th:text="*{poblacion.nombreLocalizacion}"
-	      				th:value="*{poblacion.nombreLocalizacion}"></option>
-		 			</div>
-	 			</div>
-	      		
+          
+            <!-- 2 column grid layout with text inputs for the first and last names -->
+            <div class="row">            
+              <div class="col-md-6 mb-4">
+                <div class="form-outline">
+                  <input type="text" id="nombre" th:field="*{nombre_cliente}" class="form-control" required />
+                  <label class="form-label" for="nombre">Nombre</label>
+                </div>
+              </div>
+              <div class="col-md-6 mb-4">
+                <div class="form-outline">
+                  <input type="text" id="apellido" th:field="*{apellidos_cliente}" class="form-control" />
+                  <label class="form-label" for="apellido">Apellido </label>
+                </div>
+              </div>
+            </div>
+            
+            
+            <!-- Tlf input -->
+            <div class="form-outline mb-4">
+              <input type="tel" th:field="*{tlf1_cliente}" id="tlf" class="form-control"
+              pattern="[0-9]{9}" required  title="introduzca telefono valido (9 numeros)" />
+              <label class="form-label" for="tlf">Tlf</label>
+            </div>
+
+
+      		<!-- Poblacion input -->
+            <div class="form-outline mb-4">
+              <select name="poblacion_formulario" class="selectpicker">
+	      		<option value="default">Selecciona poblacion</option>
 	    		<option th:each="pobla: ${listaPoblaciones}" 
 	    		th:value="${pobla.nombreLocalizacion}"
 	    		th:text="${pobla.nombreLocalizacion}"/>
-	        
-	        </select>
-		      
-		  </div>
-		  
-		  	<div class="form-group">
-		        <label for="direccion">Direccion</label>
-		        
-		        <input type="text" th:field="*{direccion}" class="form-control" id="direccion" 
-		        name="direccion" title="direccion no valida" required>
-		    </div>
-		  
-		  	<div class="form-group">
-		        <label for="dni">Dni</label>
-	
-		   		<input type="text" th:field="*{dni}"class="form-control" name="dni" 
-		   		placeholder="Introduzca su DNI" pattern="[0-9]{8}[A-Za-z]{1}"
-		   		title="Debe poner 8 números y una letra" required/>
-		    </div>
-		    
-		  
-		  
-		  	<div th:switch="*{user==null}">
-	 			<div th:case="true" class="col-sm order-last">
-					   	<div class="form-group">
-				        <label for="username">Username</label>
-				        <input type="text" class="form-control" id="username" name="username" autocomplete="new-password" required
-				               placeholder="Enter username">
-				    </div>
-	 			</div>
-	 			<div th:case="false" class="col-sm order-last">
-		 		   	<div class="form-group">
-				        <label for="username">Username</label>
-				        <input type="text" th:value="*{user.username}" class="form-control" id="username" name="username" autocomplete="new-password" required
-				               placeholder="Enter username">
-				    </div>
-				    
-	 			</div>
-	 		</div>
-	 		
-	 		<div class="form-group">
-        		<label for="password">Password</label>
-        		<input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required
-               	autocomplete="new-password">
-   			</div>
-	      		
+	          </select>
+              <label class="form-label" for="poblacion">Poblacion</label>
+            </div>
 
-		   	<button type="submit" class="btn btn-primary " name="action"  value="registro_repartidor">Registrar Repartidor</button>
+
+           <!-- Direccion input -->
+            <div class="form-outline mb-4">
+              <input type="text" th:field="*{direccion}" class="form-control" id="direccion" 
+		        name="direccion" title="direccion no valida" required>
+              <label class="form-label" for="direccion">Direccion</label>
+            </div>
+
+
+           <!-- Dni input -->
+            <div class="form-outline mb-4">
+               <input type="text" th:field="*{dni}"class="form-control" name="dni"
+		   		id="dni" placeholder="Introduzca su DNI" pattern="[0-9]{8}[A-Za-z]{1}"
+		   		title="Debe poner 8 numeros y una letra" required/>
+              <label class="form-label" for="dni">DNI</label>
+            </div>
+
+
+            <!-- 2 column grid layout with text inputs for the first and last names -->
+            <div class="row">            
+              <div class="col-md-6 mb-4">
+                <div class="form-outline">
+                   <input type="text" class="form-control" id="username" name="username" autocomplete="new-password" required
+		               placeholder="Enter username">
+                  <label class="form-label" for="username">Username</label>
+                </div>
+              </div>
+              <div class="col-md-6 mb-4">
+                <div class="form-outline">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required
+		               autocomplete="new-password">
+                  <label class="form-label" for="password">Password</label>
+                </div>
+              </div>
+            </div>
+            
+          	<button type="submit" class="btn btn-primary btn-block mb-4" name="action"  value="registro_cliente">Registrar cliente</button>
 		</form>
 		<form method="get" action="#" th:action="@{/admin/consultarClientes}" autocomplete="off">
-			<button type="submit" class="btn btn-primary " name="action"  value="exit">Exit</button>
+			<button type="submit" class="btn btn-primary btn-block mb-4" name="action"  value="exit">Volver a login</button>
 		</form>
-
-
-		
-	</section>
-
+                
+        </div>
+      </div>
+    </div>
+</section>
 
 </body>
-
-
 </html>
