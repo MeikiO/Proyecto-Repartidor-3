@@ -3,7 +3,17 @@
 }
 
 .retoque-tabla{
+	width:80vw;
 	padding-top:var(--padding);
 	padding-bottom:var(--padding);
+	overflow: scroll;
 }
 
+
+
+@media (min-width: 650px) {
+	  .retoque-tabla{
+		width:100%;
+		overflow: auto;
+	}
+}

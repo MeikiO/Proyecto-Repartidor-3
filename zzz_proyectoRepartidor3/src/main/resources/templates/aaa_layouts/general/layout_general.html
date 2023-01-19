@@ -21,9 +21,18 @@
 </head>
 <body>
 	         
-         <section layout:fragment="custom-content">
-           <p>Por si no funciona el layout custom footer</p>
-         </section>
+        <!-- Para que la barra se quede pegada a al parte superior cuando vas hacia abajo
+		(para ventanas pequeñas) -->
+			<div class="container-fluid overflow-hidden">
+		        <div class="d-flex sticky-top">
+
+			        <section layout:fragment="custom-content">
+			          <p>Por si no funciona el layout custom footer</p>
+			        </section>
+				      
+				</div>
+			</div>
+	
           
 </body>
 </html>

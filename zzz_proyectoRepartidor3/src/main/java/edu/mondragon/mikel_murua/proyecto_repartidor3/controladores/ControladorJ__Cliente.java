@@ -248,8 +248,6 @@ public class ControladorJ__Cliente {
     	listaLineas.add(una_linea);
     	pedido.setListaLineas(listaLineas);	
     	this.pedidos_repository.save(pedido);
-    	//this.lineaProductos_repository.save(una_linea); 
-    	
     	
         return "redirect:/cliente/hacer_pedido";
         
