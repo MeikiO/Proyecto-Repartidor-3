@@ -27401,3 +27401,111 @@ org.eclipse.core.runtime.CoreException: Launch configuration App (2) references 
 2023-01-19 09:06:58,101 [Worker-29: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Lenovo\Desktop\Codigo repartidor3\zzz_proyectoRepartidor3\src\test\resources
 2023-01-19 09:06:59,867 [Worker-26: Launching zzz-Lanzador Spring] INFO  o.e.m.i.launch.MavenLaunchDelegate - C:\Users\Lenovo\Desktop\Codigo repartidor3\zzz_proyectoRepartidor3
 2023-01-19 09:06:59,868 [Worker-26: Launching zzz-Lanzador Spring] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean spring-boot:run
+2023-01-19 09:12:15,221 [Worker-1: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2023-01-19 09:13:26,151 [Worker-1: Launching zzz-Lanzador Spring] INFO  o.e.m.i.launch.MavenLaunchDelegate - C:\Users\Lenovo\Desktop\Codigo repartidor3\zzz_proyectoRepartidor3
+2023-01-19 09:13:26,154 [Worker-1: Launching zzz-Lanzador Spring] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean spring-boot:run
+2023-01-19 09:16:03,243 [Worker-8: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 09:16:03,244 [Worker-8: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 09:16:03,256 [Worker-8: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2023-01-19 09:16:03,309 [Worker-8: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 35 resources
+2023-01-19 09:16:03,341 [Worker-8: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 09:16:03,342 [Worker-8: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 09:16:03,342 [Worker-8: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Lenovo\Desktop\Codigo repartidor3\zzz_proyectoRepartidor3\src\test\resources
+2023-01-19 09:30:51,968 [Worker-23: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 09:30:51,969 [Worker-23: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 09:30:51,971 [Worker-23: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2023-01-19 09:30:51,972 [Worker-23: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2023-01-19 09:30:51,977 [Worker-23: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 09:30:51,977 [Worker-23: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 09:30:51,978 [Worker-23: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Lenovo\Desktop\Codigo repartidor3\zzz_proyectoRepartidor3\src\test\resources
+2023-01-19 09:30:54,184 [Worker-24: Launching zzz-Lanzador Spring] INFO  o.e.m.i.launch.MavenLaunchDelegate - C:\Users\Lenovo\Desktop\Codigo repartidor3\zzz_proyectoRepartidor3
+2023-01-19 09:30:54,184 [Worker-24: Launching zzz-Lanzador Spring] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean spring-boot:run
+2023-01-19 09:32:27,651 [Worker-26: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 09:32:27,651 [Worker-26: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 09:32:27,652 [Worker-26: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2023-01-19 09:32:27,652 [Worker-26: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2023-01-19 09:32:27,658 [Worker-26: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 09:32:27,658 [Worker-26: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 09:32:27,659 [Worker-26: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Lenovo\Desktop\Codigo repartidor3\zzz_proyectoRepartidor3\src\test\resources
+2023-01-19 09:32:29,283 [Worker-24: Launching zzz-Lanzador Spring] INFO  o.e.m.i.launch.MavenLaunchDelegate - C:\Users\Lenovo\Desktop\Codigo repartidor3\zzz_proyectoRepartidor3
+2023-01-19 09:32:29,283 [Worker-24: Launching zzz-Lanzador Spring] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean spring-boot:run
+2023-01-19 09:36:50,024 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 09:36:50,024 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 09:36:50,024 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2023-01-19 09:36:50,025 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2023-01-19 09:36:50,030 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 09:36:50,030 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 09:36:50,030 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Lenovo\Desktop\Codigo repartidor3\zzz_proyectoRepartidor3\src\test\resources
+2023-01-19 09:41:55,259 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 09:41:55,260 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 09:41:55,270 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2023-01-19 09:41:55,286 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 35 resources
+2023-01-19 09:41:55,310 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 09:41:55,311 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 09:41:55,311 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Lenovo\Desktop\Codigo repartidor3\zzz_proyectoRepartidor3\src\test\resources
+2023-01-19 09:41:56,392 [Worker-30: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 09:41:56,392 [Worker-30: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 09:41:56,397 [Worker-30: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2023-01-19 09:41:56,407 [Worker-30: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 35 resources
+2023-01-19 09:41:56,421 [Worker-30: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 09:41:56,421 [Worker-30: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 09:41:56,422 [Worker-30: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Lenovo\Desktop\Codigo repartidor3\zzz_proyectoRepartidor3\src\test\resources
+2023-01-19 09:42:13,148 [Worker-29: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 09:42:13,148 [Worker-29: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 09:42:13,149 [Worker-29: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2023-01-19 09:42:13,150 [Worker-29: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2023-01-19 09:42:13,156 [Worker-29: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 09:42:13,156 [Worker-29: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 09:42:13,156 [Worker-29: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Lenovo\Desktop\Codigo repartidor3\zzz_proyectoRepartidor3\src\test\resources
+2023-01-19 09:42:18,893 [Worker-30: Launching zzz-Lanzador Spring] INFO  o.e.m.i.launch.MavenLaunchDelegate - C:\Users\Lenovo\Desktop\Codigo repartidor3\zzz_proyectoRepartidor3
+2023-01-19 09:42:18,893 [Worker-30: Launching zzz-Lanzador Spring] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean spring-boot:run
+2023-01-19 09:46:08,349 [Worker-26: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 09:46:08,349 [Worker-26: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 09:46:08,350 [Worker-26: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2023-01-19 09:46:08,350 [Worker-26: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2023-01-19 09:46:08,359 [Worker-26: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 09:46:08,359 [Worker-26: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 09:46:08,360 [Worker-26: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Lenovo\Desktop\Codigo repartidor3\zzz_proyectoRepartidor3\src\test\resources
+2023-01-19 09:46:13,015 [Worker-28: Launching zzz-Lanzador Spring] INFO  o.e.m.i.launch.MavenLaunchDelegate - C:\Users\Lenovo\Desktop\Codigo repartidor3\zzz_proyectoRepartidor3
+2023-01-19 09:46:13,015 [Worker-28: Launching zzz-Lanzador Spring] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean spring-boot:run
+2023-01-19 09:51:18,418 [Worker-32: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 09:51:18,418 [Worker-32: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 09:51:18,419 [Worker-32: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2023-01-19 09:51:18,420 [Worker-32: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2023-01-19 09:51:18,426 [Worker-32: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 09:51:18,426 [Worker-32: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 09:51:18,426 [Worker-32: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Lenovo\Desktop\Codigo repartidor3\zzz_proyectoRepartidor3\src\test\resources
+2023-01-19 09:51:22,255 [Worker-31: Launching zzz-Lanzador Spring] INFO  o.e.m.i.launch.MavenLaunchDelegate - C:\Users\Lenovo\Desktop\Codigo repartidor3\zzz_proyectoRepartidor3
+2023-01-19 09:51:22,255 [Worker-31: Launching zzz-Lanzador Spring] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean spring-boot:run
+2023-01-19 09:52:17,117 [Worker-33: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 09:52:17,117 [Worker-33: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 09:52:17,118 [Worker-33: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2023-01-19 09:52:17,118 [Worker-33: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2023-01-19 09:52:17,125 [Worker-33: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 09:52:17,125 [Worker-33: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 09:52:17,125 [Worker-33: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Lenovo\Desktop\Codigo repartidor3\zzz_proyectoRepartidor3\src\test\resources
+2023-01-19 09:57:08,989 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 09:57:08,989 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 09:57:08,989 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2023-01-19 09:57:08,990 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2023-01-19 09:57:08,994 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 09:57:08,995 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 09:57:08,995 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Lenovo\Desktop\Codigo repartidor3\zzz_proyectoRepartidor3\src\test\resources
+2023-01-19 09:57:12,815 [Worker-35: Launching zzz-Lanzador Spring] INFO  o.e.m.i.launch.MavenLaunchDelegate - C:\Users\Lenovo\Desktop\Codigo repartidor3\zzz_proyectoRepartidor3
+2023-01-19 09:57:12,815 [Worker-35: Launching zzz-Lanzador Spring] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean spring-boot:run
+2023-01-19 10:00:33,420 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 10:00:33,420 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 10:00:33,421 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2023-01-19 10:00:33,421 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2023-01-19 10:00:33,427 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 10:00:33,427 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 10:00:33,427 [Worker-27: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Lenovo\Desktop\Codigo repartidor3\zzz_proyectoRepartidor3\src\test\resources
+2023-01-19 10:01:54,887 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 10:01:54,887 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 10:01:54,888 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2023-01-19 10:01:54,888 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2023-01-19 10:01:54,895 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2023-01-19 10:01:54,896 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2023-01-19 10:01:54,896 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\Lenovo\Desktop\Codigo repartidor3\zzz_proyectoRepartidor3\src\test\resources
+2023-01-19 10:01:56,707 [Worker-27: Launching zzz-Lanzador Spring] INFO  o.e.m.i.launch.MavenLaunchDelegate - C:\Users\Lenovo\Desktop\Codigo repartidor3\zzz_proyectoRepartidor3
+2023-01-19 10:01:56,708 [Worker-27: Launching zzz-Lanzador Spring] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn -B clean spring-boot:run
