@@ -61,19 +61,27 @@ public class ControladorJ__Repartidor {
         Repartidor_Pojo repartidorLogeado=this.repartidorRepository.findByUser(account);
         
  
+        model.addAttribute("nombreDeLaRuta", "Ruta de comprobacion");
+	    model.addAttribute("descripcionDeLaRuta", "La primera prueba para algo mas grande");
+        
         List<Pedido_Pojo> listaConPedidos=new ArrayList<>();
         
-	    for(Pedido_Pojo actual: repartidorLogeado.getListaPedidosRepartidor()) {
-	    	if(actual.getEstadoPedido().equals(Estado_Pedido.ESTADO_EN_CAMINO.toString())) {
-	    		listaConPedidos.add(actual);        		
-	    	}
-	    }
+        if(!listaConPedidos.isEmpty()) {
+		    for(Pedido_Pojo actual: repartidorLogeado.getListaPedidosRepartidor()) {
+		    	if(actual.getEstadoPedido().equals(Estado_Pedido.ESTADO_EN_CAMINO.toString())) {
+		    		listaConPedidos.add(actual);        		
+		    	}
+		    }
 	  
-	    model.addAttribute("nombreDeLaRuta", "Ruta de comprobacion");
-	    model.addAttribute("descripcionDeLaRuta", "La primera prueba para algo mas grande");
-	    model.addAttribute("latitud", repartidorLogeado.getListaPedidosRepartidor().stream().findFirst().get().getPuntoReparto().getCoordenadasLatitud());
-	    model.addAttribute("longitud", repartidorLogeado.getListaPedidosRepartidor().stream().findFirst().get().getPuntoReparto().getCoordenadasLongitud());
-	    model.addAttribute("puntosDeLaRuta", listaConPedidos);
+		    model.addAttribute("latitud", repartidorLogeado.getListaPedidosRepartidor().stream().findFirst().get().getPuntoReparto().getCoordenadasLatitud());
+		    model.addAttribute("longitud", repartidorLogeado.getListaPedidosRepartidor().stream().findFirst().get().getPuntoReparto().getCoordenadasLongitud());
+		    model.addAttribute("puntosDeLaRuta", listaConPedidos);
+	     }
+        else {
+        	model.addAttribute("latitud", 0);
+ 		    model.addAttribute("longitud", 0);
+ 		    model.addAttribute("puntosDeLaRuta", null);
+        }
         
         return "/v_repartidor/inicio_repartidores";
     }

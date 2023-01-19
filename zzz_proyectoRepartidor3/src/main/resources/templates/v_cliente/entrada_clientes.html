@@ -38,8 +38,8 @@
 		                            <td>Fecha de Pedido</td>
 		                            <td>Observaciones_para_Repartidor</td>
 		                            <td>Estado_del_Pedido</td>
-		                            <td ></td>
-		                            <td class="acciones"></td>
+		                            <td></td>
+		                            <td></td>
 		                        </tr>
 		                    </thead>
 		                    <tbody>
@@ -50,7 +50,7 @@
 	                                <td class="">
 	                         	       <button type="submit" name="action" th:value="'ver/'+${pedido.id}" class="btn btn-info">Ver</button>
 	                                </td>
-	                                <td class="acciones">
+	                                <td>
 	                                	<div th:switch="${pedido.queja==null}">
 	    									<div th:case="true" class="col-sm order-last">
 	                                			<button type="submit" name="action" th:value="'queja/'+${pedido.id}" class="btn btn-danger">Queja</button>

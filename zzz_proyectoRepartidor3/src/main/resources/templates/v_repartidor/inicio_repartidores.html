@@ -20,7 +20,7 @@
 	<p><i th:utext="${descripcionDeLaRuta}" /></p>
 	
 
-	<div th:switch="${puntosDeLaRuta.isEmpty()}">
+	<div th:switch="${puntosDeLaRuta==null}">
 		    <div th:case="true" class="retoque-tabla">
 		    	<p>NO HAY NINGUN PEDIDO PARA REPARTIR</p>
 		    </div>

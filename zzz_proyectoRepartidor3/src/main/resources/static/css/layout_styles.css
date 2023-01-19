@@ -125,8 +125,7 @@ a[data-toggle="collapse"] {
     font-size: 1.1em;
     color: var(--text_color_dark);
 }
-#sidebar ul li a:hover {
-}
+
 
 /* le da estilo a la lista interior */
 ul ul a {
