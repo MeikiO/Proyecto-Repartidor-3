@@ -2,17 +2,29 @@
     --padding:1rem;
 }
 
+
+
 .retoque-tabla{
 	width:80vw;
 	padding-top:var(--padding);
 	padding-bottom:var(--padding);
 	overflow: scroll;
+
+
+/*
+	Es para que el scrollbar no se vea
+	pero se pueda usar
+	(no como overflow:hidden que lo inabilita)
+	Pero estos lo inabilitan tambien.
+  
+  -ms-overflow-style: none;  --> IE and Edge 
+  scrollbar-width: none; --> Firefox 
+*/	
 }
 
 
 @media(min-width:1000px){
 	.retoque-tabla{
-	width:100%;
-	overflow: auto;
-}
+		width:100%;
+	}
 }

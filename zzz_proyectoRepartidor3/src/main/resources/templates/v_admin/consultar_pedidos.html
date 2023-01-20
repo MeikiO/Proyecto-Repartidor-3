@@ -19,9 +19,11 @@
 
 <!--  FALTA HACER RESPONSIVE LA PARTE DE VER EL PEDIDO EN ADMIN (ESTA)
 -->
-<div>
-<!-- Enseñarlo agrupado aqui -->
 
+<!-- Enseñarlo agrupado aqui -->
+  <div class="container py-5 h-100">
+    <div class="row d-flex align-items-center justify-content-center h-100">
+      <div class="col-md-8 col-lg-7 col-xl-6">
  		<div th:switch="${mapa.get('ESTADO_EN_ESPERA_DE_MANDAR').isEmpty()}">
 		    <div th:case="false">
 		    	<h1>EN ESPERA</h1>
@@ -122,8 +124,8 @@
 		        	</div>
 			    </div>
 			</div>	
-
-		    
+ 		</div>
+		<div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
 		    <!-- https://stackoverflow.com/questions/13494078/how-to-do-if-else-in-thymeleaf -->
 		    
 		    <div th:switch="${puntoReparto != null}">
@@ -186,7 +188,10 @@
 					</div>  
 			    </div>
 			  </div>
-		</div>
+			</div>
+		</div>      
+	</div>		    
+
 		
 	</section>
 
