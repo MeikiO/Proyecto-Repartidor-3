@@ -22,8 +22,9 @@
 
 <!-- Enseñarlo agrupado aqui -->
   <div class="container py-5 h-100">
-    <div class="row d-flex align-items-center justify-content-center h-100">
+    <div class="row d-flex justify-content-start h-100">
       <div class="col-md-8 col-lg-7 col-xl-6">
+ 		
  		<div th:switch="${mapa.get('ESTADO_EN_ESPERA_DE_MANDAR').isEmpty()}">
 		    <div th:case="false">
 		    	<h1>EN ESPERA</h1>
