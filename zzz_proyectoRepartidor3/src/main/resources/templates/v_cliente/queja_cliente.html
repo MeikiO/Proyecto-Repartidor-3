@@ -17,18 +17,18 @@
        
    <section layout:fragment="custom-content" class="document__content">
 
-		<h1 class="text-center">Registro de Queja de pedido <p> </p></h1>
+		<h1 class="text-center">Registro de Queja de pedido</h1>
 	
 		<form method="post" action="#" th:action="'/cliente/terminarQueja/'+ ${id_pedido}" th:object="${queja}" autocomplete="off">
 		    <div class="form-group">
-	       		<input hidden="true" type="text" th:field="*{id}" />
-	       		<input hidden="true" type="text" th:field="*{fechaQueja}"/>	       		
+	       		<input hidden type="text" th:field="*{id}" />
+	       		<input hidden type="text" th:field="*{fechaQueja}"/>	       		
 		    </div>
 		      
 		    <div class="form-group">
-			  	<label for="producto">Categoria de Queja</label>
+			  	<label>Categoria de Queja</label>
 			      
-			    <select for="clasificacion" name="clasificacion">
+			    <select name="clasificacion">
 		      		<option value="default">Selecciona categoria</option>
 		    		<option th:each="actual: ${tiposQuejas}" 
 		    		th:value="${actual}"
@@ -40,7 +40,7 @@
 			<div class="form-group">
 			 	<label for="razones">Razones de la queja: </label>
 
-				<textarea id="razones" class="form-control z-depth-1" rows="5" cols="33" name="razones" th:value=${queja.razones}></textarea>
+				<textarea id="razones" class="form-control z-depth-1" rows="5" cols="33" name="razones"></textarea>
 			</div>	  
 				
 			<button type="submit" class="btn btn-primary " name="action"  value="realizar_queja">Realizar Queja</button>

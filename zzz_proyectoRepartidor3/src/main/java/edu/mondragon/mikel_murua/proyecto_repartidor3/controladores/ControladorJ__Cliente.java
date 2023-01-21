@@ -241,7 +241,7 @@ public class ControladorJ__Cliente {
     	una_linea.setProducto(producto);
     	una_linea.setReferenciaAPedido(pedido);
     	String[] contenido_cantidad=cantidad.split("[,]");
-    	una_linea.setCandidad(Integer.parseInt(contenido_cantidad[1]));
+    	una_linea.setCandidad(Integer.parseInt(cantidad));
     	
     	Set<LineaPedido_Pojo> listaLineas = this.lineaProductos_repository.findByReferenciaAPedido(pedido);
     	
