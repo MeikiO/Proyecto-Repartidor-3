@@ -6,7 +6,7 @@
 
 <head>
 <title>Entrada y mapa con Reparto</title>
-  <link rel="stylesheet" type="text/css" th:href="@{/css/pruebasGoogleMaps.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/GoogleMaps.css}">
   <link rel="stylesheet" type="text/css" href="#" th:href="@{/css/retoques.css}">
 </head>
 
@@ -14,7 +14,7 @@
  
  <section layout:fragment="custom-content" class="document__content">
   				
-	<h1>Ruta</h1>
+	<h1 th:text="'Ruta: '+${repartidor.getNombre()}+' '+${repartidor.getApellidos()}"></h1>
 	<div th:switch="${puntosDeLaRuta==null}">
 		    <div th:case="true" class="retoque-tabla">
 		    	<p>NO HAY NINGUN PEDIDO PARA REPARTIR</p>
@@ -65,7 +65,7 @@
 					
 										
 					<script th:src="@{https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyApwAN0oIELXbhbqji-3m0jJ7ktyiiMLDM}"></script>
-					<script th:src="@{/js/pruebasGoogleMaps.js}"></script>
+					<script th:src="@{/js/GoogleMaps.js}"></script>
 					<script th:inline="javascript">
 					    const puntoInicial = {lat: [[${latitud}]], lng: [[${longitud}]]};
 					    const mapa = new Mapa(puntoInicial);

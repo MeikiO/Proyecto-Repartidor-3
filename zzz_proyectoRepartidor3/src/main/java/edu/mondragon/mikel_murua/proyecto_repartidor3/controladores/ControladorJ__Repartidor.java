@@ -60,9 +60,7 @@ public class ControladorJ__Repartidor {
         UserAccount_Pojo account=this.userRepository.findByUsername(SecurityContextHolder. getContext(). getAuthentication().getName());   	
         Repartidor_Pojo repartidorLogeado=this.repartidorRepository.findByUser(account);
         
- 
-        model.addAttribute("nombreDeLaRuta", "Ruta de comprobacion");
-	    model.addAttribute("descripcionDeLaRuta", "La primera prueba para algo mas grande");
+        model.addAttribute("repartidor",repartidorLogeado);
         
         List<Pedido_Pojo> listaConPedidos=new ArrayList<>();
         
