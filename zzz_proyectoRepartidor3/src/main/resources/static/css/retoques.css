@@ -1,15 +1,16 @@
 :root{
     --padding:1rem;
+    --large_padding:4rem;
 }
 
-
+h1,h2,button,a,.retoque-tabla{
+	padding-top:var(--padding);
+	padding-bottom:var(--padding);
+}
 
 .retoque-tabla{
 	width:80vw;
-	padding-top:var(--padding);
-	padding-bottom:var(--padding);
 	overflow: scroll;
-
 
 /*
 	Es para que el scrollbar no se vea

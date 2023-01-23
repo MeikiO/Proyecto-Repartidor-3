@@ -14,7 +14,7 @@
  
  <section layout:fragment="custom-content" class="document__content">
   				
-	<h1 th:text="'Ruta: '+${repartidor.getNombre()}+' '+${repartidor.getApellidos()}"></h1>
+	<h1 th:text="'Ruta: '+${repartidor.getUser().getUsername()}"></h1>
 	<div th:switch="${puntosDeLaRuta==null}">
 		    <div th:case="true" class="retoque-tabla">
 		    	<p>NO HAY NINGUN PEDIDO PARA REPARTIR</p>

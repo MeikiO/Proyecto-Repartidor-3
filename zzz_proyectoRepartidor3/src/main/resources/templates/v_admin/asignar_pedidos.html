@@ -27,7 +27,7 @@
 					      
 		    
 		  	<div th:switch="${repartidor_elegido==null}">
-			    <div th:case="true" class="retoque-tabla">
+			    <div th:case="true">
 			    	<div class="form-group">
 					     <select name="idRepartidor">
 				      		<option value="default"> </option>
@@ -37,7 +37,7 @@
 				        </select>
 				  	</div>
 				</div>
-			    <div th:case="false" class="retoque-tabla">
+			    <div th:case="false">
 					<div class="form-group">
 					     <select name="idRepartidor">
 				      		<option th:text="${repartidor_elegido.getNombre()}+' '+${repartidor_elegido.getApellidos()}" th:value="${repartidor_elegido.getId().toString()}"> </option>
