@@ -27,7 +27,7 @@
  		
  		<div th:switch="${mapa.get('ESTADO_EN_ESPERA_DE_MANDAR').isEmpty()}">
 		    <div th:case="false">
-		    	<h1>EN ESPERA</h1>
+		    	<h1>En espera</h1>
 	    			<div class="retoque-tabla">
 		                <table class="table table-hover">
 		                  <thead>
@@ -52,7 +52,7 @@
 		</div>	
 		<div th:switch="${mapa.get('ESTADO_EN_CAMINO').isEmpty()}">
 		    <div th:case="false">
-		    	<h1>EN CAMINO</h1>
+		    	<h1>En camino</h1>
 			    <div class="retoque-tabla">
 			       <table class="table table-hover">
 		                  <thead>
@@ -77,7 +77,7 @@
 		</div>	
 		<div th:switch="${mapa.get('ESTADO_ENTREGADO').isEmpty()}">
 			    <div th:case="false">
-			    	<h1>ENTREGADO</h1>
+			    	<h1>Entregado</h1>
 			    	<div class="retoque-tabla">
 				       <table class="table table-hover">
 			                  <thead>
@@ -102,7 +102,7 @@
 			</div>	
 			<div th:switch="${mapa.get('ESTADO_CANCELADO').isEmpty()}">
 			    <div th:case="false">
-			    	<h1>CANCELADO</h1>
+			    	<h1>Cancelado</h1>
 			    	<div class="retoque-tabla">
 				       <table class="table table-hover">
 		                  <thead>
