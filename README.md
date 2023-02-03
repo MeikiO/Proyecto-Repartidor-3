@@ -10,6 +10,8 @@ Repartidores 3 is a delivery web app, that manages all the steps for a home deli
 - Admin 
 - Delivery persons. 
 
+Also the maps used are being loaded with the googleMaps Api and the coordinates of client adresses are obtained from the Google geolocalization API. 
+
 
 ### Contents
 The diferent folders that are in the repository are the tests and small examples done apart, to be used to build the [main proyect](https://github.com/MeikiO/Codigo-repartidor3/tree/master/ProyectoRepartidor3) correctly.
