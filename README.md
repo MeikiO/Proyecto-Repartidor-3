@@ -1,7 +1,7 @@
 
 # Codigo-repartidor3
 
-This is a personal proyect with the objetive of learn diferent tools, languages and frameworks. See also the previous version [repartidores2]()
+This is a personal proyect with the objetive of learn diferent tools, languages and frameworks. See also the previous version [repartidores2](https://github.com/MeikiO/Codigo-repartidor2/tree/main)
 
 
 ### Proyect Description
